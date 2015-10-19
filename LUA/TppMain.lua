@@ -2,15 +2,15 @@ local e={}local r=Tpp.ApendArray
 local n=Tpp.DEBUG_StrCode32ToString
 local i=Tpp.IsTypeFunc
 local t=Tpp.IsTypeTable
-local M=TppScriptVars.IsSavingOrLoading
-local P=ScriptBlock.UpdateScriptsInScriptBlocks
-local f=Mission.GetCurrentMessageResendCount
+local f=TppScriptVars.IsSavingOrLoading
+local M=ScriptBlock.UpdateScriptsInScriptBlocks
+local m=Mission.GetCurrentMessageResendCount
 local a={}local l=0
-local T={}local o=0
-local c={}local u=0
+local c={}local o=0
+local T={}local u=0
 local n={}local n=0
-local d={}local m={}local s=0
-local S={}local h={}local p=0
+local S={}local P={}local s=0
+local d={}local h={}local p=0
 local function n()if QuarkSystem.GetCompilerState()==QuarkSystem.COMPILER_STATE_WAITING_TO_LOAD then
 QuarkSystem.PostRequestToLoad()coroutine.yield()while QuarkSystem.GetCompilerState()==QuarkSystem.COMPILER_STATE_WAITING_TO_LOAD do
 coroutine.yield()end
@@ -30,7 +30,7 @@ TppUI.StartLoadingTips()end
 end
 function e.DisableBlackLoading()TppGameStatus.Reset("TppMain.lua","S_IS_BLACK_LOADING")TppUI.FinishLoadingTips()end
 function e.OnAllocate(n)TppWeather.OnEndMissionPrepareFunction()e.DisableGameStatus()e.EnablePause()TppClock.Stop()a={}l=0
-c={}u=0
+T={}u=0
 TppUI.FadeOut(TppUI.FADE_SPEED.FADE_MOMENT,nil,nil)TppSave.WaitingAllEnqueuedSaveOnStartMission()if TppMission.IsFOBMission(vars.missionCode)then
 TppMission.SetFOBMissionFlag()TppGameStatus.Set("Mission","S_IS_ONLINE")else
 TppGameStatus.Reset("Mission","S_IS_ONLINE")end
@@ -49,6 +49,11 @@ mtbs.OnAllocate()end
 end
 end
 s()if n.sequence then
+if f30050_sequence then
+function f30050_sequence.NeedPlayQuietWishGoMission()local n=TppQuest.IsCleard"mtbs_q99011"local t=not TppDemo.IsPlayedMBEventDemo"QuietWishGoMission"local e=TppDemo.GetMBDemoName()==nil
+return(n and t)and e
+end
+end
 if i(n.sequence.MissionPrepare)then
 n.sequence.MissionPrepare()end
 if i(n.sequence.OnEndMissionPrepareSequence)then
@@ -59,19 +64,19 @@ if i(e.OnLoad)then
 e.OnLoad()end
 end
 do
-local s={}for t,e in ipairs(Tpp._requireList)do
+local o={}for t,e in ipairs(Tpp._requireList)do
 if _G[e]then
 if _G[e].DeclareSVars then
-r(s,_G[e].DeclareSVars(n))end
+r(o,_G[e].DeclareSVars(n))end
 end
 end
-local o={}for n,e in pairs(n)do
+local s={}for n,e in pairs(n)do
 if i(e.DeclareSVars)then
-r(o,e.DeclareSVars())end
+r(s,e.DeclareSVars())end
 if t(e.saveVarsList)then
-r(o,TppSequence.MakeSVarsTable(e.saveVarsList))end
+r(s,TppSequence.MakeSVarsTable(e.saveVarsList))end
 end
-r(s,o)TppScriptVars.DeclareSVars(s)TppScriptVars.SetSVarsNotificationEnabled(false)while M()do
+r(o,s)TppScriptVars.DeclareSVars(o)TppScriptVars.SetSVarsNotificationEnabled(false)while f()do
 coroutine.yield()end
 TppRadioCommand.SetScriptDeclVars()local i=vars.mbLayoutCode
 if gvars.ini_isTitleMode then
@@ -82,7 +87,7 @@ TppSave.VarSave(vars.missionCode,true)end
 else
 TppVarInit.InitializeForContinue(n)end
 TppVarInit.ClearIsContinueFromTitle()end
-TppStory.SetMissionClearedS10030()TppTerminal.StartSyncMbManagementOnMissionStart()if TppLocation.IsMotherBase()then
+TppUiCommand.ExcludeNonPermissionContents()TppStory.SetMissionClearedS10030()TppTerminal.StartSyncMbManagementOnMissionStart()if TppLocation.IsMotherBase()then
 if i~=vars.mbLayoutCode then
 if vars.missionCode==30050 then
 vars.mbLayoutCode=i
@@ -231,13 +236,13 @@ TppEnemy.ReserveQuestHeli()end
 end
 TppDemo.UpdateNuclearAbolitionFlag()TppQuest.AcquireKeyItemOnMissionStart()end
 function e.SetUpdateFunction(e)a={}l=0
-T={}o=0
-c={}u=0
+c={}o=0
+T={}u=0
 a={TppMission.Update,TppSequence.Update,TppSave.Update,TppDemo.Update,TppPlayer.Update,TppMission.UpdateForMissionLoad}l=#a
 for n,e in pairs(e)do
 if i(e.OnUpdate)then
 o=o+1
-T[o]=e.OnUpdate
+c[o]=e.OnUpdate
 end
 end
 end
@@ -281,9 +286,9 @@ TppTerminal.OnMissionGameStart()if TppSequence.IsLandContinue()then
 TppMission.EnableAlertOutOfMissionAreaIfAlertAreaStart()end
 TppSoundDaemon.ResetMute"Telop"end
 function e.ClearStageBlockMessage()StageBlock.ClearLargeBlockNameForMessage()StageBlock.ClearSmallBlockIndexForMessage()end
-function e.ReservePlayerLoadingPosition(n,o,s,t,i,p,a)e.DisableGameStatus()if n==TppDefine.MISSION_LOAD_TYPE.MISSION_FINALIZE then
+function e.ReservePlayerLoadingPosition(n,s,o,t,i,a,p)e.DisableGameStatus()if n==TppDefine.MISSION_LOAD_TYPE.MISSION_FINALIZE then
 if t then
-TppHelicopter.ResetMissionStartHelicopterRoute()TppPlayer.ResetInitialPosition()TppPlayer.ResetMissionStartPosition()TppPlayer.ResetNoOrderBoxMissionStartPosition()TppMission.ResetIsStartFromHelispace()TppMission.ResetIsStartFromFreePlay()elseif o then
+TppHelicopter.ResetMissionStartHelicopterRoute()TppPlayer.ResetInitialPosition()TppPlayer.ResetMissionStartPosition()TppPlayer.ResetNoOrderBoxMissionStartPosition()TppMission.ResetIsStartFromHelispace()TppMission.ResetIsStartFromFreePlay()elseif s then
 if gvars.heli_missionStartRoute~=0 then
 TppPlayer.SetStartStatusRideOnHelicopter()if mvars.mis_helicopterMissionStartPosition then
 TppPlayer.SetInitialPosition(mvars.mis_helicopterMissionStartPosition,0)TppPlayer.SetMissionStartPosition(mvars.mis_helicopterMissionStartPosition,0)end
@@ -296,12 +301,12 @@ TppPlayer.ResetNoOrderBoxMissionStartPosition()TppMission.SetIsStartFromHelispac
 if TppLocation.IsMotherBase()then
 TppPlayer.SetStartStatusRideOnHelicopter()else
 TppPlayer.ResetInitialPosition()TppHelicopter.ResetMissionStartHelicopterRoute()TppPlayer.SetStartStatus(TppDefine.INITIAL_PLAYER_STATE.ON_FOOT)TppPlayer.SetMissionStartPositionToCurrentPosition()end
-TppPlayer.ResetNoOrderBoxMissionStartPosition()TppMission.ResetIsStartFromHelispace()TppMission.ResetIsStartFromFreePlay()TppLocation.MbFreeSpecialMissionStartSetting(TppMission.GetMissionClearType())elseif(s and TppLocation.IsMotherBase())then
+TppPlayer.ResetNoOrderBoxMissionStartPosition()TppMission.ResetIsStartFromHelispace()TppMission.ResetIsStartFromFreePlay()TppLocation.MbFreeSpecialMissionStartSetting(TppMission.GetMissionClearType())elseif(o and TppLocation.IsMotherBase())then
 if gvars.heli_missionStartRoute~=0 then
 TppPlayer.SetStartStatusRideOnHelicopter()else
 TppPlayer.ResetInitialPosition()TppPlayer.ResetMissionStartPosition()end
 TppPlayer.ResetNoOrderBoxMissionStartPosition()TppMission.SetIsStartFromHelispace()TppMission.ResetIsStartFromFreePlay()else
-if s then
+if o then
 if mvars.mis_orderBoxName then
 TppMission.SetMissionOrderBoxPosition()TppPlayer.ResetNoOrderBoxMissionStartPosition()else
 TppPlayer.ResetInitialPosition()TppPlayer.ResetMissionStartPosition()local e={[10020]={1449.3460693359,339.18698120117,1467.4300537109,-104},[10050]={-1820.7060546875,349.78659057617,-146.44400024414,139},[10070]={-792.00512695313,537.3740234375,-1381.4598388672,136},[10080]={-439.28802490234,-20.472593307495,1336.2784423828,-151},[10140]={499.91635131836,13.07358455658,1135.1315917969,79},[10150]={-1732.0286865234,543.94067382813,-2225.7587890625,162},[10260]={-1260.0454101563,298.75305175781,1325.6383056641,51}}e[11050]=e[10050]e[11080]=e[10080]e[11140]=e[10140]e[10151]=e[10150]e[11151]=e[10150]local e=e[vars.missionCode]if TppDefine.NO_ORDER_BOX_MISSION_ENUM[tostring(vars.missionCode)]and e then
@@ -315,7 +320,7 @@ local e=TppMission.GetMissionClearType()TppQuest.SpecialMissionStartSetting(e)el
 TppPlayer.ResetInitialPosition()TppPlayer.ResetMissionStartPosition()TppPlayer.ResetNoOrderBoxMissionStartPosition()TppMission.ResetIsStartFromHelispace()TppMission.ResetIsStartFromFreePlay()end
 end
 elseif n==TppDefine.MISSION_LOAD_TYPE.MISSION_ABORT then
-TppPlayer.ResetInitialPosition()TppHelicopter.ResetMissionStartHelicopterRoute()TppMission.ResetIsStartFromHelispace()TppMission.ResetIsStartFromFreePlay()if p then
+TppPlayer.ResetInitialPosition()TppHelicopter.ResetMissionStartHelicopterRoute()TppMission.ResetIsStartFromHelispace()TppMission.ResetIsStartFromFreePlay()if a then
 if i then
 TppPlayer.SetStartStatus(TppDefine.INITIAL_PLAYER_STATE.ON_FOOT)TppHelicopter.ResetMissionStartHelicopterRoute()TppPlayer.SetMissionStartPositionToCurrentPosition()TppPlayer.ResetNoOrderBoxMissionStartPosition()elseif t then
 TppPlayer.ResetMissionStartPosition()elseif vars.missionCode~=5 then
@@ -329,7 +334,7 @@ end
 elseif n==TppDefine.MISSION_LOAD_TYPE.MISSION_RESTART then
 elseif n==TppDefine.MISSION_LOAD_TYPE.CONTINUE_FROM_CHECK_POINT then
 end
-if o and a then
+if s and p then
 Mission.AddLocationFinalizer(function()e.StageBlockCurrentPosition()end)else
 e.StageBlockCurrentPosition()end
 end
@@ -363,31 +368,31 @@ if n.sequence then
 TppCheckPoint.RegisterCheckPointList(n.sequence.checkPointList)end
 e.SetUpdateFunction(n)e.SetMessageFunction(n)end
 function e.OnUpdate(e)local e
-local e=a
-local n=T
-local t=c
-for n=1,l do
-e[n]()end
-for e=1,o do
+local n=a
+local e=c
+local t=T
+for e=1,l do
 n[e]()end
-P()end
+for n=1,o do
+e[n]()end
+M()end
 function e.OnChangeSVars(e,n,t)for i,e in ipairs(Tpp._requireList)do
 if _G[e].OnChangeSVars then
 _G[e].OnChangeSVars(n,t)end
 end
 end
-function e.SetMessageFunction(e)d={}s=0
-S={}p=0
+function e.SetMessageFunction(e)S={}s=0
+d={}p=0
 for n,e in ipairs(Tpp._requireList)do
 if _G[e].OnMessage then
 s=s+1
-d[s]=_G[e].OnMessage
+S[s]=_G[e].OnMessage
 end
 end
 for n,t in pairs(e)do
 if e[n]._messageExecTable then
 p=p+1
-S[p]=e[n]._messageExecTable
+d[p]=e[n]._messageExecTable
 end
 end
 end
@@ -396,20 +401,20 @@ local l=""local T
 local c=Tpp.DoMessage
 local u=TppMission.CheckMessageOption
 local T=TppDebug
-local T=m
+local T=P
 local T=h
 local T=TppDefine.MESSAGE_GENERATION[e]and TppDefine.MESSAGE_GENERATION[e][t]if not T then
 T=TppDefine.DEFAULT_MESSAGE_GENERATION
 end
-local m=f()if m<T then
+local m=m()if m<T then
 return Mission.ON_MESSAGE_RESULT_RESEND
 end
 for s=1,s do
 local n=l
-d[s](e,t,i,o,a,r,n)end
-for s=1,p do
-local n=l
-c(S[s],u,e,t,i,o,a,r,n)end
+S[s](e,t,i,o,a,r,n)end
+for n=1,p do
+local s=l
+c(d[n],u,e,t,i,o,a,r,s)end
 if n.loc_locationCommonTable then
 n.loc_locationCommonTable.OnMessage(e,t,i,o,a,r,l)end
 if n.order_box_script then
