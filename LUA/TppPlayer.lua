@@ -1132,7 +1132,7 @@ local c={[TppDefine.WEATHER.SUNNY]=0,[TppDefine.WEATHER.CLOUDY]=-10,[TppDefine.W
 local a=0
 local s=100
 local n=0
-n=TppTerminal.DoFuncByFultonTypeSwitch(t,p,r,l,nil,nil,nil,e.GetSoldierFultonSucceedRatio,e.GetVolginFultonSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio)if n==nil then
+n=TppTerminal.DoFuncByFultonTypeSwitch(t,p,r,l,nil,nil,e.GetSoldierFultonSucceedRatio,e.GetVolginFultonSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio)if n==nil then
 n=100
 end
 local e=TppMotherBaseManagement.GetSectionFuncRank{sectionFuncId=TppMotherBaseManagementConst.SECTION_FUNC_ID_SUPPORT_FULTON}local r=o[e]or 0
