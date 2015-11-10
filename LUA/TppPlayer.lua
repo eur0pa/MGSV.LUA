@@ -2,15 +2,15 @@ local e={}local s=Tpp.IsTypeFunc
 local t=Tpp.IsTypeTable
 local l=Tpp.IsTypeString
 local a=Fox.StrCode32
-local o=GkEventTimerManager.Start
+local r=GkEventTimerManager.Start
 local p=GkEventTimerManager.Stop
 local n=GameObject.GetTypeIndex
 local i=GameObject.GetGameObjectId
-local T=GameObject.GetTypeIndexWithTypeName
+local d=GameObject.GetTypeIndexWithTypeName
 local n=TppGameObject.GAME_OBJECT_TYPE_SOLDIER2
 local n=TppGameObject.GAME_OBJECT_TYPE_HOSTAGE2
 local n=GameObject.NULL_ID
-local r=GameObject.SendCommand
+local o=GameObject.SendCommand
 e.MISSION_CLEAR_CAMERA_FADE_DELAY_TIME=3
 e.MISSION_CLEAR_CAMERA_DELAY_TIME=0
 e.PLAYER_FALL_DEAD_DELAY_TIME=.2
@@ -31,28 +31,28 @@ end
 function e.Warp(e)if not t(e)then
 return
 end
-local a=e.pos
-if not t(a)or(#a~=3)then
+local n=e.pos
+if not t(n)or(#n~=3)then
 return
 end
-local n=foxmath.NormalizeRadian(foxmath.DegreeToRadian(e.rotY or 0))local t
+local t=foxmath.NormalizeRadian(foxmath.DegreeToRadian(e.rotY or 0))local a
 if e.fobRespawn==true then
-t={type="TppPlayer2",index=PlayerInfo.GetLocalPlayerIndex()}else
-t={type="TppPlayer2",index=0}end
-local e={id="WarpAndWaitBlock",pos=a,rotY=n}GameObject.SendCommand(t,e)end
-function e.SetForceFultonPercent(e,a)if not Tpp.IsTypeNumber(e)then
+a={type="TppPlayer2",index=PlayerInfo.GetLocalPlayerIndex()}else
+a={type="TppPlayer2",index=0}end
+local e={id="WarpAndWaitBlock",pos=n,rotY=t}GameObject.SendCommand(a,e)end
+function e.SetForceFultonPercent(a,e)if not Tpp.IsTypeNumber(a)then
 return
 end
-if not Tpp.IsTypeNumber(a)then
+if not Tpp.IsTypeNumber(e)then
 return
 end
-if(e<0)or(e>=n)then
+if(a<0)or(a>=n)then
 return
 end
-if(a<0)or(a>100)then
+if(e<0)or(e>100)then
 return
 end
-mvars.ply_forceFultonPercent=mvars.ply_forceFultonPercent or{}mvars.ply_forceFultonPercent[e]=a
+mvars.ply_forceFultonPercent=mvars.ply_forceFultonPercent or{}mvars.ply_forceFultonPercent[a]=e
 end
 function e.ForceChangePlayerToSnake(e)vars.playerType=PlayerType.SNAKE
 if e then
@@ -73,14 +73,14 @@ e.ply_checkDirectionList={}e.ply_checkRotationResult={}local function n(a,t,e)if
 a[t]=e
 end
 end
-for t,a in pairs(a)do
-if s(a.func)then
-e.ply_checkDirectionList[t]={}e.ply_checkDirectionList[t].func=a.func
-local o=a.directionX or 0
-local i=a.directionY or 0
-local r=a.directionRangeX or 0
-local a=a.directionRangeY or 0
-n(e.ply_checkDirectionList[t],"directionX",o)n(e.ply_checkDirectionList[t],"directionY",i)n(e.ply_checkDirectionList[t],"directionRangeX",r)n(e.ply_checkDirectionList[t],"directionRangeY",a)else
+for a,t in pairs(a)do
+if s(t.func)then
+e.ply_checkDirectionList[a]={}e.ply_checkDirectionList[a].func=t.func
+local o=t.directionX or 0
+local i=t.directionY or 0
+local r=t.directionRangeX or 0
+local t=t.directionRangeY or 0
+n(e.ply_checkDirectionList[a],"directionX",o)n(e.ply_checkDirectionList[a],"directionY",i)n(e.ply_checkDirectionList[a],"directionRangeX",r)n(e.ply_checkDirectionList[a],"directionRangeY",t)else
 return
 end
 end
@@ -89,10 +89,10 @@ function e.CheckRotation()local a=mvars
 if a.ply_checkDirectionList==nil then
 return
 end
-for n,t in pairs(a.ply_checkDirectionList)do
-local e=e._CheckRotation(t.directionX,t.directionRangeX,t.directionY,t.directionRangeY,n)if e~=a.ply_checkRotationResult[n]then
-a.ply_checkRotationResult[n]=e
-a.ply_checkDirectionList[n].func(e)end
+for t,n in pairs(a.ply_checkDirectionList)do
+local e=e._CheckRotation(n.directionX,n.directionRangeX,n.directionY,n.directionRangeY,t)if e~=a.ply_checkRotationResult[t]then
+a.ply_checkRotationResult[t]=e
+a.ply_checkDirectionList[t].func(e)end
 end
 end
 function e.IsDeliveryWarping()if mvars.ply_deliveryWarpState then
@@ -182,26 +182,35 @@ vars.initialPlayerPosY=0
 vars.initialPlayerPosZ=0
 vars.initialPlayerRotY=0
 end
+function e.FailSafeInitialPositionForFreePlay()if not((vars.missionCode==30010)or(vars.missionCode==30020))then
+return
+end
+if vars.initialPlayerFlag~=PlayerFlag.USE_VARS_FOR_INITIAL_POS then
+return
+end
+if(((vars.initialPlayerPosX>3500)or(vars.initialPlayerPosX<-3500))or(vars.initialPlayerPosZ>3500))or(vars.initialPlayerPosZ<-3500)then
+local e={[30010]={1448.61,337.787,1466.4},[30020]={-510.73,5.09,1183.02}}local e=e[vars.missionCode]vars.initialPlayerPosX,vars.initialPlayerPosY,vars.initialPlayerPosZ=e[1],e[2],e[3]end
+end
 function e.RegisterTemporaryPlayerType(e)if not t(e)then
 return
 end
 mvars.ply_isExistTempPlayerType=true
-local t=e.camoType
-local a=e.partsType
-local r=e.playerType
-local n=e.handEquip
+local a=e.camoType
+local n=e.partsType
+local t=e.playerType
+local r=e.handEquip
 local e=e.faceEquipId
+if n then
+mvars.ply_tempPartsType=n
+end
 if a then
-mvars.ply_tempPartsType=a
+mvars.ply_tempCamoType=a
 end
 if t then
-mvars.ply_tempCamoType=t
+mvars.ply_tempPlayerType=t
 end
 if r then
-mvars.ply_tempPlayerType=r
-end
-if n then
-mvars.ply_tempPlayerHandEquip=n
+mvars.ply_tempPlayerHandEquip=r
 end
 if e then
 mvars.ply_tempPlayerFaceEquipId=e
@@ -253,7 +262,7 @@ function e.SetWeapons(a)e._SetWeapons(a,"weapons")end
 function e.SetInitWeapons(a)if gvars.str_storySequence>=TppDefine.STORY_SEQUENCE.CLEARD_RECUE_MILLER then
 e.SaveWeaponsToUsingTemp(a)end
 e._SetWeapons(a,"initWeapons")end
-function e._SetWeapons(l,c)if not t(l)then
+function e._SetWeapons(l,m)if not t(l)then
 return
 end
 local t=TppDefine.WEAPONSLOT.SUPPORT_0-1
@@ -261,70 +270,70 @@ local a,r,o,n,i
 for s,l in pairs(l)do
 a,t,r,o,n,i=e.GetWeaponSlotInfoFromWeaponSet(l,t)local r=TppEquip[r]if r==nil then
 else
-local l,s,p,m,d,T=TppEquip.GetAmmoInfo(r)if a then
-vars[c][a]=r
+local p,c,l,s,d,T=TppEquip.GetAmmoInfo(r)if a then
+vars[m][a]=r
 local e,t
 if o then
-e=o*s
+e=o*c
 elseif n then
 e=n
 else
-e=p
+e=l
 end
-gvars.initAmmoStockIds[a]=l
+gvars.initAmmoStockIds[a]=p
 gvars.initAmmoStockCounts[a]=e
-gvars.initAmmoInWeapons[a]=s
-if(m~=TppEquip.BL_None)then
+gvars.initAmmoInWeapons[a]=c
+if(s~=TppEquip.BL_None)then
 if i then
 t=i
 else
 t=T
 end
-gvars.initAmmoStockIds[a+TppDefine.WEAPONSLOT.MAX]=m
+gvars.initAmmoStockIds[a+TppDefine.WEAPONSLOT.MAX]=s
 gvars.initAmmoStockCounts[a+TppDefine.WEAPONSLOT.MAX]=t
 gvars.initAmmoSubInWeapons[a]=d
 end
-if c=="initWeapons"then
+if m=="initWeapons"then
 vars.isInitialWeapon[a]=1
 end
 elseif t>=TppDefine.WEAPONSLOT.SUPPORT_0 and t<=TppDefine.WEAPONSLOT.SUPPORT_7 then
 local e=t-TppDefine.WEAPONSLOT.SUPPORT_0
 vars.initSupportWeapons[e]=r
-gvars.initAmmoStockIds[t]=l
+gvars.initAmmoStockIds[t]=p
 local e
 if n then
 e=n
 else
-e=p
+e=l
 end
 gvars.initAmmoStockCounts[t]=e
 end
 end
 end
 end
-function e.GetWeaponSlotInfoFromWeaponSet(e,o)local n,t,r,a,i
+function e.GetWeaponSlotInfoFromWeaponSet(e,o)local r,a,n,t,i
 if e.primaryHip then
-n=TppDefine.WEAPONSLOT.PRIMARY_HIP
-t=e.primaryHip
-r=e.magazine
-a=e.ammo
+r=TppDefine.WEAPONSLOT.PRIMARY_HIP
+a=e.primaryHip
+n=e.magazine
+t=e.ammo
 i=e.underBarrelAmmo
 elseif e.primaryBack then
-n=TppDefine.WEAPONSLOT.PRIMARY_BACK
-t=e.primaryBack
-r=e.magazine
-a=e.ammo
+r=TppDefine.WEAPONSLOT.PRIMARY_BACK
+a=e.primaryBack
+n=e.magazine
+t=e.ammo
 elseif e.secondary then
-n=TppDefine.WEAPONSLOT.SECONDARY
-t=e.secondary
-r=e.magazine
-a=e.ammo
+r=TppDefine.WEAPONSLOT.SECONDARY
+a=e.secondary
+n=e.magazine
+t=e.ammo
 elseif e.support then
 o=o+1
-t=e.support
-a=e.ammo
+a=e.support
+t=e.ammo
 end
-return n,o,t,r,a,i
+return r,o,a,n,t,i
 end
 function e.SaveWeaponsToUsingTemp(n)if gvars.ply_isUsingTempWeapons then
 return
@@ -354,8 +363,8 @@ if a>=TppDefine.WEAPONSLOT.SUPPORT_0 and a<=TppDefine.WEAPONSLOT.SUPPORT_7 then
 local e=a-TppDefine.WEAPONSLOT.SUPPORT_0
 vars.initSupportWeapons[e]=gvars.ply_lastWeaponsUsingTemp[a]else
 vars.initWeapons[a]=gvars.ply_lastWeaponsUsingTemp[a]end
-local i,o,l,n,r,t=TppEquip.GetAmmoInfo(gvars.ply_lastWeaponsUsingTemp[a])e.SupplyAmmoByBulletId(i,l)gvars.initAmmoInWeapons[a]=o
-e.SupplyAmmoByBulletId(n,t)gvars.initAmmoSubInWeapons[a]=r
+local i,l,r,o,n,t=TppEquip.GetAmmoInfo(gvars.ply_lastWeaponsUsingTemp[a])e.SupplyAmmoByBulletId(i,r)gvars.initAmmoInWeapons[a]=l
+e.SupplyAmmoByBulletId(o,t)gvars.initAmmoSubInWeapons[a]=n
 end
 end
 for e=0,11 do
@@ -385,16 +394,16 @@ if gvars.str_storySequence>=TppDefine.STORY_SEQUENCE.CLEARD_RECUE_MILLER then
 e.SaveItemsToUsingTemp(a)end
 e._SetItems(a,"initItems")end
 function e._SetItems(a,e)vars[e][0]=TppEquip.EQP_None
-for a,t in pairs(a)do
-vars[e][a]=TppEquip[t]end
+for t,a in pairs(a)do
+vars[e][t]=TppEquip[a]end
 end
-function e.SaveItemsToUsingTemp(e)if gvars.ply_isUsingTempItems then
+function e.SaveItemsToUsingTemp(a)if gvars.ply_isUsingTempItems then
 return
 end
 for e=0,7 do
 gvars.ply_lastItemsUsingTemp[e]=TppEquip.EQP_None
 end
-for e,a in pairs(e)do
+for e,a in pairs(a)do
 if e<8 then
 gvars.ply_lastItemsUsingTemp[e]=vars.initItems[e]end
 end
@@ -420,9 +429,9 @@ vars.ammoStockIds[e]=0
 vars.ammoStockCounts[e]=0
 end
 end
-function e.GetBulletNum(e)for a=0,TppScriptVars.PLAYER_AMMO_STOCK_TYPE_COUNT-1 do
-if(e~=nil and e==vars.ammoStockIds[a])then
-return vars.ammoStockCounts[a]end
+function e.GetBulletNum(a)for e=0,TppScriptVars.PLAYER_AMMO_STOCK_TYPE_COUNT-1 do
+if(a~=nil and a==vars.ammoStockIds[e])then
+return vars.ammoStockCounts[e]end
 end
 return 0
 end
@@ -480,8 +489,8 @@ end
 function e.SupplyWeaponAmmoFull(a)local t=vars.initWeapons[a]if t==TppEquip.EQP_None then
 return
 end
-local n,t,r,i,o,l=TppEquip.GetAmmoInfo(t)e.SupplyAmmoByBulletId(n,r)gvars.initAmmoInWeapons[a]=t
-e.SupplyAmmoByBulletId(i,l)gvars.initAmmoSubInWeapons[a]=o
+local n,r,i,o,l,t=TppEquip.GetAmmoInfo(t)e.SupplyAmmoByBulletId(n,i)gvars.initAmmoInWeapons[a]=r
+e.SupplyAmmoByBulletId(o,t)gvars.initAmmoSubInWeapons[a]=l
 end
 function e.SupplySupportWeaponAmmoFull(a)local t,n,a,n,n,n=TppEquip.GetAmmoInfo(a)e.SupplyAmmoByBulletId(t,a)end
 function e.SupplyAmmoByBulletId(t,n)if t==TppEquip.BL_None then
@@ -528,7 +537,7 @@ end
 function e.SetMaxPlacedLocatorCount()if mvars.ply_maxPlacedLocatorCount>0 then
 TppPlaced.OnAllocate{locators=mvars.ply_maxPlacedLocatorCount,svarsName="ply_placedLocatorDisabled"}end
 end
-function e.IsDecoy(e)local e=TppEquip.GetSupportWeaponTypeId(e)local a={[TppEquip.SWP_TYPE_Decoy]=true,[TppEquip.SWP_TYPE_ActiveDecoy]=true,[TppEquip.SWP_TYPE_ShockDecoy]=true}if a[e]then
+function e.IsDecoy(e)local a=TppEquip.GetSupportWeaponTypeId(e)local e={[TppEquip.SWP_TYPE_Decoy]=true,[TppEquip.SWP_TYPE_ActiveDecoy]=true,[TppEquip.SWP_TYPE_ShockDecoy]=true}if e[a]then
 return true
 else
 return false
@@ -584,20 +593,20 @@ end
 mvars.ply_intelTrapInfo[e].direction=s
 mvars.ply_intelTrapInfo[e].directionRange=p
 Player.AddTrapDetailCondition{trapName=n,condition=PlayerTrap.FINE,action=(PlayerTrap.NORMAL+PlayerTrap.BEHIND),stance=(PlayerTrap.STAND+PlayerTrap.SQUAT),direction=s,directionRange=p}end
-function e.ShowIconForIntel(e,t)if not l(e)then
+function e.ShowIconForIntel(e,n)if not l(e)then
 return
 end
-local n
+local t
 if mvars.ply_intelTrapInfo and mvars.ply_intelTrapInfo[e]then
-n=mvars.ply_intelTrapInfo[e].trapName
+t=mvars.ply_intelTrapInfo[e].trapName
 end
 local a=mvars.ply_intelFlagInfo[e]if a then
 if svars[a]~=nil then
-t=svars[a]end
+n=svars[a]end
 end
-if not t then
+if not n then
 if Tpp.IsNotAlert()then
-Player.RequestToShowIcon{type=ActionIcon.ACTION,icon=ActionIcon.INTEL,message=Fox.StrCode32"GetIntel",messageInDisplay=Fox.StrCode32"IntelIconInDisplay",messageArg=e}elseif n then
+Player.RequestToShowIcon{type=ActionIcon.ACTION,icon=ActionIcon.INTEL,message=Fox.StrCode32"GetIntel",messageInDisplay=Fox.StrCode32"IntelIconInDisplay",messageArg=e}elseif t then
 Player.RequestToShowIcon{type=ActionIcon.ACTION,icon=ActionIcon.INTEL_NG,message=Fox.StrCode32"NGIntel",messageInDisplay=Fox.StrCode32"IntelIconInDisplay",messageArg=e}if not TppRadio.IsPlayed(TppRadio.COMMON_RADIO_LIST[TppDefine.COMMON_RADIO.CANNOT_GET_INTEL_ON_ALERT])then
 TppRadio.PlayCommonRadio(TppDefine.COMMON_RADIO.CANNOT_GET_INTEL_ON_ALERT)end
 end
@@ -649,7 +658,7 @@ e.HideIconForQuest()end
 function e.HideIconForQuest()Player.RequestToHideIcon{type=ActionIcon.ACTION,icon=ActionIcon.TRAINING}end
 function e.ResetIconForQuest(e)mvars.ply_questStartFlagInfo.ShootingPractice=false
 end
-function e.AppearHorseOnMissionStart(e,a)local e,a=Tpp.GetLocator(e,a)if e then
+function e.AppearHorseOnMissionStart(a,e)local e,a=Tpp.GetLocator(a,e)if e then
 vars.buddyType=BuddyType.HORSE
 vars.initialBuddyPos[0]=e[1]vars.initialBuddyPos[1]=e[2]vars.initialBuddyPos[2]=e[3]end
 end
@@ -660,7 +669,7 @@ mvars.ply_gameOverCameraGameObjectId=t
 mvars.ply_gameOverCameraStartTimerName=a
 mvars.ply_gameOverCameraAnnounceLog=e
 TppUiStatusManager.SetStatus("AnnounceLog","INVALID_LOG")TppSound.PostJingleOnGameOver()TppSoundDaemon.PostEvent"sfx_s_force_camera_out"vars.playerDisableActionFlag=PlayerDisableAction.SUBJECTIVE_CAMERA
-o("Timer_StartGameOverCamera",.25)end
+r("Timer_StartGameOverCamera",.25)end
 function e._StartGameOverCamera(e,e)TppUiStatusManager.ClearStatus"AnnounceLog"FadeFunction.SetFadeColor(64,0,0,255)TppUI.FadeOut(TppUI.FADE_SPEED.FADE_HIGHSPEED,mvars.ply_gameOverCameraStartTimerName,nil,{exceptGameStatus={AnnounceLog=false}})Player.RequestToSetCameraFocalLengthAndDistance{focalLength=16,interpTime=TppUI.FADE_SPEED.FADE_HIGHSPEED}end
 function e.PrepareStartGameOverCamera()FadeFunction.ResetFadeColor()local e={}for a,t in pairs(TppDefine.GAME_STATUS_TYPE_ALL)do
 e[a]=false
@@ -673,35 +682,35 @@ e.AnnounceLog=nil
 TppUI.FadeIn(TppUI.FADE_SPEED.FADE_HIGHESTSPEED,nil,nil,{exceptGameStatus=e})Player.RequestToStopCameraAnimation{}if mvars.ply_gameOverCameraAnnounceLog then
 TppUiStatusManager.ClearStatus"AnnounceLog"TppUI.ShowAnnounceLog(mvars.ply_gameOverCameraAnnounceLog)end
 end
-function e.FOBStartGameOverCamera(e,t,a)if mvars.ply_gameOverCameraGameObjectId~=nil then
+function e.FOBStartGameOverCamera(a,e,t)if mvars.ply_gameOverCameraGameObjectId~=nil then
 return
 end
-mvars.ply_gameOverCameraGameObjectId=e
-mvars.ply_gameOverCameraStartTimerName=t
-mvars.ply_gameOverCameraAnnounceLog=a
+mvars.ply_gameOverCameraGameObjectId=a
+mvars.ply_gameOverCameraStartTimerName=e
+mvars.ply_gameOverCameraAnnounceLog=t
 TppUiStatusManager.SetStatus("AnnounceLog","INVALID_LOG")vars.playerDisableActionFlag=PlayerDisableAction.SUBJECTIVE_CAMERA
-o("Timer_StartGameOverCamera",.25)end
-function e.SetTargetDeadCamera(r)local l
+r("Timer_StartGameOverCamera",.25)end
+function e.SetTargetDeadCamera(r)local o
 local a
-local o
+local l
 if t(r)then
-l=r.gameObjectName or""a=r.gameObjectId
-o=r.announceLog or"target_extract_failed"end
-a=a or i(l)if a==n then
+o=r.gameObjectName or""a=r.gameObjectId
+l=r.announceLog or"target_extract_failed"end
+a=a or i(o)if a==n then
 return
 end
-e.StartGameOverCamera(a,"EndFadeOut_StartTargetDeadCamera",o)end
+e.StartGameOverCamera(a,"EndFadeOut_StartTargetDeadCamera",l)end
 function e._SetTargetDeadCamera()e.PrepareStartGameOverCamera()Player.RequestToPlayCameraNonAnimation{characterId=mvars.ply_gameOverCameraGameObjectId,isFollowPos=false,isFollowRot=true,followTime=7,followDelayTime=.1,candidateRots={{10,0},{10,45},{10,90},{10,135},{10,180},{10,225},{10,270}},skeletonNames={"SKL_004_HEAD","SKL_011_LUARM","SKL_021_RUARM","SKL_032_LFOOT","SKL_042_RFOOT"},skeletonCenterOffsets={Vector3(0,0,0),Vector3(0,0,0),Vector3(0,0,0),Vector3(0,0,0),Vector3(0,0,0)},skeletonBoundings={Vector3(0,.45,0),Vector3(0,0,0),Vector3(0,0,0),Vector3(0,-.3,0),Vector3(0,-.3,0)},offsetPos=Vector3(.3,.2,-4.6),focalLength=21,aperture=1.875,timeToSleep=10,fitOnCamera=true,timeToStartToFitCamera=.001,fitCameraInterpTime=.24,diffFocalLengthToReFitCamera=16}end
-function e.SetTargetHeliCamera(r)local l
+function e.SetTargetHeliCamera(r)local o
 local a
-local o
+local l
 if t(r)then
-l=r.gameObjectName or""a=r.gameObjectId
-o=r.announceLog or"target_eliminate_failed"end
-a=a or i(l)if a==n then
+o=r.gameObjectName or""a=r.gameObjectId
+l=r.announceLog or"target_eliminate_failed"end
+a=a or i(o)if a==n then
 return
 end
-e.StartGameOverCamera(a,"EndFadeOut_StartTargetHeliCamera",o)end
+e.StartGameOverCamera(a,"EndFadeOut_StartTargetHeliCamera",l)end
 function e._SetTargetHeliCamera()e.PrepareStartGameOverCamera()Player.RequestToPlayCameraNonAnimation{characterId=mvars.ply_gameOverCameraGameObjectId,isFollowPos=false,isFollowRot=true,followTime=7,followDelayTime=.1,candidateRots={{10,0}},skeletonNames={"SKL_011_RLWDOOR"},skeletonCenterOffsets={Vector3(0,0,0)},skeletonBoundings={Vector3(0,.45,0)},offsetPos=Vector3(.3,.2,-4.6),focalLength=21,aperture=1.875,timeToSleep=10,fitOnCamera=true,timeToStartToFitCamera=.01,fitCameraInterpTime=.24,diffFocalLengthToReFitCamera=999999}end
 function e.SetTargetTruckCamera(r)local l
 local a
@@ -728,25 +737,25 @@ function e.SetTitleCamera()local e=i"Player"if e==n then
 return
 end
 Player.RequestToStopCameraAnimation{}Player.RequestToPlayCameraNonAnimation{characterId=e,isFollowPos=true,isFollowRot=true,followTime=0,followDelayTime=0,candidateRots={{0,185}},skeletonNames={"SKL_004_HEAD"},skeletonCenterOffsets={Vector3(-.5,-.15,.1)},skeletonBoundings={Vector3(.5,.45,.9)},offsetPos=Vector3(-.8,0,-1.8),focalLength=21,aperture=1.875,timeToSleep=0,fitOnCamera=false,timeToStartToFitCamera=0,fitCameraInterpTime=0,diffFocalLengthToReFitCamera=0}end
-function e.SetSearchTarget(l,t,s,o,e,r,i,a)if(l==nil or t==nil)then
+function e.SetSearchTarget(t,o,s,r,a,i,l,e)if(t==nil or o==nil)then
 return
 end
-local t=T(t)if t==n then
+local o=d(o)if o==n then
 return
 end
-if i==nil then
-i=true
+if l==nil then
+l=true
 end
-if e==nil then
-e=Vector3(0,.25,0)end
 if a==nil then
-a=.03
+a=Vector3(0,.25,0)end
+if e==nil then
+e=.03
 end
-local e={name=s,targetGameObjectTypeIndex=t,targetGameObjectName=l,offset=e,centerRange=.3,lookingTime=1,distance=200,doWideCheck=true,wideCheckRadius=.15,wideCheckRange=a,doDirectionCheck=false,directionCheckRange=100,doCollisionCheck=true}if(o~=nil)then
-e.skeletonName=o
+local e={name=s,targetGameObjectTypeIndex=o,targetGameObjectName=t,offset=a,centerRange=.3,lookingTime=1,distance=200,doWideCheck=true,wideCheckRadius=.15,wideCheckRange=e,doDirectionCheck=false,directionCheckRange=100,doCollisionCheck=true}if(r~=nil)then
+e.skeletonName=r
 end
-if(r~=nil)then
-e.targetFox2Name=r
+if(i~=nil)then
+e.targetFox2Name=i
 end
 Player.AddSearchTarget(e)end
 function e.IsSneakPlayerInFOB(e)if e==0 then
@@ -758,23 +767,23 @@ end
 function e.PlayMissionClearCamera()local e=e.SetPlayerStatusForMissionEndCamera()if not e then
 return
 end
-o("Timer_StartPlayMissionClearCameraStep1",.25)end
+r("Timer_StartPlayMissionClearCameraStep1",.25)end
 function e.SetPlayerStatusForMissionEndCamera()Player.SetPadMask{settingName="MissionClearCamera",except=true}vars.playerDisableActionFlag=PlayerDisableAction.SUBJECTIVE_CAMERA
 return true
 end
 function e.ResetMissionEndCamera()Player.ResetPadMask{settingName="MissionClearCamera"}Player.RequestToStopCameraAnimation{}end
-function e.PlayCommonMissionEndCamera(i,r,s,l,t,n)local a
+function e.PlayCommonMissionEndCamera(o,s,i,l,t,n)local a
 local e=vars.playerVehicleGameObjectId
 if Tpp.IsHorse(e)then
-GameObject.SendCommand(e,{id="HorseForceStop"})a=i(e,t,n)elseif Tpp.IsVehicle(e)then
-local o=GameObject.SendCommand(e,{id="GetVehicleType"})GameObject.SendCommand(e,{id="ForceStop",enabled=true})local r=r[o]if r then
+GameObject.SendCommand(e,{id="HorseForceStop"})a=o(e,t,n)elseif Tpp.IsVehicle(e)then
+local r=GameObject.SendCommand(e,{id="GetVehicleType"})GameObject.SendCommand(e,{id="ForceStop",enabled=true})local r=s[r]if r then
 a=r(e,t,n)end
 elseif(Tpp.IsPlayerWalkerGear(e)or Tpp.IsEnemyWalkerGear(e))then
-GameObject.SendCommand(e,{id="ForceStop",enabled=true})a=s(e,t,n)elseif Tpp.IsHelicopter(e)then
+GameObject.SendCommand(e,{id="ForceStop",enabled=true})a=i(e,t,n)elseif Tpp.IsHelicopter(e)then
 else
 a=l(t,n)end
 if a then
-local e="Timer_StartPlayMissionClearCameraStep"..tostring(t+1)o(e,a)end
+local e="Timer_StartPlayMissionClearCameraStep"..tostring(t+1)r(e,a)end
 end
 function e._PlayMissionClearCamera(a,t)if a==1 then
 TppMusicManager.PostJingleEvent("SingleShot","Play_bgm_common_jingle_clear")end
@@ -788,61 +797,43 @@ GameObject.SendCommand({type="TppPlayer2",index=PlayerInfo.GetLocalPlayerIndex()
 e.RequestMissionClearMotion()end
 end
 end
-local a={"SKL_004_HEAD","SKL_002_CHEST"}local t={Vector3(0,0,.05),Vector3(.15,0,0)}local n={Vector3(.1,.125,.1),Vector3(.15,.1,.05)}local r=Vector3(0,0,-4.5)local e=.3
-local s
+local t={"SKL_004_HEAD","SKL_002_CHEST"}local a={Vector3(0,0,.05),Vector3(.15,0,0)}local n={Vector3(.1,.125,.1),Vector3(.15,.1,.05)}local e=Vector3(0,0,-4.5)local r=.3
+local l
 local o=false
 local i=20
-local l=false
+local s=false
 if p==1 then
-a={"SKL_004_HEAD","SKL_002_CHEST"}t={Vector3(0,0,.05),Vector3(.15,0,0)}n={Vector3(.1,.125,.1),Vector3(.15,.1,.05)}r=Vector3(0,0,-1.5)e=.3
-s=1
+t={"SKL_004_HEAD","SKL_002_CHEST"}a={Vector3(0,0,.05),Vector3(.15,0,0)}n={Vector3(.1,.125,.1),Vector3(.15,.1,.05)}e=Vector3(0,0,-1.5)r=.3
+l=1
 o=true
 elseif c then
-a={"SKL_004_HEAD"}t={Vector3(0,0,.05)}n={Vector3(.1,.125,.1)}r=Vector3(0,-.5,-3.5)e=3
+t={"SKL_004_HEAD"}a={Vector3(0,0,.05)}n={Vector3(.1,.125,.1)}e=Vector3(0,-.5,-3.5)r=3
 i=4
 else
-a={"SKL_004_HEAD","SKL_031_LLEG","SKL_041_RLEG"}t={Vector3(0,0,.05),Vector3(.15,0,0),Vector3(-.15,0,0)}n={Vector3(.1,.125,.1),Vector3(.15,.1,.05),Vector3(.15,.1,.05)}r=Vector3(0,0,-3.2)e=3
-l=true
-end
-Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",0),isFollowPos=true,isFollowRot=true,followTime=4,followDelayTime=.1,candidateRots={{1,168},{1,-164}},skeletonNames=a,skeletonCenterOffsets=t,skeletonBoundings=n,offsetPos=r,focalLength=28,aperture=1.875,timeToSleep=i,interpTimeAtStart=e,fitOnCamera=false,timeToStartToFitCamera=1,fitCameraInterpTime=.3,diffFocalLengthToReFitCamera=16,callSeOfCameraInterp=o,useLastSelectedIndex=l}return s
-end
-function e.PlayMissionClearCameraOnRideHorse(e,c,p)local e={"SKL_004_HEAD","SKL_002_CHEST"}local a={Vector3(0,0,.05),Vector3(.15,0,0)}local r={Vector3(.1,.125,.1),Vector3(.15,.1,.05)}local n=Vector3(0,0,-3.2)local t=.2
-local o
-local i=false
-local l=20
-local s=false
-if p then
-l=4
-end
-if c==1 then
-e={"SKL_004_HEAD","SKL_002_CHEST"}a={Vector3(0,-.125,.05),Vector3(.15,-.125,0)}r={Vector3(.1,.125,.1),Vector3(.15,.1,.05)}n=Vector3(0,0,-3.2)t=.2
-o=1
-i=true
-else
-e={"SKL_004_HEAD","SKL_031_LLEG","SKL_041_RLEG"}a={Vector3(0,-.125,.05),Vector3(.15,-.125,0),Vector3(-.15,-.125,0)}r={Vector3(.1,.125,.1),Vector3(.15,.1,.05),Vector3(.15,.1,.05)}n=Vector3(0,0,-4.5)t=3
+t={"SKL_004_HEAD","SKL_031_LLEG","SKL_041_RLEG"}a={Vector3(0,0,.05),Vector3(.15,0,0),Vector3(-.15,0,0)}n={Vector3(.1,.125,.1),Vector3(.15,.1,.05),Vector3(.15,.1,.05)}e=Vector3(0,0,-3.2)r=3
 s=true
 end
-Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",0),isFollowPos=true,isFollowRot=true,followTime=4,followDelayTime=.1,candidateRots={{0,160},{0,-160}},skeletonNames=e,skeletonCenterOffsets={Vector3(0,-.125,.05),Vector3(.15,-.125,0),Vector3(-.15,-.125,0)},skeletonBoundings={Vector3(.1,.125,.1),Vector3(.15,.1,.05),Vector3(.15,.1,.05)},skeletonCenterOffsets=a,skeletonBoundings=r,offsetPos=n,focalLength=28,aperture=1.875,timeToSleep=l,interpTimeAtStart=t,fitOnCamera=false,timeToStartToFitCamera=1,fitCameraInterpTime=.3,diffFocalLengthToReFitCamera=16,callSeOfCameraInterp=i,useLastSelectedIndex=s}return o
+Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",0),isFollowPos=true,isFollowRot=true,followTime=4,followDelayTime=.1,candidateRots={{1,168},{1,-164}},skeletonNames=t,skeletonCenterOffsets=a,skeletonBoundings=n,offsetPos=e,focalLength=28,aperture=1.875,timeToSleep=i,interpTimeAtStart=r,fitOnCamera=false,timeToStartToFitCamera=1,fitCameraInterpTime=.3,diffFocalLengthToReFitCamera=16,callSeOfCameraInterp=o,useLastSelectedIndex=s}return l
 end
-function e.PlayMissionClearCameraOnRideLightVehicle(e,l,s)local t=Vector3(-.35,.6,.7)local e=Vector3(0,0,-2.25)local a=.2
-local r
-local n=false
-local i=20
-local o=false
-if s then
-i=4
+function e.PlayMissionClearCameraOnRideHorse(e,p,c)local e={"SKL_004_HEAD","SKL_002_CHEST"}local a={Vector3(0,0,.05),Vector3(.15,0,0)}local t={Vector3(.1,.125,.1),Vector3(.15,.1,.05)}local n=Vector3(0,0,-3.2)local r=.2
+local l
+local s=false
+local o=20
+local i=false
+if c then
+o=4
 end
-if l==1 then
-t=Vector3(-.35,.6,.7)e=Vector3(0,0,-2.25)a=.2
-r=.5
-n=true
+if p==1 then
+e={"SKL_004_HEAD","SKL_002_CHEST"}a={Vector3(0,-.125,.05),Vector3(.15,-.125,0)}t={Vector3(.1,.125,.1),Vector3(.15,.1,.05)}n=Vector3(0,0,-3.2)r=.2
+l=1
+s=true
 else
-t=Vector3(-.35,.4,.7)e=Vector3(0,0,-4)a=.75
-o=true
+e={"SKL_004_HEAD","SKL_031_LLEG","SKL_041_RLEG"}a={Vector3(0,-.125,.05),Vector3(.15,-.125,0),Vector3(-.15,-.125,0)}t={Vector3(.1,.125,.1),Vector3(.15,.1,.05),Vector3(.15,.1,.05)}n=Vector3(0,0,-4.5)r=3
+i=true
 end
-Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",0),isFollowPos=true,isFollowRot=true,followTime=5,followDelayTime=0,candidateRots={{3,160},{3,-160}},offsetTarget=t,offsetPos=e,focalLength=28,aperture=1.875,timeToSleep=i,interpTimeAtStart=a,fitOnCamera=false,timeToStartToFitCamera=1,fitCameraInterpTime=.3,diffFocalLengthToReFitCamera=16,callSeOfCameraInterp=n,useLastSelectedIndex=o}return r
+Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",0),isFollowPos=true,isFollowRot=true,followTime=4,followDelayTime=.1,candidateRots={{0,160},{0,-160}},skeletonNames=e,skeletonCenterOffsets={Vector3(0,-.125,.05),Vector3(.15,-.125,0),Vector3(-.15,-.125,0)},skeletonBoundings={Vector3(.1,.125,.1),Vector3(.15,.1,.05),Vector3(.15,.1,.05)},skeletonCenterOffsets=a,skeletonBoundings=t,offsetPos=n,focalLength=28,aperture=1.875,timeToSleep=o,interpTimeAtStart=r,fitOnCamera=false,timeToStartToFitCamera=1,fitCameraInterpTime=.3,diffFocalLengthToReFitCamera=16,callSeOfCameraInterp=s,useLastSelectedIndex=i}return l
 end
-function e.PlayMissionClearCameraOnRideTruck(e,s,l)local t=Vector3(-.35,1.3,1)local a=Vector3(0,0,-2)local e=.2
+function e.PlayMissionClearCameraOnRideLightVehicle(e,s,l)local a=Vector3(-.35,.6,.7)local e=Vector3(0,0,-2.25)local t=.2
 local n
 local r=false
 local o=20
@@ -851,111 +842,129 @@ if l then
 o=4
 end
 if s==1 then
-t=Vector3(-.35,1.3,1)a=Vector3(0,0,-3)e=.2
+a=Vector3(-.35,.6,.7)e=Vector3(0,0,-2.25)t=.2
 n=.5
 r=true
 else
-t=Vector3(-.35,1,1)a=Vector3(0,0,-6)e=.75
+a=Vector3(-.35,.4,.7)e=Vector3(0,0,-4)t=.75
 i=true
 end
-Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",0),isFollowPos=true,isFollowRot=true,followTime=5,followDelayTime=0,candidateRots={{3,160},{3,-160}},offsetTarget=t,offsetPos=a,focalLength=28,aperture=1.875,timeToSleep=o,interpTimeAtStart=e,fitOnCamera=false,timeToStartToFitCamera=1,fitCameraInterpTime=.3,diffFocalLengthToReFitCamera=16,callSeOfCameraInterp=r,useLastSelectedIndex=i}return n
+Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",0),isFollowPos=true,isFollowRot=true,followTime=5,followDelayTime=0,candidateRots={{3,160},{3,-160}},offsetTarget=a,offsetPos=e,focalLength=28,aperture=1.875,timeToSleep=o,interpTimeAtStart=t,fitOnCamera=false,timeToStartToFitCamera=1,fitCameraInterpTime=.3,diffFocalLengthToReFitCamera=16,callSeOfCameraInterp=r,useLastSelectedIndex=i}return n
 end
-function e.PlayMissionClearCameraOnRideCommonArmoredVehicle(a,s,e,l)local t=Vector3(.05,-.5,-2.2)if e==1 then
-t=Vector3(.05,-.5,-2.2)else
-t=Vector3(-.05,-1,0)end
-local e=Vector3(0,0,-7.5)local a=.2
+function e.PlayMissionClearCameraOnRideTruck(e,s,l)local t=Vector3(-.35,1.3,1)local e=Vector3(0,0,-2)local a=.2
 local r
 local n=false
-local i=20
-local o=false
+local o=20
+local i=false
 if l then
-i=4
+o=4
 end
 if s==1 then
-e=Vector3(0,0,-7.5)a=.2
+t=Vector3(-.35,1.3,1)e=Vector3(0,0,-3)a=.2
 r=.5
 n=true
 else
-e=Vector3(0,0,-13.25)a=.75
+t=Vector3(-.35,1,1)e=Vector3(0,0,-6)a=.75
+i=true
+end
+Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",0),isFollowPos=true,isFollowRot=true,followTime=5,followDelayTime=0,candidateRots={{3,160},{3,-160}},offsetTarget=t,offsetPos=e,focalLength=28,aperture=1.875,timeToSleep=o,interpTimeAtStart=a,fitOnCamera=false,timeToStartToFitCamera=1,fitCameraInterpTime=.3,diffFocalLengthToReFitCamera=16,callSeOfCameraInterp=n,useLastSelectedIndex=i}return r
+end
+function e.PlayMissionClearCameraOnRideCommonArmoredVehicle(e,s,a,l)local e=Vector3(.05,-.5,-2.2)if a==1 then
+e=Vector3(.05,-.5,-2.2)else
+e=Vector3(-.05,-1,0)end
+local a=Vector3(0,0,-7.5)local t=.2
+local i
+local n=false
+local r=20
+local o=false
+if l then
+r=4
+end
+if s==1 then
+a=Vector3(0,0,-7.5)t=.2
+i=.5
+n=true
+else
+a=Vector3(0,0,-13.25)t=.75
 o=true
 end
-Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",0),isFollowPos=true,isFollowRot=true,followTime=5,followDelayTime=0,candidateRots={{8,165},{8,-165}},offsetTarget=t,offsetPos=e,focalLength=28,aperture=1.875,timeToSleep=i,interpTimeAtStart=a,fitOnCamera=false,timeToStartToFitCamera=1,fitCameraInterpTime=.3,diffFocalLengthToReFitCamera=16,callSeOfCameraInterp=n,useLastSelectedIndex=o}return r
+Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",0),isFollowPos=true,isFollowRot=true,followTime=5,followDelayTime=0,candidateRots={{8,165},{8,-165}},offsetTarget=e,offsetPos=a,focalLength=28,aperture=1.875,timeToSleep=r,interpTimeAtStart=t,fitOnCamera=false,timeToStartToFitCamera=1,fitCameraInterpTime=.3,diffFocalLengthToReFitCamera=16,callSeOfCameraInterp=n,useLastSelectedIndex=o}return i
 end
-function e.PlayMissionClearCameraOnRideEasternArmoredVehicle(t,n,r)local a
-a=e.PlayMissionClearCameraOnRideCommonArmoredVehicle(t,n,1,r)return a
+function e.PlayMissionClearCameraOnRideEasternArmoredVehicle(t,r,n)local a
+a=e.PlayMissionClearCameraOnRideCommonArmoredVehicle(t,r,1,n)return a
 end
 function e.PlayMissionClearCameraOnRideWesternArmoredVehicle(t,n)local a
 a=e.PlayMissionClearCameraOnRideCommonArmoredVehicle(t,n,2,isQuest)return a
 end
 function e.PlayMissionClearCameraOnRideTank(e,l,i)local e=Vector3(0,0,-6.5)local a=.2
-local n
-local r=false
-local o=20
+local o
+local n=false
+local r=20
 local t=false
 if i then
-o=4
+r=4
 end
 if l==1 then
 e=Vector3(0,0,-6.5)a=.2
-n=.5
-r=true
+o=.5
+n=true
 else
 e=Vector3(0,0,-9)a=.75
 t=true
 end
-Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",0),isFollowPos=true,isFollowRot=true,followTime=5,followDelayTime=0,candidateRots={{9,165},{9,-165}},offsetTarget=Vector3(0,-.85,3.25),offsetPos=e,focalLength=28,aperture=1.875,timeToSleep=o,interpTimeAtStart=a,fitOnCamera=false,timeToStartToFitCamera=1,fitCameraInterpTime=.3,diffFocalLengthToReFitCamera=16,callSeOfCameraInterp=r,useLastSelectedIndex=t}return n
+Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",0),isFollowPos=true,isFollowRot=true,followTime=5,followDelayTime=0,candidateRots={{9,165},{9,-165}},offsetTarget=Vector3(0,-.85,3.25),offsetPos=e,focalLength=28,aperture=1.875,timeToSleep=r,interpTimeAtStart=a,fitOnCamera=false,timeToStartToFitCamera=1,fitCameraInterpTime=.3,diffFocalLengthToReFitCamera=16,callSeOfCameraInterp=n,useLastSelectedIndex=t}return o
 end
-function e.PlayMissionClearCameraOnWalkerGear(a,p,s)local n=Vector3(0,.55,.35)local a=Vector3(0,0,-3.65)local t=.2
+function e.PlayMissionClearCameraOnWalkerGear(a,p,s)local a=Vector3(0,.55,.35)local t=Vector3(0,0,-3.65)local n=.2
 local l
+local o=false
+local r=20
 local i=false
-local o=20
-local r=false
 if s then
-o=4
+r=4
 end
 if p==1 then
-n=Vector3(0,.55,.35)a=Vector3(0,0,-3.65)t=.2
+a=Vector3(0,.55,.35)t=Vector3(0,0,-3.65)n=.2
 l=1
-i=true
+o=true
 else
-n=Vector3(0,.4,.35)a=Vector3(0,0,-4.95)t=3
-r=true
+a=Vector3(0,.4,.35)t=Vector3(0,0,-4.95)n=3
+i=true
 end
-Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",0),isFollowPos=true,isFollowRot=true,followTime=3,followDelayTime=.1,candidateRots={{7,165},{7,-165}},offsetTarget=n,offsetPos=a,focalLength=28,aperture=1.875,timeToSleep=o,interpTimeAtStart=t,fitOnCamera=false,timeToStartToFitCamera=1,fitCameraInterpTime=.3,diffFocalLengthToReFitCamera=16,callSeOfCameraInterp=i,useLastSelectedIndex=r}return l
+Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",0),isFollowPos=true,isFollowRot=true,followTime=3,followDelayTime=.1,candidateRots={{7,165},{7,-165}},offsetTarget=a,offsetPos=t,focalLength=28,aperture=1.875,timeToSleep=r,interpTimeAtStart=n,fitOnCamera=false,timeToStartToFitCamera=1,fitCameraInterpTime=.3,diffFocalLengthToReFitCamera=16,callSeOfCameraInterp=o,useLastSelectedIndex=i}return l
 end
 e.VEHICLE_MISSION_CLEAR_CAMERA={[Vehicle.type.EASTERN_LIGHT_VEHICLE]=e.PlayMissionClearCameraOnRideLightVehicle,[Vehicle.type.EASTERN_TRACKED_TANK]=e.PlayMissionClearCameraOnRideTank,[Vehicle.type.EASTERN_TRUCK]=e.PlayMissionClearCameraOnRideTruck,[Vehicle.type.EASTERN_WHEELED_ARMORED_VEHICLE]=e.PlayMissionClearCameraOnRideEasternArmoredVehicle,[Vehicle.type.WESTERN_LIGHT_VEHICLE]=e.PlayMissionClearCameraOnRideLightVehicle,[Vehicle.type.WESTERN_TRACKED_TANK]=e.PlayMissionClearCameraOnRideTank,[Vehicle.type.WESTERN_TRUCK]=e.PlayMissionClearCameraOnRideTruck,[Vehicle.type.WESTERN_WHEELED_ARMORED_VEHICLE]=e.PlayMissionClearCameraOnRideWesternArmoredVehicle}function e.FOBPlayMissionClearCamera()local e=e.SetPlayerStatusForMissionEndCamera()if not e then
 return
 end
-o("Timer_FOBStartPlayMissionClearCameraStep1",.25)end
+r("Timer_FOBStartPlayMissionClearCameraStep1",.25)end
 function e._FOBPlayMissionClearCamera(a)e.FOBPlayCommonMissionEndCamera(e.FOBPlayMissionClearCameraOnFoot,a)end
 function e.FOBPlayCommonMissionEndCamera(t,a)local e
 e=t(a)if e then
-local a="Timer_FOBStartPlayMissionClearCameraStep"..tostring(a+1)o(a,e)end
+local a="Timer_FOBStartPlayMissionClearCameraStep"..tostring(a+1)r(a,e)end
 end
 function e.FOBRequestMissionClearMotion()Player.RequestToPlayDirectMotion{"missionClearMotionFob",{"/Assets/tpp/motion/SI_game/fani/bodies/snap/snapnon/snapnon_s_win_idl.gani",false,"","","",false}}end
 function e.FOBPlayMissionClearCameraOnFoot(l)Player.SetCurrentSlot{slotType=PlayerSlotType.ITEM,subIndex=0}if PlayerInfo.OrCheckStatus{PlayerStatus.STAND,PlayerStatus.SQUAT,PlayerStatus.CRAWL}then
 if PlayerInfo.AndCheckStatus{PlayerStatus.CARRY}then
 mvars.ply_requestedMissionClearCameraCarryOff=true
 GameObject.SendCommand({type="TppPlayer2",index=PlayerInfo.GetLocalPlayerIndex()},{id="RequestCarryOff"})elseif PlayerInfo.OrCheckStatus{PlayerStatus.SQUAT,PlayerStatus.CRAWL}then
-Player.RequestToSetTargetStance(PlayerStance.STAND)o("Timer_FOBWaitStandStance",1)else
+Player.RequestToSetTargetStance(PlayerStance.STAND)r("Timer_FOBWaitStandStance",1)else
 e.FOBRequestMissionClearMotion()end
 end
-local r={"SKL_004_HEAD","SKL_002_CHEST"}local t={Vector3(0,.1,0),Vector3(0,-.05,0)}local n={Vector3(.1,.125,.1),Vector3(.15,.1,.05)}local a=Vector3(0,0,-4.5)local e=.3
-local i
-local o=false
+local r={"SKL_004_HEAD","SKL_002_CHEST"}local n={Vector3(0,.1,0),Vector3(0,-.05,0)}local a={Vector3(.1,.125,.1),Vector3(.15,.1,.05)}local t=Vector3(0,0,-4.5)local e=.3
+local o
+local i=false
 if l==1 then
-r={"SKL_004_HEAD","SKL_002_CHEST"}t={Vector3(0,.25,0),Vector3(0,-.05,0)}n={Vector3(.1,.125,.1),Vector3(.1,.125,.1)}a=Vector3(0,0,-1)e=.3
-i=1
-o=true
+r={"SKL_004_HEAD","SKL_002_CHEST"}n={Vector3(0,.25,0),Vector3(0,-.05,0)}a={Vector3(.1,.125,.1),Vector3(.1,.125,.1)}t=Vector3(0,0,-1)e=.3
+o=1
+i=true
 else
-r={"SKL_004_HEAD","SKL_002_CHEST"}t={Vector3(0,.15,0),Vector3(0,-.05,0)}n={Vector3(.1,.125,.1),Vector3(.1,.125,.1)}a=Vector3(0,0,-1.5)e=3
+r={"SKL_004_HEAD","SKL_002_CHEST"}n={Vector3(0,.15,0),Vector3(0,-.05,0)}a={Vector3(.1,.125,.1),Vector3(.1,.125,.1)}t=Vector3(0,0,-1.5)e=3
 end
-Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",0),isFollowPos=true,isFollowRot=true,followTime=4,followDelayTime=.1,candidateRots={{-10,170},{-10,-170}},skeletonNames=r,skeletonCenterOffsets=t,skeletonBoundings=n,offsetPos=a,focalLength=28,aperture=1.875,timeToSleep=20,interpTimeAtStart=e,fitOnCamera=false,timeToStartToFitCamera=1,fitCameraInterpTime=.3,diffFocalLengthToReFitCamera=16,callSeOfCameraInterp=o}return i
+Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",0),isFollowPos=true,isFollowRot=true,followTime=4,followDelayTime=.1,candidateRots={{-10,170},{-10,-170}},skeletonNames=r,skeletonCenterOffsets=n,skeletonBoundings=a,offsetPos=t,focalLength=28,aperture=1.875,timeToSleep=20,interpTimeAtStart=e,fitOnCamera=false,timeToStartToFitCamera=1,fitCameraInterpTime=.3,diffFocalLengthToReFitCamera=16,callSeOfCameraInterp=i}return o
 end
 function e.PlayMissionAbortCamera()local e=e.SetPlayerStatusForMissionEndCamera()if not e then
 return
 end
-o("Timer_StartPlayMissionAbortCamera",.25)end
+r("Timer_StartPlayMissionAbortCamera",.25)end
 function e._PlayMissionAbortCamera()TppMusicManager.PostJingleEvent("SingleShot","Play_bgm_common_jingle_failed")e.PlayCommonMissionEndCamera(e.PlayMissionAbortCameraOnRideHorse,e.VEHICLE_MISSION_ABORT_CAMERA,e.PlayMissionAbortCameraOnWalkerGear,e.PlayMissionAbortCameraOnFoot)end
 function e.PlayMissionAbortCameraOnFoot()Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",0),isFollowPos=true,isFollowRot=true,followTime=4,followDelayTime=.1,candidateRots={{6,10},{6,-10}},skeletonNames={"SKL_004_HEAD","SKL_031_LLEG","SKL_041_RLEG"},skeletonCenterOffsets={Vector3(0,.2,0),Vector3(-.15,0,0),Vector3(-.15,0,0)},skeletonBoundings={Vector3(.1,.125,.1),Vector3(.15,.1,.05),Vector3(.15,.1,.05)},offsetPos=Vector3(0,0,-3),focalLength=28,aperture=1.875,timeToSleep=20,interpTimeAtStart=.5,fitOnCamera=false,timeToStartToFitCamera=1,fitCameraInterpTime=.3,diffFocalLengthToReFitCamera=16}end
 function e.PlayMissionAbortCameraOnRideHorse(e)Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",0),isFollowPos=true,isFollowRot=true,followTime=4,followDelayTime=.1,candidateRots={{6,20},{6,-20}},skeletonNames={"SKL_004_HEAD","SKL_031_LLEG","SKL_041_RLEG"},skeletonCenterOffsets={Vector3(0,.2,0),Vector3(-.15,0,0),Vector3(-.15,0,0)},skeletonBoundings={Vector3(.1,.125,.1),Vector3(.15,.1,.05),Vector3(.15,.1,.05)},offsetPos=Vector3(0,0,-3),focalLength=28,aperture=1.875,timeToSleep=20,interpTimeAtStart=.5,fitOnCamera=false,timeToStartToFitCamera=1,fitCameraInterpTime=.3,diffFocalLengthToReFitCamera=16}end
@@ -995,7 +1004,7 @@ function e.PlayFallDeadCameraOnRideTruck(a)local e=e.GetFallDeadCameraOffsetPosY
 function e.PlayFallDeadCameraOnRideArmoredVehicle(a)local e=e.GetFallDeadCameraOffsetPosY()Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",mvars.ply_fallDeadCameraTargetPlayerIndex),isFollowPos=false,isFollowRot=true,followTime=.8,followDelayTime=0,candidateRots={{-60,-25},{-60,25},{-60,-115},{-60,115},{5,-25},{5,25},{5,-115},{5,115}},offsetTarget=Vector3(0,0,0),offsetPos=Vector3(-4,(e+1),-8),focalLength=21,aperture=1.875,timeToSleep=mvars.ply_fallDeadCameraTimeToSleep,interpTimeAtStart=0,fitOnCamera=false}end
 function e.PlayFallDeadCameraOnRideTank(a)local e=e.GetFallDeadCameraOffsetPosY()Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",mvars.ply_fallDeadCameraTargetPlayerIndex),isFollowPos=false,isFollowRot=true,followTime=.8,followDelayTime=0,candidateRots={{-60,-25},{-60,25},{-60,-115},{-60,115},{5,-25},{5,25},{5,-115},{5,115}},offsetTarget=Vector3(0,0,0),offsetPos=Vector3(-4,(e+1),-8),focalLength=21,aperture=1.875,timeToSleep=mvars.ply_fallDeadCameraTimeToSleep,interpTimeAtStart=0,fitOnCamera=false}end
 function e.PlayFallDeadCameraOnWalkerGear(a)local a=e.GetFallDeadCameraOffsetPosY()Player.RequestToPlayCameraNonAnimation{characterId=GameObject.GetGameObjectIdByIndex("TppPlayer2",mvars.ply_fallDeadCameraTargetPlayerIndex),isFollowPos=false,isFollowRot=true,followTime=.8,followDelayTime=0,candidateRots={{-60,-25},{-60,25},{-60,-115},{-60,115},{5,-25},{5,25},{5,-115},{5,115}},offsetTarget=Vector3(0,0,0),offsetPos=Vector3(-4,(a+1),-8),focalLength=21,aperture=1.875,timeToSleep=mvars.ply_fallDeadCameraTimeToSleep,interpTimeAtStart=0,fitOnCamera=false}end
-e.VEHICLE_FALL_DEAD_CAMERA={[Vehicle.type.EASTERN_LIGHT_VEHICLE]=e.PlayFallDeadCameraOnRideLightVehicle,[Vehicle.type.EASTERN_TRACKED_TANK]=e.PlayFallDeadCameraOnRideTank,[Vehicle.type.EASTERN_TRUCK]=e.PlayFallDeadCameraOnRideTruck,[Vehicle.type.EASTERN_WHEELED_ARMORED_VEHICLE]=e.PlayFallDeadCameraOnRideArmoredVehicle,[Vehicle.type.WESTERN_LIGHT_VEHICLE]=e.PlayFallDeadCameraOnRideLightVehicle,[Vehicle.type.WESTERN_TRACKED_TANK]=e.PlayFallDeadCameraOnRideTank,[Vehicle.type.WESTERN_TRUCK]=e.PlayFallDeadCameraOnRideTruck,[Vehicle.type.WESTERN_WHEELED_ARMORED_VEHICLE]=e.PlayFallDeadCameraOnRideArmoredVehicle}function e.Messages()local n=Tpp.StrCode32Table{Player={{msg="CalcFultonPercent",func=function(t,n,o,a,r)e.MakeFultonRecoverSucceedRatio(t,n,o,a,r,false)end},{msg="CalcDogFultonPercent",func=function(r,n,o,a,t)e.MakeFultonRecoverSucceedRatio(r,n,o,a,t,true)end},{msg="RideHelicopter",func=e.SetHelicopterInsideAction},{msg="PlayerFulton",func=e.OnPlayerFulton},{msg="OnPickUpCollection",func=e.OnPickUpCollection},{msg="OnPickUpPlaced",func=e.OnPickUpPlaced},{msg="OnPickUpWeapon",func=e.OnPickUpWeapon},{msg="WarpEnd",func=e.OnEndWarpByCboxDelivery},{msg="LandingFromHeli",func=function()e.UpdateCheckPointOnMissionStartDrop()end},{msg="EndCarryAction",func=function()if mvars.ply_requestedMissionClearCameraCarryOff then
+e.VEHICLE_FALL_DEAD_CAMERA={[Vehicle.type.EASTERN_LIGHT_VEHICLE]=e.PlayFallDeadCameraOnRideLightVehicle,[Vehicle.type.EASTERN_TRACKED_TANK]=e.PlayFallDeadCameraOnRideTank,[Vehicle.type.EASTERN_TRUCK]=e.PlayFallDeadCameraOnRideTruck,[Vehicle.type.EASTERN_WHEELED_ARMORED_VEHICLE]=e.PlayFallDeadCameraOnRideArmoredVehicle,[Vehicle.type.WESTERN_LIGHT_VEHICLE]=e.PlayFallDeadCameraOnRideLightVehicle,[Vehicle.type.WESTERN_TRACKED_TANK]=e.PlayFallDeadCameraOnRideTank,[Vehicle.type.WESTERN_TRUCK]=e.PlayFallDeadCameraOnRideTruck,[Vehicle.type.WESTERN_WHEELED_ARMORED_VEHICLE]=e.PlayFallDeadCameraOnRideArmoredVehicle}function e.Messages()local n=Tpp.StrCode32Table{Player={{msg="CalcFultonPercent",func=function(r,n,t,a,o)e.MakeFultonRecoverSucceedRatio(r,n,t,a,o,false)end},{msg="CalcDogFultonPercent",func=function(r,n,o,a,t)e.MakeFultonRecoverSucceedRatio(r,n,o,a,t,true)end},{msg="RideHelicopter",func=e.SetHelicopterInsideAction},{msg="PlayerFulton",func=e.OnPlayerFulton},{msg="OnPickUpCollection",func=e.OnPickUpCollection},{msg="OnPickUpPlaced",func=e.OnPickUpPlaced},{msg="OnPickUpWeapon",func=e.OnPickUpWeapon},{msg="WarpEnd",func=e.OnEndWarpByCboxDelivery},{msg="LandingFromHeli",func=function()e.UpdateCheckPointOnMissionStartDrop()end},{msg="EndCarryAction",func=function()if mvars.ply_requestedMissionClearCameraCarryOff then
 if PlayerInfo.AndCheckStatus{PlayerStatus.STAND}then
 e.RequestMissionClearMotion()end
 end
@@ -1126,22 +1135,22 @@ function e.SetSelfSubsistenceOnHardMission()if TppMission.IsSubsistenceMission()
 e.SetInitWeapons(TppDefine.CYPR_PLAYER_INITIAL_WEAPON_TABLE)e.SetInitItems(TppDefine.CYPR_PLAYER_INITIAL_ITEM_TABLE)e.RegisterTemporaryPlayerType{partsType=PlayerPartsType.NORMAL,camoType=PlayerCamoType.OLIVEDRAB,handEquip=TppEquip.EQP_HAND_NORMAL,faceEquipId=0}end
 end
 function e.OnReload()e.messageExecTable=Tpp.MakeMessageExecTable(e.Messages())end
-function e.OnMessage(i,l,r,o,a,n,t)Tpp.DoMessage(e.messageExecTable,TppMission.CheckMessageOption,i,l,r,o,a,n,t)end
+function e.OnMessage(l,a,i,o,t,n,r)Tpp.DoMessage(e.messageExecTable,TppMission.CheckMessageOption,l,a,i,o,t,n,r)end
 function e.Update()e.UpdateDeliveryWarp()end
-local c={[TppDefine.WEATHER.SUNNY]=0,[TppDefine.WEATHER.CLOUDY]=-10,[TppDefine.WEATHER.RAINY]=-30,[TppDefine.WEATHER.FOGGY]=-50,[TppDefine.WEATHER.SANDSTORM]=-70}function e.MakeFultonRecoverSucceedRatio(t,a,p,r,l,i)local o={[TppMotherBaseManagementConst.SECTION_FUNC_RANK_S]=60,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_A]=50,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_B]=40,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_C]=30,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_D]=20,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_E]=10,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_F]=0,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_NONE]=0}local t=a
+local c={[TppDefine.WEATHER.SUNNY]=0,[TppDefine.WEATHER.CLOUDY]=-10,[TppDefine.WEATHER.RAINY]=-30,[TppDefine.WEATHER.FOGGY]=-50,[TppDefine.WEATHER.SANDSTORM]=-70}function e.MakeFultonRecoverSucceedRatio(t,a,i,l,r,o)local s={[TppMotherBaseManagementConst.SECTION_FUNC_RANK_S]=60,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_A]=50,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_B]=40,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_C]=30,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_D]=20,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_E]=10,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_F]=0,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_NONE]=0}local t=a
 local a=0
-local s=100
+local p=100
 local n=0
-n=TppTerminal.DoFuncByFultonTypeSwitch(t,p,r,l,nil,nil,nil,e.GetSoldierFultonSucceedRatio,e.GetVolginFultonSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio)if n==nil then
+n=TppTerminal.DoFuncByFultonTypeSwitch(t,i,l,r,nil,nil,nil,e.GetSoldierFultonSucceedRatio,e.GetVolginFultonSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio,e.GetDefaultSucceedRatio)if n==nil then
 n=100
 end
-local e=TppMotherBaseManagement.GetSectionFuncRank{sectionFuncId=TppMotherBaseManagementConst.SECTION_FUNC_ID_SUPPORT_FULTON}local r=o[e]or 0
+local e=TppMotherBaseManagement.GetSectionFuncRank{sectionFuncId=TppMotherBaseManagementConst.SECTION_FUNC_ID_SUPPORT_FULTON}local r=s[e]or 0
 local e=c[vars.weather]or 0
 e=e+r
 if e>0 then
 e=0
 end
-a=(s+n)+e
+a=(p+n)+e
 if mvars.ply_allways_100percent_fulton then
 a=100
 end
@@ -1154,13 +1163,13 @@ e=mvars.ply_forceFultonPercent[t]end
 if e then
 a=e
 end
-if i then
+if o then
 Player.SetDogFultonIconPercentage{percentage=a,targetId=t}else
 Player.SetFultonIconPercentage{percentage=a,targetId=t}end
 end
 function e.GetSoldierFultonSucceedRatio(t)local e=0
 local n=0
-local a=r(t,{id="GetLifeStatus"})local o=GameObject.SendCommand(t,{id="GetStateFlag"})if(bit.band(o,StateFlag.DYING_LIFE)~=0)then
+local a=o(t,{id="GetLifeStatus"})local r=GameObject.SendCommand(t,{id="GetStateFlag"})if(bit.band(r,StateFlag.DYING_LIFE)~=0)then
 e=-70
 elseif(a==TppGameObject.NPC_LIFE_STATE_SLEEP)or(a==TppGameObject.NPC_LIFE_STATE_FAINT)then
 e=0
@@ -1169,12 +1178,12 @@ mvars.ply_OnFultonIconDying()end
 elseif(a==TppGameObject.NPC_LIFE_STATE_DEAD)then
 return
 end
-local a={[TppMotherBaseManagementConst.SECTION_FUNC_RANK_S]=60,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_A]=50,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_B]=40,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_C]=30,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_D]=20,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_E]=10,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_F]=0,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_NONE]=0}local o=TppMotherBaseManagement.GetSectionFuncRank{sectionFuncId=TppMotherBaseManagementConst.SECTION_FUNC_ID_MEDICAL_STAFF_EMERGENCY}local a=a[o]or 0
+local a={[TppMotherBaseManagementConst.SECTION_FUNC_RANK_S]=60,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_A]=50,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_B]=40,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_C]=30,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_D]=20,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_E]=10,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_F]=0,[TppMotherBaseManagementConst.SECTION_FUNC_RANK_NONE]=0}local r=TppMotherBaseManagement.GetSectionFuncRank{sectionFuncId=TppMotherBaseManagementConst.SECTION_FUNC_ID_MEDICAL_STAFF_EMERGENCY}local a=a[r]or 0
 e=e+a
 if e>0 then
 e=0
 end
-local a=r(t,{id="GetStatus"})if a==EnemyState.STAND_HOLDUP then
+local a=o(t,{id="GetStatus"})if a==EnemyState.STAND_HOLDUP then
 n=-10
 end
 return(e+n)end
@@ -1187,10 +1196,10 @@ function e.OnPlayerFulton(e,r)if e~=PlayerInfo.GetLocalPlayerIndex()then
 return
 end
 local n=300
-local e=1e4
 local a=1e4
+local e=1e4
 local t=5e3
-local a={[TppGameObject.GAME_OBJECT_TYPE_WALKERGEAR2]=e,[TppGameObject.GAME_OBJECT_TYPE_COMMON_WALKERGEAR2]=e,[TppGameObject.GAME_OBJECT_TYPE_BATTLEGEAR]=e,[TppGameObject.GAME_OBJECT_TYPE_VEHICLE]=a,[TppGameObject.GAME_OBJECT_TYPE_FULTONABLE_CONTAINER]=a,[TppGameObject.GAME_OBJECT_TYPE_GATLINGGUN]=a,[TppGameObject.GAME_OBJECT_TYPE_MORTAR]=t,[TppGameObject.GAME_OBJECT_TYPE_MACHINEGUN]=t}local e
+local a={[TppGameObject.GAME_OBJECT_TYPE_WALKERGEAR2]=a,[TppGameObject.GAME_OBJECT_TYPE_COMMON_WALKERGEAR2]=a,[TppGameObject.GAME_OBJECT_TYPE_BATTLEGEAR]=a,[TppGameObject.GAME_OBJECT_TYPE_VEHICLE]=e,[TppGameObject.GAME_OBJECT_TYPE_FULTONABLE_CONTAINER]=e,[TppGameObject.GAME_OBJECT_TYPE_GATLINGGUN]=e,[TppGameObject.GAME_OBJECT_TYPE_MORTAR]=t,[TppGameObject.GAME_OBJECT_TYPE_MACHINEGUN]=t}local e
 local t=GameObject.GetTypeIndex(r)e=a[t]or n
 TppTerminal.UpdateGMP{gmp=-e,gmpCostType=TppDefine.GMP_COST_TYPE.FULTON}svars.supportGmpCost=svars.supportGmpCost+e
 end
@@ -1205,19 +1214,19 @@ function e.UnsetRetryFlag()vars.playerRetryFlag=0
 end
 function e.ResetStealthAssistCount()vars.stealthAssistLeftCount=0
 end
-function e.OnPickUpCollection(i,t,a,o)local i=255
-TppCollection.RepopCountOperation("SetAt",t,i)TppTerminal.AddPickedUpResourceToTempBuffer(a,o)local i={[TppCollection.TYPE_POSTER_SOL_AFGN]="key_poster_3500",[TppCollection.TYPE_POSTER_SOL_MAFR]="key_poster_3501",[TppCollection.TYPE_POSTER_GRAVURE_V]="key_poster_3502",[TppCollection.TYPE_POSTER_GRAVURE_H]="key_poster_3503",[TppCollection.TYPE_POSTER_MOE_V]="key_poster_3504",[TppCollection.TYPE_POSTER_MOE_H]="key_poster_3505"}local i=i[a]if i~=nil then
-TppUI.ShowAnnounceLog("getPoster",i,TppTerminal.GMP_POSTER)end
-local i
+function e.OnPickUpCollection(r,t,a,i)local r=255
+TppCollection.RepopCountOperation("SetAt",t,r)TppTerminal.AddPickedUpResourceToTempBuffer(a,i)local r={[TppCollection.TYPE_POSTER_SOL_AFGN]="key_poster_3500",[TppCollection.TYPE_POSTER_SOL_MAFR]="key_poster_3501",[TppCollection.TYPE_POSTER_GRAVURE_V]="key_poster_3502",[TppCollection.TYPE_POSTER_GRAVURE_H]="key_poster_3503",[TppCollection.TYPE_POSTER_MOE_V]="key_poster_3504",[TppCollection.TYPE_POSTER_MOE_H]="key_poster_3505"}local r=r[a]if r~=nil then
+TppUI.ShowAnnounceLog("getPoster",r,TppTerminal.GMP_POSTER)end
+local r
 if TppTerminal.RESOURCE_INFORMATION_TABLE[a]and TppTerminal.RESOURCE_INFORMATION_TABLE[a].count then
-i=TppTerminal.RESOURCE_INFORMATION_TABLE[a].count
+r=TppTerminal.RESOURCE_INFORMATION_TABLE[a].count
 end
 if TppCollection.IsHerbByType(a)then
 local e=GameObject.GetGameObjectIdByIndex("TppBuddyDog2",0)if e~=n then
-r(e,{id="GetPlant",uniqueId=t})end
+o(e,{id="GetPlant",uniqueId=t})end
 end
 if TppCollection.IsMaterialByType(a)then
-TppUI.ShowAnnounceLog("find_processed_res",o,i)end
+TppUI.ShowAnnounceLog("find_processed_res",i,r)end
 if a==TppCollection.TYPE_DIAMOND_SMALL then
 TppUI.ShowAnnounceLog("find_diamond",TppDefine.SMALL_DIAMOND_GMP)end
 if a==TppCollection.TYPE_DIAMOND_LARGE then
@@ -1225,16 +1234,16 @@ TppUI.ShowAnnounceLog("find_diamond",TppDefine.LARGE_DIAMOND_GMP)end
 local a=mvars.ply_locationStationTable[t]if a then
 TppUI.ShowAnnounceLog"get_invoice"TppUI.ShowAnnounceLog"add_delivery_point"TppCollection.SetValidStation(a)e.CheckAllStationPickedUp()end
 TppTerminal.PickUpBluePrint(t)TppTerminal.PickUpEmblem(t)end
-function e.CheckAllStationPickedUp()local e=true
-for t,a in ipairs(mvars.ply_stationLocatorList)do
-local a=TppCollection.RepopCountOperation("GetAt",a)if a then
-if a<1 then
-e=false
+function e.CheckAllStationPickedUp()local a=true
+for t,e in ipairs(mvars.ply_stationLocatorList)do
+local e=TppCollection.RepopCountOperation("GetAt",e)if e then
+if e<1 then
+a=false
 break
 end
 end
 end
-if e then
+if a then
 TppTerminal.AcquireKeyItem{dataBaseId=TppMotherBaseManagementConst.DESIGN_3011,isShowAnnounceLog=true}if TppLocation.IsAfghan()then
 gvars.ply_isAllGotStation_Afgh=true
 elseif TppLocation.IsMiddleAfrica()then
@@ -1245,16 +1254,16 @@ TppTerminal.AcquireKeyItem{dataBaseId=TppMotherBaseManagementConst.DESIGN_3012,i
 end
 end
 function e.OnPickUpPlaced(e,e,a)local e=GameObject.GetGameObjectIdByIndex("TppBuddyDog2",0)if e~=n then
-r(e,{id="GetPlacedItem",index=a})end
+o(e,{id="GetPlacedItem",index=a})end
 end
-function e.OnPickUpWeapon(t,a,e)if a==TppEquip.EQP_IT_Cassette then
-TppCassette.AcquireOnPickUp(e)end
+function e.OnPickUpWeapon(t,e,a)if e==TppEquip.EQP_IT_Cassette then
+TppCassette.AcquireOnPickUp(a)end
 end
 function e.RestoreSupplyCbox()if e.IsExistSupplyCboxSystem()then
-local e={type="TppSupplyCboxSystem"}r(e,{id="RestoreRequest"})end
+local e={type="TppSupplyCboxSystem"}o(e,{id="RestoreRequest"})end
 end
 function e.StoreSupplyCbox()if e.IsExistSupplyCboxSystem()then
-local e={type="TppSupplyCboxSystem"}r(e,{id="StoreRequest"})end
+local e={type="TppSupplyCboxSystem"}o(e,{id="StoreRequest"})end
 end
 function e.IsExistSupplyCboxSystem()if GameObject.GetGameObjectIdByIndex("TppSupplyCboxSystem",0)~=n then
 return true
@@ -1263,10 +1272,10 @@ return false
 end
 end
 function e.RestoreSupportAttack()if e.IsExistSupportAttackSystem()then
-local e={type="TppSupportAttackSystem"}r(e,{id="RestoreRequest"})end
+local e={type="TppSupportAttackSystem"}o(e,{id="RestoreRequest"})end
 end
 function e.StoreSupportAttack()if e.IsExistSupportAttackSystem()then
-local e={type="TppSupportAttackSystem"}r(e,{id="StoreRequest"})end
+local e={type="TppSupportAttackSystem"}o(e,{id="StoreRequest"})end
 end
 function e.IsExistSupportAttackSystem()if GameObject.GetGameObjectIdByIndex("TppSupportAttackSystem",0)~=n then
 return true
@@ -1275,7 +1284,7 @@ return false
 end
 end
 function e.StorePlayerDecoyInfos()if e.IsExistDecoySystem()then
-local e={type="TppDecoySystem"}r(e,{id="StorePlayerDecoyInfos"})end
+local e={type="TppDecoySystem"}o(e,{id="StorePlayerDecoyInfos"})end
 end
 function e.IsExistDecoySystem()if GameObject.GetGameObjectIdByIndex("TppDecoySystem",0)~=n then
 return true
@@ -1283,8 +1292,8 @@ else
 return false
 end
 end
-local t=7.5
-local a=3.5
+local a=7.5
+local t=3.5
 e.DELIVERY_WARP_STATE=Tpp.Enum{"START_FADE_OUT","START_WARP","END_WARP","START_FADE_IN"}function e.OnSelectCboxDelivery(a)Player.SetPadMask{settingName="CboxDelivery",except=true}mvars.ply_deliveryWarpState=e.DELIVERY_WARP_STATE.START_FADE_OUT
 mvars.ply_selectedCboxDeliveryUniqueId=a
 mvars.ply_playingDeliveryWarpSoundHandle=TppSoundDaemon.PostEventAndGetHandle("Play_truck_transfer","Loading")TppUI.FadeOut(TppUI.FADE_SPEED.FADE_HIGHESTSPEED,"OnSelectCboxDelivery",nil,{setMute=true})end
@@ -1294,7 +1303,7 @@ end
 TppGameStatus.Set("TppPlayer.WarpByCboxDelivery","S_IS_BLACK_LOADING")if TppMission.GetMissionID()==30010 or TppMission.GetMissionID()==30020 then
 TppQuest.DeactivateCurrentQuestBlock()TppQuest.ClearBlockStateRequest()end
 mvars.ply_deliveryWarpState=e.DELIVERY_WARP_STATE.START_WARP
-o("Timer_DeliveryWarpSoundCannotCancel",t)local a={type="TppPlayer2",index=0}local e={id="WarpToStation",stationId=mvars.ply_selectedCboxDeliveryUniqueId}GameObject.SendCommand(a,e)end
+r("Timer_DeliveryWarpSoundCannotCancel",a)local a={type="TppPlayer2",index=0}local e={id="WarpToStation",stationId=mvars.ply_selectedCboxDeliveryUniqueId}GameObject.SendCommand(a,e)end
 function e.OnEndWarpByCboxDelivery()if mvars.ply_deliveryWarpState==e.DELIVERY_WARP_STATE.START_WARP then
 mvars.ply_deliveryWarpState=e.DELIVERY_WARP_STATE.END_WARP
 end
@@ -1335,14 +1344,14 @@ function e.OnEndFadeInWarpByCboxDelivery()mvars.ply_selectedCboxDeliveryUniqueId
 mvars.ply_deliveryWarpState=nil
 mvars.ply_deliveryWarpSoundCannotCancel=nil
 p"Timer_DeliveryWarpSoundCannotCancel"Player.ResetPadMask{settingName="CboxDelivery"}end
-function e.OnEnterIntelMarkerTrap(e,a)local e=mvars.ply_intelMarkerTrapInfo[e]local a=mvars.ply_intelFlagInfo[e]if a then
-if svars[a]then
+function e.OnEnterIntelMarkerTrap(e,a)local a=mvars.ply_intelMarkerTrapInfo[e]local e=mvars.ply_intelFlagInfo[a]if e then
+if svars[e]then
 return
 end
 else
 return
 end
-local e=mvars.ply_intelMarkerObjectiveName[e]if e then
+local e=mvars.ply_intelMarkerObjectiveName[a]if e then
 TppMission.UpdateObjective{objectives={e}}end
 end
 function e.OnEnterIntelTrap(a,t)local a=mvars.ply_intelTrapInfo[a]e.ShowIconForIntel(a)end
@@ -1373,16 +1382,16 @@ local a,e,t,t=e.EvaluateCaptureCage(a.x,a.z,a.grade,a.material)if e~=0 then
 CaptureCage.RegisterCaptureAnimal(e,a)end
 end
 TppPlaced.DeleteAllCaptureCage()end
-function e.AggregateCaptureAnimal()local a=0
-local e=0
+function e.AggregateCaptureAnimal()local e=0
+local a=0
 local t=CaptureCage.GetCaptureAnimalList()for t,n in pairs(t)do
 local t=n.animalId
 local n=n.areaName
-TppMotherBaseManagement.DirectAddDataBaseAnimal{dataBaseId=t,areaNameHash=n,isNew=true}local n,r=TppMotherBaseManagement.GetAnimalHeroicPointAndGmp{dataBaseId=t}a=a+n
-e=e+r
+TppMotherBaseManagement.DirectAddDataBaseAnimal{dataBaseId=t,areaNameHash=n,isNew=true}local n,r=TppMotherBaseManagement.GetAnimalHeroicPointAndGmp{dataBaseId=t}e=e+n
+a=a+r
 TppUiCommand.ShowBonusPopupAnimal(t,"regist")end
-if a>0 or e>0 then
-TppMotherBaseManagement.AddHeroicPointAndGmpByCageAnimal{heroicPoint=a,gmp=e,isAnnounce=true}end
+if e>0 or a>0 then
+TppMotherBaseManagement.AddHeroicPointAndGmpByCageAnimal{heroicPoint=e,gmp=a,isAnnounce=true}end
 end
 function e.CheckCaptureCage(n,r)if mvars.loc_locationAnimalSettingTable==nil then
 return
@@ -1390,26 +1399,26 @@ end
 if n<2 or n>4 then
 return
 end
-local t={}local a=5
-local o=r/a
+local a={}local t=5
+local o=r/t
 for r=1,o do
 if n==2 then
-Player.DEBUG_PlaceAround{radius=5,count=a,equipId=TppEquip.EQP_SWP_CaptureCage}elseif n==3 then
-Player.DEBUG_PlaceAround{radius=5,count=a,equipId=TppEquip.EQP_SWP_CaptureCage_G01}elseif n==4 then
-Player.DEBUG_PlaceAround{radius=5,count=a,equipId=TppEquip.EQP_SWP_CaptureCage_G02}end
-for e=1,a do
+Player.DEBUG_PlaceAround{radius=5,count=t,equipId=TppEquip.EQP_SWP_CaptureCage}elseif n==3 then
+Player.DEBUG_PlaceAround{radius=5,count=t,equipId=TppEquip.EQP_SWP_CaptureCage_G01}elseif n==4 then
+Player.DEBUG_PlaceAround{radius=5,count=t,equipId=TppEquip.EQP_SWP_CaptureCage_G02}end
+for e=1,t do
 coroutine.yield()end
-local a=TppPlaced.GetCaptureCageInfo()for n,a in pairs(a)do
-local n,a,r,e=e.EvaluateCaptureCage(a.x,a.z,a.grade,a.material)if a~=0 then
-TppMotherBaseManagement.DirectAddDataBaseAnimal{dataBaseId=a,areaName=n,isNew=true}if t[e]==nil then
-t[e]=1
+local t=TppPlaced.GetCaptureCageInfo()for n,t in pairs(t)do
+local n,t,r,e=e.EvaluateCaptureCage(t.x,t.z,t.grade,t.material)if t~=0 then
+TppMotherBaseManagement.DirectAddDataBaseAnimal{dataBaseId=t,areaName=n,isNew=true}if a[e]==nil then
+a[e]=1
 else
-t[e]=t[e]+1
+a[e]=a[e]+1
 end
 end
 end
 TppPlaced.DeleteAllCaptureCage()end
-for a,e in pairs(t)do
+for a,e in pairs(a)do
 local e=(e/r)*100
 end
 end
@@ -1442,8 +1451,8 @@ return false
 end
 return true
 end
-function e._CheckRotation(n,o,r,a,e)local e=mvars
-local e=vars.playerCameraRotation[0]local t=vars.playerCameraRotation[1]local e=foxmath.DegreeToRadian(e-n)e=foxmath.NormalizeRadian(e)local n=foxmath.RadianToDegree(e)local e=foxmath.DegreeToRadian(t-r)e=foxmath.NormalizeRadian(e)local e=foxmath.RadianToDegree(e)if(foxmath.Absf(n)<o)and(foxmath.Absf(e)<a)then
+function e._CheckRotation(e,a,t,n,r)local r=mvars
+local r=vars.playerCameraRotation[0]local o=vars.playerCameraRotation[1]local e=foxmath.DegreeToRadian(r-e)e=foxmath.NormalizeRadian(e)local r=foxmath.RadianToDegree(e)local e=foxmath.DegreeToRadian(o-t)e=foxmath.NormalizeRadian(e)local e=foxmath.RadianToDegree(e)if(foxmath.Absf(r)<a)and(foxmath.Absf(e)<n)then
 return true
 else
 return false

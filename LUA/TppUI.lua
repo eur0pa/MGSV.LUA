@@ -490,7 +490,10 @@ TppUiCommand.RegistCpNameBaseLangId("helicopterSpace","tpp_heli_acc")TppUiComman
 TppUiCommand.SetMission10115Emergency(false)else
 TppUiCommand.SetMission10115Emergency(true)end
 TppUiCommand.HidePictureInfoHud()TppUiCommand.RegisterMemorialMission{10010,10030,10240}if TppStory.IsMissionCleard(10260)then
-TppUiCommand.SetMissionNameStatus{missionId=10260,type="REPLAY"}TppUiCommand.SetMissionNameStatus{missionId=10050,type="REPLAY"}else
+TppUiCommand.SetMissionNameStatus{missionId=10260,type="REPLAY"}if TppStory.CanPlayReunionQuietMission()then
+TppUiCommand.SetMissionNameStatus{missionId=10050,type="REUNION"}else
+TppUiCommand.SetMissionNameStatus{missionId=10050,type="REPLAY"}end
+else
 TppUiCommand.SetMissionNameStatus{missionId=10050,type="DEFAULT"}TppUiCommand.SetMissionNameStatus{missionId=10260,type="DEFAULT"}end
 TppUiCommand.SetMissionNameStatus{missionId=10070,type="DEFAULT"}TppUiCommand.SetMissionNameStatus{missionId=10120,type="DEFAULT"}if TppDemo.IsPlayedMBEventDemo"TheGreatEscapeLiquid"then
 TppUiCommand.SetMissionNameStatus{missionId=10120,type="REPLAY"}end

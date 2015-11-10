@@ -123,7 +123,7 @@ end
 if(vars.playerType==PlayerType.DD_MALE or vars.playerType==PlayerType.DD_FEMALE)then
 TppTrophy.Unlock(11)end
 a=e.UpdateGmpOnMissionClear(vars.missionCode,t,n)if vars.totalBatteryPowerAsGmp then
-TppTerminal.UpdateGMP{gmp=vars.totalBatteryPowerAsGmp}end
+TppUiCommand.SetResultBatteryGmp(vars.totalBatteryPowerAsGmp)TppTerminal.UpdateGMP{gmp=vars.totalBatteryPowerAsGmp}end
 e.SetBestRank(vars.missionCode,t)if a then
 local t=e.CalcMissionClearHistorySize()e.SetMissionClearHistorySize(t)e.AddMissionClearHistory(vars.missionCode)end
 if vars.missionCode==10020 then
@@ -143,7 +143,7 @@ return false
 end
 end
 function e.RegistUsedLimitedItemLangId()mvars.res_isUsedRankLimitedItem=false
-local e={{PlayerPlayFlag.USE_CHICKEN_CAP,"name_st_chiken"},{PlayerPlayFlag.USE_STEALTH,"name_it_12043"},{PlayerPlayFlag.USE_INSTANT_STEALTH,"name_it_12040"},{PlayerPlayFlag.USE_FULTON_MISSILE,"name_dw_31007"},{PlayerPlayFlag.USE_PARASITE_CAMO,"name_it_13050"},{PlayerPlayFlag.USE_MUGEN_BANDANA,"name_st_37002"}}for t,e in ipairs(e)do
+local e={{PlayerPlayFlag.USE_CHICKEN_CAP,"name_st_chiken"},{PlayerPlayFlag.USE_STEALTH,"name_it_12043"},{PlayerPlayFlag.USE_INSTANT_STEALTH,"name_it_12040"},{PlayerPlayFlag.USE_FULTON_MISSILE,"name_dw_31007"},{PlayerPlayFlag.USE_PARASITE_CAMO,"name_it_13050"},{PlayerPlayFlag.USE_MUGEN_BANDANA,"name_st_37002"},{PlayerPlayFlag.USE_HIGHGRADE_EQUIP,"result_spcialitem_etc"}}for t,e in ipairs(e)do
 local e,t=e[1],e[2]if e then
 if bit.band(vars.playerPlayFlag,e)==e then
 mvars.res_isUsedRankLimitedItem=true

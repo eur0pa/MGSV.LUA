@@ -1,8 +1,8 @@
-local e={}local i=TppScriptVars.IsSavingOrLoading
+local e={}local t=TppScriptVars.IsSavingOrLoading
 e.saveQueueDepth=0
-e.saveQueueList={}local function n(n)if gvars.sav_isReservedMbSaveResultNotify then
+e.saveQueueList={}local function a(a)if gvars.sav_isReservedMbSaveResultNotify then
 gvars.sav_isReservedMbSaveResultNotify=false
-if n then
+if a then
 TppMotherBaseManagement.SetRequestSaveResultSuccess()else
 TppMotherBaseManagement.SetRequestSaveResultFailure()end
 end
@@ -13,7 +13,7 @@ end
 if(vars.isPersonalDirty==1)then
 vars.isPersonalDirty=0
 end
-end,[Fox.StrCode32(TppDefine.GAME_SAVE_FILE_NAME)]=n,[Fox.StrCode32(TppDefine.GAME_SAVE_FILE_NAME_TMP)]=n}function e.GetSaveFileVersion(e)return(TppDefine.SAVE_FILE_INFO[e].version+TppDefine.PROGRAM_SAVE_FILE_VERSION[e]*TppDefine.PROGRAM_SAVE_FILE_VERSION_OFFSET)end
+end,[Fox.StrCode32(TppDefine.GAME_SAVE_FILE_NAME)]=a,[Fox.StrCode32(TppDefine.GAME_SAVE_FILE_NAME_TMP)]=a}function e.GetSaveFileVersion(e)return(TppDefine.SAVE_FILE_INFO[e].version+TppDefine.PROGRAM_SAVE_FILE_VERSION[e]*TppDefine.PROGRAM_SAVE_FILE_VERSION_OFFSET)end
 function e.IsExistConfigSaveFile()return TppScriptVars.FileExists(TppDefine.CONFIG_SAVE_FILE_NAME)end
 function e.IsExistPersonalSaveFile()return TppScriptVars.FileExists(TppDefine.PERSONAL_DATA_SAVE_FILE_NAME)end
 function e.ForbidSave()gvars.permitGameSave=false
@@ -41,13 +41,24 @@ else
 return false
 end
 end
-function e.HasQueue(a)for n=1,e.saveQueueDepth do
-if e.saveQueueList[n].fileName==a then
+function e.HasQueue(a)if(e.GetSaveRequestFromQueue(a)~=nil)then
 return true
-end
-end
+else
 return false
 end
+end
+function e.GetSaveRequestFromQueue(n)for a=1,e.saveQueueDepth do
+if e.saveQueueList[a].fileName==n then
+return a,e.saveQueueList[a]end
+end
+end
+function e.EraseAllGameDataSaveRequest()local a,n
+repeat
+a,n=e.GetSaveRequestFromQueue(e.GetGameSaveFileName())if a then
+if(n.doSaveFunc==e.ReserveNoticeOfMbSaveResult)then
+TppMotherBaseManagement.SetRequestSaveResultFailure()end
+e.DequeueSave(a)end
+until(a==nil)end
 function e.IsEnqueuedSaveData()if e.saveQueueDepth>0 then
 return true
 else
@@ -55,57 +66,57 @@ return false
 end
 end
 local p=e.IsEnqueuedSaveData
-function e.RegistCompositSlotSize(n)e.COMPOSIT_SLOT_SIZE=n
+function e.RegistCompositSlotSize(a)e.COMPOSIT_SLOT_SIZE=a
 end
 function e.SetUpCompositSlot()if e.COMPOSIT_SLOT_SIZE then
 TppScriptVars.SetUpSlotAsCompositSlot(TppDefine.SAVE_SLOT.SAVING,e.COMPOSIT_SLOT_SIZE)end
 end
-function e.SaveGameData(i,t,S,n,a)if n then
-e.ReserveNextMissionStartSave(e.GetGameSaveFileName(),a)else
-local n=e.GetSaveGameDataQueue(i,t,S,a)e.EnqueueSave(n)end
-e.CheckAndSavePersonalData(n)end
-function e.GetSaveGameDataQueue(S,n,i,t)local a=e.GetGameSaveFileName()local n=e.GetIntializedCompositSlotSaveQueue(a,n,i,t)n=e._SaveGlobalData(n)n=e._SaveMissionData(n)n=e._SaveMissionRestartableData(n)n=e._SaveRetryData(n)n=e._SaveMbManagementData(n,S)n=e._SaveQuestData(n)return n
+function e.SaveGameData(t,i,S,a,n)if a then
+e.ReserveNextMissionStartSave(e.GetGameSaveFileName(),n)else
+local a=e.GetSaveGameDataQueue(t,i,S,n)e.EnqueueSave(a)end
+e.CheckAndSavePersonalData(a)end
+function e.GetSaveGameDataQueue(n,i,S,t)local a=e.GetGameSaveFileName()local a=e.GetIntializedCompositSlotSaveQueue(a,i,S,t)a=e._SaveGlobalData(a)a=e._SaveMissionData(a)a=e._SaveMissionRestartableData(a)a=e._SaveRetryData(a)a=e._SaveMbManagementData(a,n)a=e._SaveQuestData(a)return a
 end
-function e.SaveConfigData(n,a,S)if a then
-local n=e.MakeNewSaveQueue(TppDefine.SAVE_SLOT.CONFIG,TppDefine.SAVE_SLOT.CONFIG_SAVE,TppScriptVars.CATEGORY_CONFIG,TppDefine.CONFIG_SAVE_FILE_NAME,n)return e.DoSave(n,true)elseif S then
+function e.SaveConfigData(a,t,n)if t then
+local a=e.MakeNewSaveQueue(TppDefine.SAVE_SLOT.CONFIG,TppDefine.SAVE_SLOT.CONFIG_SAVE,TppScriptVars.CATEGORY_CONFIG,TppDefine.CONFIG_SAVE_FILE_NAME,a)return e.DoSave(a,true)elseif n then
 e.ReserveNextMissionStartSave(TppDefine.CONFIG_SAVE_FILE_NAME)else
-e.EnqueueSave(TppDefine.SAVE_SLOT.CONFIG,TppDefine.SAVE_SLOT.CONFIG_SAVE,TppScriptVars.CATEGORY_CONFIG,TppDefine.CONFIG_SAVE_FILE_NAME,n)end
+e.EnqueueSave(TppDefine.SAVE_SLOT.CONFIG,TppDefine.SAVE_SLOT.CONFIG_SAVE,TppScriptVars.CATEGORY_CONFIG,TppDefine.CONFIG_SAVE_FILE_NAME,a)end
 end
 function e.SaveMGOData()e.EnqueueSave(TppDefine.SAVE_SLOT.MGO,TppDefine.SAVE_SLOT.MGO_SAVE,TppScriptVars.CATEGORY_MGO,TppDefine.MGO_SAVE_FILE_NAME)end
-function e.SavePersonalData(n,a,S)if a then
-local n=e.MakeNewSaveQueue(TppDefine.SAVE_SLOT.PERSONAL,TppDefine.SAVE_SLOT.PERSONAL_SAVE,TppScriptVars.CATEGORY_PERSONAL,TppDefine.PERSONAL_DATA_SAVE_FILE_NAME,n)return e.DoSave(n,true)elseif S then
+function e.SavePersonalData(a,t,n)if t then
+local a=e.MakeNewSaveQueue(TppDefine.SAVE_SLOT.PERSONAL,TppDefine.SAVE_SLOT.PERSONAL_SAVE,TppScriptVars.CATEGORY_PERSONAL,TppDefine.PERSONAL_DATA_SAVE_FILE_NAME,a)return e.DoSave(a,true)elseif n then
 e.ReserveNextMissionStartSave(TppDefine.PERSONAL_DATA_SAVE_FILE_NAME)else
-e.EnqueueSave(TppDefine.SAVE_SLOT.PERSONAL,TppDefine.SAVE_SLOT.PERSONAL_SAVE,TppScriptVars.CATEGORY_PERSONAL,TppDefine.PERSONAL_DATA_SAVE_FILE_NAME,n)end
+e.EnqueueSave(TppDefine.SAVE_SLOT.PERSONAL,TppDefine.SAVE_SLOT.PERSONAL_SAVE,TppScriptVars.CATEGORY_PERSONAL,TppDefine.PERSONAL_DATA_SAVE_FILE_NAME,a)end
 end
-function e.CheckAndSavePersonalData(a)local n=TppDefine.PERSONAL_DATA_SAVE_FILE_NAME
-if e.IsSavingWithFileName(n)or e.HasQueue(n)then
+function e.CheckAndSavePersonalData(n)local a=TppDefine.PERSONAL_DATA_SAVE_FILE_NAME
+if e.IsSavingWithFileName(a)or e.HasQueue(a)then
 return
 end
 if(vars.isPersonalDirty==1)then
-e.VarSavePersonalData()e.SavePersonalData(nil,nil,a)end
+e.VarSavePersonalData()e.SavePersonalData(nil,nil,n)end
 end
 function e.SaveAvatarData()Player.SetEnableUpdateAvatarInfo(true)e.VarSavePersonalData()e.SavePersonalData()end
-function e.SaveOnlyMbManagement(a)local n=vars.missionCode
-e.VarSaveMbMangement(n)e.SaveGameData(n,nil,a)end
+function e.SaveOnlyMbManagement(n)local a=vars.missionCode
+e.VarSaveMbMangement(a)e.SaveGameData(a,nil,n)end
 function e.ReserveNoticeOfMbSaveResult()gvars.sav_isReservedMbSaveResultNotify=true
 end
 function e.SaveOnlyGlobalData()e.SaveVarsToSlot(TppDefine.SAVE_SLOT.GLOBAL,TppScriptVars.GROUP_BIT_ALL,TppScriptVars.CATEGORY_GAME_GLOBAL)e.SaveGameData(vars.missionCode)end
 function e.SaveGzPrivilege()e.SaveMBAndGlobal()end
 function e.SaveMBAndGlobal()e.VarSaveMBAndGlobal()e.SaveGameData(currentMissionCode)end
-function e.VarSaveMBAndGlobal()local n=vars.missionCode
-e.VarSaveMbMangement(n)e.SaveVarsToSlot(TppDefine.SAVE_SLOT.GLOBAL,TppScriptVars.GROUP_BIT_ALL,TppScriptVars.CATEGORY_GAME_GLOBAL)end
-e.DO_RESERVE_SAVE_FUNCTION={[TppDefine.CONFIG_SAVE_FILE_NAME]=e.SaveConfigData,[TppDefine.PERSONAL_DATA_SAVE_FILE_NAME]=e.SavePersonalData,[TppDefine.GAME_SAVE_FILE_NAME]=e.SaveGameData,[TppDefine.GAME_SAVE_FILE_NAME_TMP]=e.SaveGameData}function e.ReserveNextMissionStartSave(a,S)if not e.DO_RESERVE_SAVE_FUNCTION[a]then
+function e.VarSaveMBAndGlobal()local a=vars.missionCode
+e.VarSaveMbMangement(a)e.SaveVarsToSlot(TppDefine.SAVE_SLOT.GLOBAL,TppScriptVars.GROUP_BIT_ALL,TppScriptVars.CATEGORY_GAME_GLOBAL)end
+e.DO_RESERVE_SAVE_FUNCTION={[TppDefine.CONFIG_SAVE_FILE_NAME]=e.SaveConfigData,[TppDefine.PERSONAL_DATA_SAVE_FILE_NAME]=e.SavePersonalData,[TppDefine.GAME_SAVE_FILE_NAME]=e.SaveGameData,[TppDefine.GAME_SAVE_FILE_NAME_TMP]=e.SaveGameData}function e.ReserveNextMissionStartSave(n,t)if not e.DO_RESERVE_SAVE_FUNCTION[n]then
 return
 end
-e.missionStartSaveFilePool=e.missionStartSaveFilePool or{}local n=e.missionStartSaveFilePool[a]or{}if n and S then
-n.isCheckPoint=S
+e.missionStartSaveFilePool=e.missionStartSaveFilePool or{}local a=e.missionStartSaveFilePool[n]or{}if a and t then
+a.isCheckPoint=t
 end
-e.missionStartSaveFilePool[a]=n
+e.missionStartSaveFilePool[n]=a
 end
 function e.DoReservedSaveOnMissionStart()if not e.missionStartSaveFilePool then
 return
 end
-local n=Fox.GetPlatformName()if n=="Xbox360"or n=="XboxOne"then
+local a=Fox.GetPlatformName()if a=="Xbox360"or a=="XboxOne"then
 if not SignIn.IsSignedIn()then
 e.missionStartSaveFilePool=nil
 return
@@ -115,53 +126,57 @@ for n,a in pairs(e.missionStartSaveFilePool)do
 local e=e.DO_RESERVE_SAVE_FUNCTION[n]e(nil,nil,nil,nil,a.isCheckPoint)end
 e.missionStartSaveFilePool=nil
 end
-function e._SaveGlobalData(n)if TppScriptVars.StoreUtcTimeToScriptVars then
+function e._SaveGlobalData(a)if TppScriptVars.StoreUtcTimeToScriptVars then
 TppScriptVars.StoreUtcTimeToScriptVars()end
-return e.AddSlotToSaveQueue(n,TppDefine.SAVE_SLOT.GLOBAL,TppDefine.SAVE_SLOT.SAVING,TppScriptVars.CATEGORY_GAME_GLOBAL)end
-function e._SaveMissionData(n)return e.AddSlotToSaveQueue(n,TppDefine.SAVE_SLOT.CHECK_POINT,TppDefine.SAVE_SLOT.SAVING,TppScriptVars.CATEGORY_MISSION)end
-function e._SaveRetryData(n)return e.AddSlotToSaveQueue(n,TppDefine.SAVE_SLOT.RETRY,TppDefine.SAVE_SLOT.SAVING,TppScriptVars.CATEGORY_RETRY)end
+return e.AddSlotToSaveQueue(a,TppDefine.SAVE_SLOT.GLOBAL,TppDefine.SAVE_SLOT.SAVING,TppScriptVars.CATEGORY_GAME_GLOBAL)end
+function e._SaveMissionData(a)return e.AddSlotToSaveQueue(a,TppDefine.SAVE_SLOT.CHECK_POINT,TppDefine.SAVE_SLOT.SAVING,TppScriptVars.CATEGORY_MISSION)end
+function e._SaveRetryData(a)return e.AddSlotToSaveQueue(a,TppDefine.SAVE_SLOT.RETRY,TppDefine.SAVE_SLOT.SAVING,TppScriptVars.CATEGORY_RETRY)end
 function e.CanSaveMbMangementData(e)local e=e or vars.missionCode
 if(vars.fobSneakMode==FobMode.MODE_SHAM)then
 return false
 end
 return(e~=10030)or(not gvars.isMissionClearedS10030)end
-function e._SaveMbManagementData(n,a)return e.AddSlotToSaveQueue(n,TppDefine.SAVE_SLOT.MB_MANAGEMENT,TppDefine.SAVE_SLOT.SAVING,TppScriptVars.CATEGORY_MB_MANAGEMENT)end
-function e._SaveQuestData(n)return e.AddSlotToSaveQueue(n,TppDefine.SAVE_SLOT.QUEST,TppDefine.SAVE_SLOT.SAVING,TppScriptVars.CATEGORY_QUEST)end
-function e._SaveMissionRestartableData(n)n=e.AddSlotToSaveQueue(n,TppDefine.SAVE_SLOT.MISSION_START,TppDefine.SAVE_SLOT.SAVING,TppDefine.CATEGORY_MISSION_RESTARTABLE)n=e.AddSlotToSaveQueue(n,TppDefine.SAVE_SLOT.CHECK_POINT_RESTARTABLE,TppDefine.SAVE_SLOT.SAVING,TppDefine.CATEGORY_MISSION_RESTARTABLE)return n
+function e._SaveMbManagementData(a,n)return e.AddSlotToSaveQueue(a,TppDefine.SAVE_SLOT.MB_MANAGEMENT,TppDefine.SAVE_SLOT.SAVING,TppScriptVars.CATEGORY_MB_MANAGEMENT)end
+function e._SaveQuestData(a)return e.AddSlotToSaveQueue(a,TppDefine.SAVE_SLOT.QUEST,TppDefine.SAVE_SLOT.SAVING,TppScriptVars.CATEGORY_QUEST)end
+function e._SaveMissionRestartableData(a)a=e.AddSlotToSaveQueue(a,TppDefine.SAVE_SLOT.MISSION_START,TppDefine.SAVE_SLOT.SAVING,TppDefine.CATEGORY_MISSION_RESTARTABLE)a=e.AddSlotToSaveQueue(a,TppDefine.SAVE_SLOT.CHECK_POINT_RESTARTABLE,TppDefine.SAVE_SLOT.SAVING,TppDefine.CATEGORY_MISSION_RESTARTABLE)return a
 end
-function e.MakeNewGameSaveData(S)TppVarInit.InitializeOnNewGameAtFirstTime()TppVarInit.InitializeOnNewGame()if S then
+function e.MakeNewGameSaveData(a)TppVarInit.InitializeOnNewGameAtFirstTime()TppVarInit.InitializeOnNewGame()if a then
 TppTerminal.AcquirePrivilegeInTitleScreen()end
-e.VarSave(vars.missionCode,true)e.VarSaveOnRetry()local a,n=e.GetSaveGameDataQueue(vars.missionCode)if gvars.permitGameSave then
-a=e.GetSaveGameDataQueue(vars.missionCode)n=e.DoSave(a,true)end
-if S then
+e.VarSave(vars.missionCode,true)e.VarSaveOnRetry()local n,t=e.GetSaveGameDataQueue(vars.missionCode)if gvars.permitGameSave then
+n=e.GetSaveGameDataQueue(vars.missionCode)t=e.DoSave(n,true)end
+if a then
 e.CheckAndSavePersonalData()end
-return n
+return t
 end
-function e.GetIntializedCompositSlotSaveQueue(e,a,n,S)return{fileName=e,needIcon=a,doSaveFunc=n,isCheckPoint=S}end
-function e.AddSlotToSaveQueue(e,a,n,S)if a==nil then
+function e.SaveImportedGameData()local n,a=e.GetSaveGameDataQueue(vars.missionCode)if gvars.permitGameSave then
+n=e.GetSaveGameDataQueue(vars.missionCode)a=e.DoSave(n,true)end
+return a
+end
+function e.GetIntializedCompositSlotSaveQueue(e,n,a,t)return{fileName=e,needIcon=n,doSaveFunc=a,isCheckPoint=t}end
+function e.AddSlotToSaveQueue(e,t,n,a)if t==nil then
 return
 end
 if n==nil then
 return
 end
-if S==nil then
+if a==nil then
 return
 end
 local e=e or{}e.savingSlot=n
 e.slot=e.slot or{}e.category=e.category or{}local n=#e.slot+1
-e.slot[n]=a
-e.category[n]=S
+e.slot[n]=t
+e.category[n]=a
 return e
 end
-function e.EnqueueSave(n,S,t,r,i)if n==nil then
+function e.EnqueueSave(a,S,t,r,i)if a==nil then
 return
 end
-if gvars.isLoadedInitMissionOnSignInUserChanged or TppException.isLoadedInitMissionOnSignInUserChanged then
+if(gvars.isLoadedInitMissionOnSignInUserChanged or TppException.isLoadedInitMissionOnSignInUserChanged)or TppException.isNowGoingToMgo then
 return
 end
-local a
-if Tpp.IsTypeTable(n)then
-a=n
+local n
+if Tpp.IsTypeTable(a)then
+n=a
 else
 if S==nil then
 return
@@ -174,30 +189,36 @@ if gvars.permitGameSave==false then
 return
 end
 e.saveQueueDepth=e.saveQueueDepth+1
-if a then
-e.saveQueueList[e.saveQueueDepth]=a
+if n then
+e.saveQueueList[e.saveQueueDepth]=n
 else
-e.saveQueueList[e.saveQueueDepth]=e.MakeNewSaveQueue(n,S,t,r,i)end
+e.saveQueueList[e.saveQueueDepth]=e.MakeNewSaveQueue(a,S,t,r,i)end
 end
-function e.MakeNewSaveQueue(a,n,i,S,t,r)local e={}e.slot=a
-e.savingSlot=n
-e.category=i
-e.fileName=S
-e.needIcon=t
+function e.MakeNewSaveQueue(n,a,t,i,S,r)local e={}e.slot=n
+e.savingSlot=a
+e.category=t
+e.fileName=i
+e.needIcon=S
 e.doSaveFunc=r
 return e
 end
-function e.DequeueSave()for n=1,(e.saveQueueDepth-1)do
-e.saveQueueList[n]=e.saveQueueList[n+1]end
+function e.DequeueSave(a)if(a==nil)then
+a=1
+end
+for a=a,(e.saveQueueDepth-1)do
+e.saveQueueList[a]=e.saveQueueList[a+1]end
+if(e.saveQueueDepth<=0)then
+return
+end
 e.saveQueueList[e.saveQueueDepth]=nil
 e.saveQueueDepth=e.saveQueueDepth-1
 end
 function e.ProcessSaveQueue()if not p()then
 return false
 end
-local n=e.saveQueueList[1]if n then
-local n=e.DoSave(n)if n~=nil then
-e.DequeueSave()if n==TppScriptVars.WRITE_FAILED then
+local a=e.saveQueueList[1]if a then
+local a=e.DoSave(a)if a~=nil then
+e.DequeueSave()if a==TppScriptVars.WRITE_FAILED then
 if(gvars.sav_SaveResultCheckFileName~=0)then
 local e=e.SAVE_RESULT_FUNCTION[gvars.sav_SaveResultCheckFileName]if e then
 e(false)end
@@ -207,48 +228,48 @@ TppException.ShowSaveErrorPopUp(TppDefine.ERROR_ID.SAVE_FAILED_UNKNOWN_REASON)en
 end
 end
 end
-function e.DoSave(n,a)local r=true
-if a then
+function e.DoSave(a,n)local r=true
+if n then
 r=false
 end
-local a
-local p
+local n
+local o
 local t
 local i
 local S
-local T
-if Tpp.IsTypeTable(n.slot)then
-e.SetUpCompositSlot()t=n.fileName
-i=n.needIcon
-S=n.doSaveFunc
-T=n.isCheckPoint
-for t,S in ipairs(n.slot)do
-a=n.category[t]p=e.GetSaveFileVersion(a)TppScriptVars.CopySlot({n.savingSlot,S},S)end
+local p
+if Tpp.IsTypeTable(a.slot)then
+e.SetUpCompositSlot()t=a.fileName
+i=a.needIcon
+S=a.doSaveFunc
+p=a.isCheckPoint
+for S,t in ipairs(a.slot)do
+n=a.category[S]o=e.GetSaveFileVersion(n)TppScriptVars.CopySlot({a.savingSlot,t},t)end
 else
-a=n.category
-if a then
-p=e.GetSaveFileVersion(a)t=n.fileName
-i=n.needIcon
-S=n.doSaveFunc
-TppScriptVars.CopySlot(n.savingSlot,n.slot)else
+n=a.category
+if n then
+o=e.GetSaveFileVersion(n)t=a.fileName
+i=a.needIcon
+S=a.doSaveFunc
+TppScriptVars.CopySlot(a.savingSlot,a.slot)else
 return false
 end
 end
 if S then
 S()end
-local e=TppScriptVars.WriteSlotToFile(n.savingSlot,t,i)if r then
-gvars.sav_SaveResultCheckFileName=Fox.StrCode32(t)if T then
+local e=TppScriptVars.WriteSlotToFile(a.savingSlot,t,i)if r then
+gvars.sav_SaveResultCheckFileName=Fox.StrCode32(t)if p then
 gvars.sav_isCheckPointSaving=true
 end
 end
 return e
 end
-function e.Update()if(not i())then
+function e.Update()if(not t())then
 if(gvars.sav_SaveResultCheckFileName~=0)then
 local a=true
-local n=TppScriptVars.GetLastResult()local n,S=e.GetSaveResultErrorMessage(n)if n then
+local n=TppScriptVars.GetLastResult()local n,t=e.GetSaveResultErrorMessage(n)if n then
 a=false
-TppUiCommand.ShowErrorPopup(n,S)end
+TppUiCommand.ShowErrorPopup(n,t)end
 local e=e.SAVE_RESULT_FUNCTION[gvars.sav_SaveResultCheckFileName]if e then
 e(a)end
 gvars.sav_SaveResultCheckFileName=0
@@ -259,7 +280,7 @@ if e.IsEnqueuedSaveData()then
 e.ProcessSaveQueue()end
 end
 end
-if i()then
+if t()then
 local e=TppScriptVars.GetSaveState()if e==TppScriptVars.STATE_SAVING then
 if gvars.sav_isCheckPointSaving then
 TppUI.ShowSavingIcon"checkpoint"else
@@ -271,47 +292,50 @@ if e==TppScriptVars.STATE_PROCESSING then
 TppUI.ShowLoadingIcon()end
 end
 end
-e.SaveErrorMessageIdTable={[TppScriptVars.RESULT_ERROR_INVALID_STORAGE]={TppDefine.ERROR_ID.CANNOT_FIND_STORAGE_IN_GAME,Popup.TYPE_ONE_BUTTON}}function e.GetSaveResultErrorMessage(n)if n==TppScriptVars.RESULT_OK then
+e.SaveErrorMessageIdTable={[TppScriptVars.RESULT_ERROR_INVALID_STORAGE]={TppDefine.ERROR_ID.CANNOT_FIND_STORAGE_IN_GAME,Popup.TYPE_ONE_BUTTON}}function e.GetSaveResultErrorMessage(a)if a==TppScriptVars.RESULT_OK then
 return
 end
-local e=e.SaveErrorMessageIdTable[n]if e then
+local e=e.SaveErrorMessageIdTable[a]if e then
 return e[1],e[2]else
 return TppDefine.ERROR_ID.SAVE_FAILED_UNKNOWN_REASON
 end
 end
-function e.Init(n)e.messageExecTable=Tpp.MakeMessageExecTable(e.Messages())end
-function e.OnReload(n)e.messageExecTable=Tpp.MakeMessageExecTable(e.Messages())end
+function e.Init(a)e.messageExecTable=Tpp.MakeMessageExecTable(e.Messages())end
+function e.OnReload(a)e.messageExecTable=Tpp.MakeMessageExecTable(e.Messages())end
 function e.Messages()return Tpp.StrCode32Table{UI={{msg="PopupClose",sender=TppDefine.ERROR_ID.CANNOT_FIND_STORAGE_IN_GAME,func=function()e.ForbidSave()end}}}end
-function e.OnMessage(p,r,t,i,S,n,a)Tpp.DoMessage(e.messageExecTable,TppMission.CheckMessageOption,p,r,t,i,S,n,a)end
-function e.WaitingAllEnqueuedSaveOnStartMission()while i()do
+function e.OnMessage(t,i,p,r,a,n,S)Tpp.DoMessage(e.messageExecTable,TppMission.CheckMessageOption,t,i,p,r,a,n,S)end
+function e.WaitingAllEnqueuedSaveOnStartMission()while t()do
 e.CoroutineYieldWithShowSavingIcon()end
 while p()do
-e.ProcessSaveQueue()while i()do
+e.ProcessSaveQueue()while t()do
 e.CoroutineYieldWithShowSavingIcon()end
 end
 end
 function e.CoroutineYieldWithShowSavingIcon()TppUI.ShowSavingIcon()coroutine.yield()end
-function e.SaveVarsToSlot(S,a,n)local e=e.GetSaveFileVersion(n)TppScriptVars.SaveVarsToSlot(S,a,n,e)end
+function e.SaveVarsToSlot(t,n,a)local e=e.GetSaveFileVersion(a)TppScriptVars.SaveVarsToSlot(t,n,a,e)end
 function e.VarSaveOnlyGlobalData()e.SaveVarsToSlot(TppDefine.SAVE_SLOT.GLOBAL,TppScriptVars.GROUP_BIT_ALL,TppScriptVars.CATEGORY_GAME_GLOBAL)end
-function e.VarSave(n,a)e.SaveVarsToSlot(TppDefine.SAVE_SLOT.GLOBAL,TppScriptVars.GROUP_BIT_ALL,TppScriptVars.CATEGORY_GAME_GLOBAL)if gvars.usingNormalMissionSlot then
-e.SaveVarsToSlot(TppDefine.SAVE_SLOT.CHECK_POINT,TppScriptVars.GROUP_BIT_ALL,TppScriptVars.CATEGORY_MISSION)if a then
+function e.VarSave(a,n)e.SaveVarsToSlot(TppDefine.SAVE_SLOT.GLOBAL,TppScriptVars.GROUP_BIT_ALL,TppScriptVars.CATEGORY_GAME_GLOBAL)if gvars.usingNormalMissionSlot then
+e.SaveVarsToSlot(TppDefine.SAVE_SLOT.CHECK_POINT,TppScriptVars.GROUP_BIT_ALL,TppScriptVars.CATEGORY_MISSION)if n then
 e.SaveVarsToSlot(TppDefine.SAVE_SLOT.CHECK_POINT_RESTARTABLE,TppScriptVars.GROUP_BIT_ALL,TppDefine.CATEGORY_MISSION_RESTARTABLE)e.SaveVarsToSlot(TppDefine.SAVE_SLOT.MISSION_START,TppScriptVars.GROUP_BIT_ALL,TppDefine.CATEGORY_MISSION_RESTARTABLE)else
 e.SaveVarsToSlot(TppDefine.SAVE_SLOT.CHECK_POINT_RESTARTABLE,TppScriptVars.GROUP_BIT_ALL,TppDefine.CATEGORY_MISSION_RESTARTABLE)end
 end
-if e.CanSaveMbMangementData(n)then
+if e.CanSaveMbMangementData(a)then
 e.SaveVarsToSlot(TppDefine.SAVE_SLOT.MB_MANAGEMENT,TppScriptVars.GROUP_BIT_ALL,TppScriptVars.CATEGORY_MB_MANAGEMENT)end
 e.SaveVarsToSlot(TppDefine.SAVE_SLOT.QUEST,TppScriptVars.GROUP_BIT_ALL,TppScriptVars.CATEGORY_QUEST)e.SaveVarsToSlot(TppDefine.SAVE_SLOT.RETRY,TppScriptVars.GROUP_BIT_ALL,TppScriptVars.CATEGORY_RETRY)end
 function e.VarSaveOnRetry()e.SaveVarsToSlot(TppDefine.SAVE_SLOT.RETRY,TppScriptVars.GROUP_BIT_ALL,TppScriptVars.CATEGORY_RETRY)end
-function e.VarSaveMbMangement(n,a)if e.CanSaveMbMangementData(n)or a then
+function e.VarSaveMbMangement(a,n)if e.CanSaveMbMangementData(a)or n then
 e.SaveVarsToSlot(TppDefine.SAVE_SLOT.MB_MANAGEMENT,TppScriptVars.GROUP_BIT_ALL,TppScriptVars.CATEGORY_MB_MANAGEMENT)end
 end
-function e.VarSaveQuest(n)if e.CanSaveMbMangementData(n)then
+function e.VarSaveQuest(a)if e.CanSaveMbMangementData(a)then
 e.SaveVarsToSlot(TppDefine.SAVE_SLOT.MB_MANAGEMENT,TppScriptVars.GROUP_BIT_ALL,TppScriptVars.CATEGORY_MB_MANAGEMENT)end
 e.SaveVarsToSlot(TppDefine.SAVE_SLOT.QUEST,TppScriptVars.GROUP_BIT_ALL,TppScriptVars.CATEGORY_QUEST)end
 function e.VarSaveConfig()e.SaveVarsToSlot(TppDefine.SAVE_SLOT.CONFIG,TppScriptVars.GROUP_BIT_VARS,TppScriptVars.CATEGORY_CONFIG)end
 function e.VarSaveMGO()e.SaveVarsToSlot(TppDefine.SAVE_SLOT.MGO,TppScriptVars.GROUP_BIT_ALL,TppScriptVars.CATEGORY_MGO)end
 function e.VarSavePersonalData()e.SaveVarsToSlot(TppDefine.SAVE_SLOT.PERSONAL,TppScriptVars.GROUP_BIT_ALL,TppScriptVars.CATEGORY_PERSONAL)end
-function e.LoadFromSaveFile(e,n)return TppScriptVars.ReadSlotFromFile(e,n)end
+function e.LoadFromSaveFile(n,a,e)if not e then
+return TppScriptVars.ReadSlotFromFile(n,a)else
+return TppScriptVars.ReadSlotFromAreaFile(n,e,a)end
+end
 function e.GetGameSaveFileName()do
 if TppSystemUtility.GetCurrentGameMode()=="MGO"then
 return TppDefine.MGO_MAIN_SAVE_FILE_NAME
@@ -325,40 +349,40 @@ return false
 end
 return gvars.DEBUG_usingTemporarySaveData
 end
-function e.LoadGameDataFromSaveFile()local n=e.GetGameSaveFileName()return e.LoadFromSaveFile(TppDefine.SAVE_SLOT.SAVING,n)end
-local a={TppScriptVars.CATEGORY_GAME_GLOBAL,TppScriptVars.CATEGORY_MISSION,TppScriptVars.CATEGORY_RETRY,TppScriptVars.CATEGORY_MB_MANAGEMENT,TppScriptVars.CATEGORY_QUEST,TppDefine.CATEGORY_MISSION_RESTARTABLE}function e.CheckGameDataVersion()for a,n in ipairs(a)do
-local a=TppDefine.SAVE_FILE_INFO[n].slot
-local a=e.CheckSlotVersion(n,TppDefine.SAVE_SLOT.SAVING)if a~=TppDefine.SAVE_FILE_LOAD_RESULT.OK then
-return a
+function e.LoadGameDataFromSaveFile(a)local n=e.GetGameSaveFileName()return e.LoadFromSaveFile(TppDefine.SAVE_SLOT.SAVING,n,a)end
+local t={TppScriptVars.CATEGORY_GAME_GLOBAL,TppScriptVars.CATEGORY_MISSION,TppScriptVars.CATEGORY_RETRY,TppScriptVars.CATEGORY_MB_MANAGEMENT,TppScriptVars.CATEGORY_QUEST,TppDefine.CATEGORY_MISSION_RESTARTABLE}function e.CheckGameDataVersion()for n,a in ipairs(t)do
+local n=TppDefine.SAVE_FILE_INFO[a].slot
+local n=e.CheckSlotVersion(a,TppDefine.SAVE_SLOT.SAVING)if n~=TppDefine.SAVE_FILE_LOAD_RESULT.OK then
+return n
 end
-if TppDefine.SAVE_FILE_INFO[n].missionStartSlot then
-local e=e.CheckSlotVersion(n,TppDefine.SAVE_SLOT.SAVING,true)if e~=TppDefine.SAVE_FILE_LOAD_RESULT.OK then
+if TppDefine.SAVE_FILE_INFO[a].missionStartSlot then
+local e=e.CheckSlotVersion(a,TppDefine.SAVE_SLOT.SAVING,true)if e~=TppDefine.SAVE_FILE_LOAD_RESULT.OK then
 return e
 end
 end
 end
 return TppDefine.SAVE_FILE_LOAD_RESULT.OK
 end
-function e.CopyGameDataFromSavingSlot()for e,n in ipairs(a)do
-local e=TppDefine.SAVE_FILE_INFO[n].slot
-TppScriptVars.CopySlot(e,{TppDefine.SAVE_SLOT.SAVING,e})local e=TppDefine.SAVE_FILE_INFO[n].missionStartSlot
+function e.CopyGameDataFromSavingSlot()for e,a in ipairs(t)do
+local e=TppDefine.SAVE_FILE_INFO[a].slot
+TppScriptVars.CopySlot(e,{TppDefine.SAVE_SLOT.SAVING,e})local e=TppDefine.SAVE_FILE_INFO[a].missionStartSlot
 if e then
 TppScriptVars.CopySlot(e,{TppDefine.SAVE_SLOT.SAVING,e})end
 end
 end
 function e.LoadMGODataFromSaveFile()return e.LoadFromSaveFile(TppDefine.SAVE_SLOT.MGO,TppDefine.MGO_SAVE_FILE_NAME)end
-function e.LoadConfigDataFromSaveFile()return e.LoadFromSaveFile(TppDefine.SAVE_SLOT.CONFIG,TppDefine.CONFIG_SAVE_FILE_NAME)end
-function e.LoadPersonalDataFromSaveFile()return e.LoadFromSaveFile(TppDefine.SAVE_SLOT.PERSONAL,TppDefine.PERSONAL_DATA_SAVE_FILE_NAME)end
-function e.CheckSlotVersion(n,a,S)local t=e.GetSaveFileVersion(n)local e=TppDefine.SAVE_FILE_INFO[n].slot
-if S then
-e=TppDefine.SAVE_FILE_INFO[n].missionStartSlot
+function e.LoadConfigDataFromSaveFile(a)return e.LoadFromSaveFile(TppDefine.SAVE_SLOT.CONFIG,TppDefine.CONFIG_SAVE_FILE_NAME,a)end
+function e.LoadPersonalDataFromSaveFile(a)return e.LoadFromSaveFile(TppDefine.SAVE_SLOT.PERSONAL,TppDefine.PERSONAL_DATA_SAVE_FILE_NAME,a)end
+function e.CheckSlotVersion(a,n,t)local S=e.GetSaveFileVersion(a)local e=TppDefine.SAVE_FILE_INFO[a].slot
+if t then
+e=TppDefine.SAVE_FILE_INFO[a].missionStartSlot
 end
-if a then
-e={a,e}end
+if n then
+e={n,e}end
 local e=TppScriptVars.GetScriptVersionFromSlot(e)if e==nil then
 return TppDefine.SAVE_FILE_LOAD_RESULT.ERROR_LOAD_FAILED
 end
-if e<=t then
+if e<=S then
 return TppDefine.SAVE_FILE_LOAD_RESULT.OK
 else
 return TppDefine.SAVE_FILE_LOAD_RESULT.DIFFER_FROM_CURRENT_VERSION
@@ -401,14 +425,14 @@ else
 return false
 end
 end
-e.SAVE_FILE_OK_RESULT_TABLE={[TppScriptVars.RESULT_OK]=TppDefine.SAVE_FILE_LOAD_RESULT.OK,[TppScriptVars.RESULT_ERROR_LOAD_BACKUP]=TppDefine.SAVE_FILE_LOAD_RESULT.OK_LOAD_BACKUP}function e.CheckGameSaveDataLoadResult()local a=TppScriptVars.GetLastResult()local n=e.SAVE_FILE_OK_RESULT_TABLE[a]if n then
+e.SAVE_FILE_OK_RESULT_TABLE={[TppScriptVars.RESULT_OK]=TppDefine.SAVE_FILE_LOAD_RESULT.OK,[TppScriptVars.RESULT_ERROR_LOAD_BACKUP]=TppDefine.SAVE_FILE_LOAD_RESULT.OK_LOAD_BACKUP}function e.CheckGameSaveDataLoadResult()local n=TppScriptVars.GetLastResult()local a=e.SAVE_FILE_OK_RESULT_TABLE[n]if a then
 local e=e.CheckGameDataVersion()if e~=TppDefine.SAVE_FILE_LOAD_RESULT.OK then
 gvars.gameDataLoadingResult=e
 else
-gvars.gameDataLoadingResult=n
+gvars.gameDataLoadingResult=a
 end
 else
-if a==TppScriptVars.RESULT_ERROR_NOSPACE then
+if n==TppScriptVars.RESULT_ERROR_NOSPACE then
 gvars.gameDataLoadingResult=TppDefine.SAVE_FILE_LOAD_RESULT.DIFFER_FROM_CURRENT_VERSION
 else
 gvars.gameDataLoadingResult=TppDefine.SAVE_FILE_LOAD_RESULT.ERROR_LOAD_FAILED

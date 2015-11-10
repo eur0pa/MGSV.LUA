@@ -266,57 +266,57 @@ end
 function e.IsMissionCleard(e)local e=TppDefine.MISSION_ENUM[tostring(e)]if e then
 return gvars.str_missionClearedFlag[e]end
 end
-function e.CheckAllMissionCleared()local r=true
-local t=true
-local n=true
-local i=true
-local a=true
+function e.CheckAllMissionCleared()local o=true
 local s=true
-for e,d in pairs(TppDefine.MISSION_ENUM)do
-local o=TppDefine.MISSING_NUMBER_MISSION_ENUM[e]if not o then
-local o=tonumber(e)if(not gvars.str_missionClearedFlag[d])then
+local a=true
+local d=true
+local r=true
+local i=true
+for e,n in pairs(TppDefine.MISSION_ENUM)do
+local t=TppDefine.MISSING_NUMBER_MISSION_ENUM[e]if not t then
+local t=tonumber(e)if(not gvars.str_missionClearedFlag[n])then
 if TppDefine.HARD_MISSION_ENUM[e]then
-a=false
-else
-n=false
-end
 r=false
+else
+a=false
+end
+o=false
 end
 local n=true
-local r={[10240]=true,[10115]=true,[10030]=true}if r[o]then
+local r={[10240]=true,[10115]=true,[10030]=true}if r[t]then
 n=false
 end
-if n and(TppResult.GetBestRank(o)~=TppDefine.MISSION_CLEAR_RANK.S)then
+if n and(TppResult.GetBestRank(t)~=TppDefine.MISSION_CLEAR_RANK.S)then
 if TppDefine.HARD_MISSION_ENUM[e]then
-s=false
-else
 i=false
+else
+d=false
 end
-t=false
+s=false
 end
 end
 end
-return r,t,n,i,a,s
+return o,s,a,d,r,i
 end
-function e.CalcAllMissionClearedCount()local e=0
-local n=0
+function e.CalcAllMissionClearedCount()local n=0
+local e=0
 for t,r in pairs(TppDefine.MISSION_ENUM)do
 local i=TppDefine.MISSING_NUMBER_MISSION_ENUM[t]if not i then
 local t=tonumber(t)if(gvars.str_missionClearedFlag[r])then
-e=e+1
-end
 n=n+1
 end
+e=e+1
 end
-return e,n
 end
-function e.CalcAllMissionTaskCompletedCount()local e=0
-local n=0
+return n,e
+end
+function e.CalcAllMissionTaskCompletedCount()local n=0
+local e=0
 for t,i in pairs(TppDefine.MISSION_ENUM)do
 local i=TppDefine.MISSING_NUMBER_MISSION_ENUM[t]if not i then
-local t=tonumber(t)e=e+TppUI.GetTaskCompletedNumber(t)n=n+TppUI.GetMaxMissionTask(t)end
+local t=tonumber(t)n=n+TppUI.GetTaskCompletedNumber(t)e=e+TppUI.GetMaxMissionTask(t)end
 end
-return e,n
+return n,e
 end
 function e.UpdateMissionCleardFlag(e)local n=TppDefine.MISSION_ENUM[tostring(e)]if n then
 gvars.str_missionClearedFlag[n]=true
@@ -503,7 +503,9 @@ end
 if gvars.str_missionOpenFlag[t]==false then
 return
 end
-e.UpdateMissionCleardFlag(n)e.DecreaseElapsedMissionClearCount()e.UpdateDemoFlagQuietWishGoMission()local e=e._UpdateStorySequence()TppTerminal.AcquirePrivilegeStaff()return e
+e.UpdateMissionCleardFlag(n)e.DecreaseElapsedMissionClearCount()e.UpdateDemoFlagQuietWishGoMission()if n~=10050 then
+e.ResetCounterReunionQuiet()end
+local e=e._UpdateStorySequence()TppTerminal.AcquirePrivilegeStaff()return e
 end
 function e._UpdateS11050OpenFlag()local n=e.GetCurrentStorySequence()if(n>=TppDefine.STORY_SEQUENCE.CLEARD_RETRIEVE_CHILD_DESERTER and TppDemo.IsPlayedMBEventDemo"ArrivedMotherBaseAfterQuietBattle")and(not e.IsMissionOpen(11050))then
 e.MissionOpen(11050)end
@@ -514,21 +516,21 @@ end
 function e._UpdateStorySequence()local n=e.GetCurrentStorySequence()if n>=TppDefine.STORY_SEQUENCE.STORY_FINISH then
 return
 end
-local i,t
-local r
+local t,r
+local i
 repeat
-t=e.GetStorySequenceTable(n)if t==nil then
+r=e.GetStorySequenceTable(n)if r==nil then
 return
 end
-local t=e.CheckNeedProceedStorySequence(t)if not t then
+local r=e.CheckNeedProceedStorySequence(r)if not r then
 break
 end
-i=e.ProceedStorySequence()n=e.GetCurrentStorySequence()if n<TppDefine.STORY_SEQUENCE.STORY_FINISH then
-r=false
+t=e.ProceedStorySequence()n=e.GetCurrentStorySequence()if n<TppDefine.STORY_SEQUENCE.STORY_FINISH then
+i=false
 else
-r=true
+i=true
 end
-until(r or next(i))return i
+until(i or next(t))return t
 end
 function e.CheckNeedProceedStorySequence(n)local t={}local function i(n)local n=TppMission.ParseMissionName(n)local e=e.IsMissionCleard(n)table.insert(t,e)end
 if n.main then
@@ -608,6 +610,15 @@ function e.RequestLoseQuiet()if not gvars.str_didLostQuiet then
 gvars.str_didLostQuiet=true
 TppBuddyService.UnsetObtainedBuddyType(BuddyType.QUIET)TppBuddyService.UnsetSortieBuddyType(BuddyType.QUIET)TppBuddyService.UnsetBuddyCommonFlag(BuddyCommonFlag.BUDDY_QUIET_DYING)TppBuddyService.SetFriendlyPoint(BuddyFriendlyType.QUIET,0)end
 end
+function e.RequestReunionQuiet()TppBuddyService.UnsetBuddyCommonFlag(BuddyCommonFlag.BUDDY_QUIET_LOST)TppBuddyService.SetObtainedBuddyType(BuddyType.QUIET)TppBuddyService.SetSortieBuddyType(BuddyType.QUIET)TppBuddyService.UnsetBuddyCommonFlag(BuddyCommonFlag.BUDDY_QUIET_DYING)TppBuddyService.SetFriendlyPoint(BuddyFriendlyType.QUIET,100)e.ResetCounterReunionQuiet()TppMotherBaseManagement.RefreshQuietStatus()end
+function e.UpdateCounterReunionQuiet()gvars.str_quietReunionMissionCount=gvars.str_quietReunionMissionCount+1
+end
+function e.ResetCounterReunionQuiet()gvars.str_quietReunionMissionCount=0
+end
+function e.CanPlayReunionQuietMission()return gvars.str_quietReunionMissionCount>=TppDefine.QUIET_REUNION_MISSION_COUNT
+end
+function e.CanReunionQuiet()return gvars.str_quietReunionMissionCount>TppDefine.QUIET_REUNION_MISSION_COUNT
+end
 function e.CanArrivalLiquidInMB()local e=e.GetCurrentStorySequence()>=TppDefine.STORY_SEQUENCE.CLEARD_WHITE_MAMBA
 local n=not TppDemo.IsPlayedMBEventDemo"TheGreatEscapeLiquid"return e and n
 end
@@ -668,19 +679,19 @@ if(n=="forceMBDemo"or n=="blackTelephone")and e.PLAY_DEMO_END_MISSION[vars.missi
 return
 end
 for a,t in ipairs(e.eventPlayTimmingTable[n])do
-local s=t[1]local r=t[2]local t=e.radioDemoTable[r]local o=e._GetRadioList(t,i)if(not e.IsDoneEvent(t,s,n,r)and t.storyCondition(i))and t.detailCondition(i)then
+local s=t[1]local o=t[2]local t=e.radioDemoTable[o]local r=e._GetRadioList(t,i)if(not e.IsDoneEvent(t,s,n,o)and t.storyCondition(i))and t.detailCondition(i)then
 if t.demoName then
 if e.DEBUG_SkipDemoRadio then
 TppMbFreeDemo.PlayMtbsEventDemo{demoName=t.demoName}end
 return t.demoName,a
-elseif o then
+elseif r then
 if n=="blackTelephone"or n=="clearSideOpsForceMBRadio"then
-gvars.forceMbRadioPlayedFlag[TppDefine.FORCE_MB_RETURN_RADIO_ENUM[r]]=true
+gvars.forceMbRadioPlayedFlag[TppDefine.FORCE_MB_RETURN_RADIO_ENUM[o]]=true
 end
 if n=="freeHeliRadio"then
-mvars.str_currentFreeHeliRadioList=o
+mvars.str_currentFreeHeliRadioList=r
 end
-return o,a
+return r,a
 end
 end
 end
@@ -724,27 +735,27 @@ end
 function e.DEBUG_TestStorySequence()e.DEBUG_SkipDemoRadio=true
 TppScriptVars.InitForNewGame()TppGVars.AllInitialize()TppVarInit.InitializeOnNewGame()function TppMission.IsHelicopterSpace()return true
 end
-e.DEBUG_InitQuestFlagsForTest()local t
+e.DEBUG_InitQuestFlagsForTest()local n
 repeat
-local i=""for t,n in ipairs(TppDefine.MISSION_LIST)do
+local t=""for i,n in ipairs(TppDefine.MISSION_LIST)do
 if e.IsMissionCleard(n)then
-i=i..(","..tostring(n))end
+t=t..(","..tostring(n))end
 end
-coroutine.yield()TppTerminal.ReleaseMbSection()e.UpdateStorySequence{updateTiming="OnMissionClear",missionId=TppMission.GetMissionID()}e.DEBUG_SetNeedStoryTest(vars.missionCode)local n=e.GetForceMBDemoNameOrRadioList"forceMBDemo"e.GetForceMBDemoNameOrRadioList("blackTelephone",{demoName=n})e.GetForceMBDemoNameOrRadioList"freeHeliRadio"e.GetForceMBDemoNameOrRadioList"freeHeliRadio"repeat
-coroutine.yield()TppQuest.UpdateActiveQuest{debugUpdate=true}until(not e.DEBUG_ClearQuestForTest(vars.missionCode))e.MissionOpen(10260)local n=e.DEBUG_GetUnclearedMissionCode()if mvars.str_DEBUG_needClearOneMission then
-n=10036
+coroutine.yield()TppTerminal.ReleaseMbSection()e.UpdateStorySequence{updateTiming="OnMissionClear",missionId=TppMission.GetMissionID()}e.DEBUG_SetNeedStoryTest(vars.missionCode)local t=e.GetForceMBDemoNameOrRadioList"forceMBDemo"e.GetForceMBDemoNameOrRadioList("blackTelephone",{demoName=t})e.GetForceMBDemoNameOrRadioList"freeHeliRadio"e.GetForceMBDemoNameOrRadioList"freeHeliRadio"repeat
+coroutine.yield()TppQuest.UpdateActiveQuest{debugUpdate=true}until(not e.DEBUG_ClearQuestForTest(vars.missionCode))e.MissionOpen(10260)local t=e.DEBUG_GetUnclearedMissionCode()if mvars.str_DEBUG_needClearOneMission then
+t=10036
 mvars.str_DEBUG_needClearOneMission=false
 end
-if n==nil then
+if t==nil then
 break
 end
-vars.missionCode=n
-local n=e.GetCurrentStorySequence()if n<TppDefine.STORY_SEQUENCE.STORY_FINISH then
-t=false
+vars.missionCode=t
+local t=e.GetCurrentStorySequence()if t<TppDefine.STORY_SEQUENCE.STORY_FINISH then
+n=false
 else
-t=true
+n=true
 end
-coroutine.yield()until(t or mvars.str_testBreak)e.DEBUG_SkipDemoRadio=nil
+coroutine.yield()until(n or mvars.str_testBreak)e.DEBUG_SkipDemoRadio=nil
 end
 function e.DEBUG_InitQuestFlagsForTest()for n,e in ipairs(TppDefine.QUEST_INDEX)do
 gvars.qst_questOpenFlag[e]=false
@@ -789,13 +800,13 @@ TppBuddyService.SetFriendlyPoint(BuddyFriendlyType.QUIET,100)TppMotherBaseManage
 vars.personalBirthdayMonth=3
 vars.personalBirthdayDay=10
 end
-function e.DEBUG_SetStorySequence(n,o)do
+function e.DEBUG_SetStorySequence(t,o)do
 return
 end
-if(n<TppDefine.STORY_SEQUENCE.STORY_START)and(n>TppDefine.STORY_SEQUENCE.STORY_FINISH)then
+if(t<TppDefine.STORY_SEQUENCE.STORY_START)and(t>TppDefine.STORY_SEQUENCE.STORY_FINISH)then
 return
 end
-gvars.str_storySequence=n
+gvars.str_storySequence=t
 for e=0,TppDefine.MISSION_COUNT_MAX do
 gvars.str_missionOpenPermission[e]=false
 gvars.str_missionOpenFlag[e]=false
@@ -814,31 +825,31 @@ if n then
 n()else
 TppDebugMbDevelop.AllDeveloped()end
 end
-local function r(i,o,a,t,n)local r=n or{}local n=TppMission.ParseMissionName(i)local t=(i==t)e.PermitMissionOpen(n)if(not r[i])or(t)then
-e.MissionOpen(n)if(o<a)and(not t)then
+local function r(t,o,a,i,n)local r=n or{}local n=TppMission.ParseMissionName(t)local i=(t==i)e.PermitMissionOpen(n)if(not r[t])or(i)then
+e.MissionOpen(n)if(o<a)and(not i)then
 e.DisableMissionNewOpenFlag(n)e.UpdateMissionCleardFlag(n)end
 end
-return t
+return i
 end
-local t
-for i=0,n do
+local n
+for i=0,t do
 local e=e.GetStorySequenceTable(i)if e==nil then
 break
 end
 if e.main then
-local e=r(e.main,i,n,o,e.defaultClose)t=t or e
+local e=r(e.main,i,t,o,e.defaultClose)n=n or e
 end
 if e.flag then
 for s,a in pairs(e.flag)do
-local e=r(a,i,n,o,e.defaultClose)t=t or e
+local e=r(a,i,t,o,e.defaultClose)n=n or e
 end
 end
 if e.sub then
 for s,a in pairs(e.sub)do
-local e=r(a,i,n,o,e.defaultClose)t=t or e
+local e=r(a,i,t,o,e.defaultClose)n=n or e
 end
 end
-if t then
+if n then
 gvars.str_storySequence=i
 break
 end

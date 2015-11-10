@@ -87,7 +87,9 @@ TppSave.VarSave(vars.missionCode,true)end
 else
 TppVarInit.InitializeForContinue(n)end
 TppVarInit.ClearIsContinueFromTitle()end
-TppUiCommand.ExcludeNonPermissionContents()TppStory.SetMissionClearedS10030()TppTerminal.StartSyncMbManagementOnMissionStart()if TppLocation.IsMotherBase()then
+TppUiCommand.ExcludeNonPermissionContents()TppStory.SetMissionClearedS10030()if(not TppMission.IsDefiniteMissionClear())then
+TppTerminal.StartSyncMbManagementOnMissionStart()end
+if TppLocation.IsMotherBase()then
 if i~=vars.mbLayoutCode then
 if vars.missionCode==30050 then
 vars.mbLayoutCode=i
@@ -95,7 +97,7 @@ else
 vars.mbLayoutCode=TppLocation.ModifyMbsLayoutCode(TppMotherBaseManagement.GetMbsTopologyType())end
 end
 end
-e.StageBlockCurrentPosition(true)TppMission.SetSortieBuddy()TppStory.UpdateStorySequence{updateTiming="BeforeBuddyBlockLoad"}if n.sequence then
+TppPlayer.FailSafeInitialPositionForFreePlay()e.StageBlockCurrentPosition(true)TppMission.SetSortieBuddy()TppMission.ResetQuietEquipIfUndevelop()TppStory.UpdateStorySequence{updateTiming="BeforeBuddyBlockLoad"}if n.sequence then
 local e=n.sequence.DISABLE_BUDDY_TYPE
 if e then
 local n

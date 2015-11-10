@@ -127,6 +127,8 @@ if not s and not f()then
 return
 end
 local n
+if not(TppMission.IsHelicopterSpace(vars.missionCode)or TppMission.IsFOBMission(vars.missionCode))then
+TppMission.ClearFobMode()end
 if c then
 e.Reset()TppPlayer.SetInitialPositionToCurrentPosition()elseif d then
 if Gimmick.IsVehicleFultonUpdating()then

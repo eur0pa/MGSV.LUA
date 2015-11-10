@@ -1,39 +1,41 @@
 local e={}local o=Fox.StrCode32
 local i=Tpp.IsTypeFunc
 local s=Tpp.IsTypeTable
-local l=Tpp.IsTypeString
-local p=Tpp.IsTypeNumber
+local r=Tpp.IsTypeString
+local d=Tpp.IsTypeNumber
 local n=GkEventTimerManager.Start
 local n=GameObject.GetGameObjectId
 local n=GameObject.NULL_ID
-local m=TppScriptVars.SVarsIsSynchronized
+local p=TppScriptVars.SVarsIsSynchronized
 local n=PlayRecord.RegistPlayRecord
 local t=bit.bnot
 local E,t,t=bit.band,bit.bor,bit.bxor
 local t=GkEventTimerManager.Start
 local C=GkEventTimerManager.Stop
-local d=GkEventTimerManager.IsTimerActive
+local m=GkEventTimerManager.IsTimerActive
 local a=Tpp.IsHelicopter
 local _=Tpp.IsNotAlert
 local R=Tpp.IsPlayerStatusNormal
-local r=DemoDaemon.IsDemoPlaying
-local r=10
-local r=3
+local l=DemoDaemon.IsDemoPlaying
+local l=10
+local l=3
 local A=5
 local g=2.5
-local r="Timer_outsideOfInnerZone"local c=0
+local l="Timer_outsideOfInnerZone"local u=0
 local M=64
-local y=2
-local h=4
+local y=1
+local h=3
 local I=(24*60)*60
-local u=2
-local u=TppDefine.MAX_32BIT_UINT
+local c=2
+local c=TppDefine.MAX_32BIT_UINT
 local function v()n"MISSION_TIMER_UPDATE"end
 function e.GetMissionID()return vars.missionCode
 end
 function e.GetMissionName()return mvars.mis_missionName
 end
 function e.GetMissionClearType()return svars.mis_missionClearType
+end
+function e.IsDefiniteMissionClear()return svars.mis_isDefiniteMissionClear
 end
 function e.RegiserMissionSystemCallback(n)e.RegisterMissionSystemCallback(n)end
 function e.RegisterMissionSystemCallback(n)if s(n)then
@@ -156,7 +158,7 @@ end
 if not s(i)then
 e.ShowUpdateObjective(mvars.mis_objectiveSetting)end
 end
-function e.SetHelicopterDoorOpenTime(e)if not p(e)then
+function e.SetHelicopterDoorOpenTime(e)if not d(e)then
 return
 end
 mvars.mis_helicopterDoorOpenTimerTimeSec=e
@@ -260,19 +262,19 @@ mvars.mis_helicopterMissionStartPosition={i,n,e}else
 mvars.mis_helicopterMissionStartPosition=nil
 end
 end
-function e.StartEmergencyMissionTimer(n)if not s(n)then
+function e.StartEmergencyMissionTimer(i)if not s(i)then
 return
 end
-local i=n.openTimer
-if not s(i)then
-return
-end
-local n=n.closeTimer
+local n=i.openTimer
 if not s(n)then
 return
 end
-local s,t,a=i.name,i.timeSecFromHeli,i.timeSecFromLand
-local o,r,i=n.name,n.timeSecFromHeli,n.timeSecFromLand
+local i=i.closeTimer
+if not s(i)then
+return
+end
+local s,t,a=n.name,n.timeSecFromHeli,n.timeSecFromLand
+local o,r,i=i.name,i.timeSecFromHeli,i.timeSecFromLand
 local n
 n=e._StartEmergencyMissionTimer(s,t,a)if n then
 else
@@ -283,26 +285,26 @@ else
 return
 end
 end
-function e._StartEmergencyMissionTimer(i,n,s)if not l(i)then
+function e._StartEmergencyMissionTimer(n,i,s)if not r(n)then
 return
 end
-if not p(n)then
+if not d(i)then
 return
 end
-if not p(s)then
+if not d(s)then
 return
 end
 if e.IsStartFromHelispace()then
-t(i,n)return n
+t(n,i)return i
 else
-t(i,s)return s
+t(n,s)return s
 end
 end
-function e.Reload(n)local r,t,a,s,o,l
+function e.Reload(n)local r,a,t,s,o,l
 if n then
 r=n.isNoFade
-t=n.missionPackLabelName
-a=n.locationCode
+a=n.missionPackLabelName
+t=n.locationCode
 o=n.showLoadingTips
 l=n.ignoreMtbsLoadLocationForce
 mvars.mis_nextLayoutCode=n.layoutCode
@@ -317,11 +319,11 @@ end
 if l then
 mvars.mis_ignoreMtbsLoadLocationForce=true
 end
-if t then
-mvars.mis_missionPackLabelName=t
-end
 if a then
-mvars.mis_nextLocationCode=a
+mvars.mis_missionPackLabelName=a
+end
+if t then
+mvars.mis_nextLocationCode=t
 end
 if s and i(s)then
 mvars.mis_reloadOnEndFadeOut=s
@@ -459,7 +461,7 @@ local d
 local l
 local p
 local m
-local o,a,t=0,0,TppUI.FADE_SPEED.FADE_NORMALSPEED
+local t,o,a=0,0,TppUI.FADE_SPEED.FADE_NORMALSPEED
 local O
 local M
 if s(n)then
@@ -474,13 +476,13 @@ S=n.isNoSave
 T=n.isInterrupt
 m=n.isAlreadyGameOver
 if n.delayTime then
-o=n.delayTime
+t=n.delayTime
 end
 if n.fadeDelayTime then
-a=n.fadeDelayTime
+o=n.fadeDelayTime
 end
 if n.fadeSpeed then
-t=n.fadeSpeed
+a=n.fadeSpeed
 end
 O=n.presentationFunction
 i=n.isTitleMode
@@ -492,14 +494,14 @@ end
 if mvars.mis_isAborting then
 return
 end
+if t then
+mvars.mis_missionAbortDelayTime=t
+end
 if o then
-mvars.mis_missionAbortDelayTime=o
+mvars.mis_missionAbortFadeDelayTime=o
 end
 if a then
-mvars.mis_missionAbortFadeDelayTime=a
-end
-if t then
-mvars.mis_missionAbortFadeSpeed=t
+mvars.mis_missionAbortFadeSpeed=a
 end
 mvars.mis_abortPresentationFunction=O
 if i then
@@ -546,9 +548,9 @@ if gvars.ini_isTitleMode then
 gvars.title_nextMissionCode=n
 gvars.title_nextLocationCode=vars.locationCode
 TppVarInit.InitializeForNewMission{}Player.SetPause()end
-mvars.mis_missionAbortLoadingOption={}local i=e.IsHelicopterSpace(n)local a=e.IsFreeMission(n)local s=e.IsHelicopterSpace(mvars.mis_nextMissionCodeForAbort)local t=e.IsFreeMission(mvars.mis_nextMissionCodeForAbort)if mvars.mis_isInterruptMission then
+mvars.mis_missionAbortLoadingOption={}local s=e.IsHelicopterSpace(n)local a=e.IsFreeMission(n)local i=e.IsHelicopterSpace(mvars.mis_nextMissionCodeForAbort)local t=e.IsFreeMission(mvars.mis_nextMissionCodeForAbort)if mvars.mis_isInterruptMission then
 gvars.usingNormalMissionSlot=false
-if i then
+if s then
 mvars.mis_missionAbortLoadingOption.showLoadingTips=false
 else
 mvars.mis_missionAbortLoadingOption.showLoadingTips=true
@@ -579,7 +581,7 @@ vars.locationCode=e
 end
 end
 end
-TppTerminal.ClearStaffNewIcon(i,a,s,t)TppEnemy.ClearDDParameter()if(not e.IsFOBMission(n)and not e.IsFreeMission(n))and not e.IsHelicopterSpace(n)then
+TppTerminal.ClearStaffNewIcon(s,a,i,t)TppEnemy.ClearDDParameter()if(not e.IsFOBMission(n)and not e.IsFreeMission(n))and not e.IsHelicopterSpace(n)then
 TppRevenge.ReduceRevengePointOnAbort(n)end
 if mvars.mis_abortWithSave then
 if t then
@@ -587,7 +589,7 @@ e.ReserveMissionStartRecoverSoundDemo()else
 e.ClearMissionStartRecoverSoundDemo()end
 if not mvars.mis_abortByRestartFromHelicopter then
 TppEnemy.FultonRecoverOnMissionGameEnd()TppHero.AnnounceMissionAbort()end
-if s then
+if i then
 TppPlaced.DeleteAllCaptureCage()else
 TppPlayer.SaveCaptureAnimal()end
 TppClock.SaveMissionStartClock()TppWeather.SaveMissionStartWeather()TppTerminal.AddStaffsFromTempBuffer()TppRevenge.OnMissionClearOrAbort(n)TppRevenge.SaveMissionStartMineArea()if gvars.solface_groupNumber>=4294967295 then
@@ -597,7 +599,7 @@ gvars.solface_groupNumber=gvars.solface_groupNumber+1
 end
 gvars.hosface_groupNumber=(math.random(0,65535)*65536)+math.random(1,65535)TppPlayer.SavePlayerCurrentWeapons()local n=TppPlayer.RestoreWeaponsFromUsingTemp()if not n then
 TppPlayer.SavePlayerCurrentAmmoCount()end
-TppPlayer.SavePlayerCurrentItems()TppPlayer.RestoreItemsFromUsingTemp()TppPlayer.StoreSupplyCbox()TppPlayer.StoreSupportAttack()Gimmick.StoreSaveDataPermanentGimmickFromMission()TppGimmick.DecrementCollectionRepopCount()e.ExecuteVehicleSaveCarryOnAbort()TppBuddyService.SetVarsMissionStart()e.KillDyingQuiet()if(not i)and t then
+TppPlayer.SavePlayerCurrentItems()TppPlayer.RestoreItemsFromUsingTemp()TppPlayer.StoreSupplyCbox()TppPlayer.StoreSupportAttack()Gimmick.StoreSaveDataPermanentGimmickFromMission()TppGimmick.DecrementCollectionRepopCount()e.ExecuteVehicleSaveCarryOnAbort()TppBuddyService.SetVarsMissionStart()e.KillDyingQuiet()if(not s)and t then
 TppUiCommand.LoadoutSetMissionEndFromMissionToFree()end
 if gvars.usingNormalMissionSlot then
 TppStory.FailedRetakeThePlatformIfOpened()end
@@ -607,13 +609,13 @@ TppPlayer.RestoreWeaponsFromUsingTemp()TppPlayer.RestoreItemsFromUsingTemp()if n
 TppStory.CloseRetakeThePlatform()end
 end
 e.ClearMissionStartRecoverSoundDemo()TppPlayer.ResetMissionStartPosition()TppUiStatusManager.SetStatus("AnnounceLog","INVALID_LOG")end
-if s then
+if i then
 TppUiCommand.LoadoutSetReturnHelicopter()end
 local o={[10091]=TppMotherBaseManagement.UnlockedStaffsS10091,[10081]=TppMotherBaseManagement.UnlockedStaffS10081,[10115]=TppMotherBaseManagement.UnlockedStaffsS10115}local o=o[n]if o then
 if TppStory.IsMissionCleard(n)then
 o{crossMedal=false}end
 end
-TppBuddyService.BuddyMissionInit()TppMain.ReservePlayerLoadingPosition(TppDefine.MISSION_LOAD_TYPE.MISSION_ABORT,i,a,s,t,mvars.mis_abortWithSave)TppWeather.OnEndMissionPrepareFunction()e.VarResetOnNewMission()gvars.mis_orderBoxName=0
+TppBuddyService.BuddyMissionInit()TppMain.ReservePlayerLoadingPosition(TppDefine.MISSION_LOAD_TYPE.MISSION_ABORT,s,a,i,t,mvars.mis_abortWithSave)TppWeather.OnEndMissionPrepareFunction()e.VarResetOnNewMission()gvars.mis_orderBoxName=0
 if gvars.ini_isTitleMode then
 mvars.mis_missionAbortLoadingOption.showLoadingTips=false
 gvars.ini_isReturnToTitle=true
@@ -645,7 +647,7 @@ mvars.mis_nextMissionCodeForAbort=10010
 else
 mvars.mis_nextMissionCodeForAbort=e.GetCurrentLocationHeliMissionAndLocationCode()end
 e.ExecuteMissionAbort()end
-function e.ReserveGameOver(n,i,s)if svars.mis_isDefiniteMissionClear then
+function e.ReserveGameOver(i,n,s)if svars.mis_isDefiniteMissionClear then
 return false
 end
 if e.IsFOBMission(vars.missionCode)==true and TppServerManager.FobIsSneak()==true then
@@ -653,11 +655,11 @@ TppMain.DisablePlayerPad()TppUiStatusManager.SetStatus("PauseMenu","INVALID")end
 mvars.mis_isAborting=s
 mvars.mis_isReserveGameOver=true
 svars.mis_isDefiniteGameOver=true
-if type(n)=="number"and n<TppDefine.GAME_OVER_TYPE.MAX then
-svars.mis_gameOverType=n
+if type(i)=="number"and i<TppDefine.GAME_OVER_TYPE.MAX then
+svars.mis_gameOverType=i
 end
-if type(i)=="number"and i<TppDefine.GAME_OVER_RADIO.MAX then
-svars.mis_gameOverRadio=i
+if type(n)=="number"and n<TppDefine.GAME_OVER_RADIO.MAX then
+svars.mis_gameOverRadio=n
 end
 return true
 end
@@ -738,13 +740,13 @@ end
 svars.mis_isDefiniteMissionClear=true
 return true
 end
-function e.MissionGameEnd(n)local s=0
-local t=0
+function e.MissionGameEnd(n)local t=0
+local s=0
 local i=TppUI.FADE_SPEED.FADE_NORMALSPEED
 if Tpp.IsTypeTable(n)then
-s=n.delayTime or 0
+t=n.delayTime or 0
 i=n.fadeSpeed or TppUI.FADE_SPEED.FADE_NORMALSPEED
-t=n.fadeDelayTime or 0
+s=n.fadeDelayTime or 0
 if n.loadStartOnResult~=nil then
 mvars.mis_doMissionFinalizeOnMissionTelopDisplay=n.loadStartOnResult
 else
@@ -754,8 +756,8 @@ end
 if mvars.mis_doMissionFinalizeOnMissionTelopDisplay then
 e.SetNeedWaitMissionInitialize()else
 e.ResetNeedWaitMissionInitialize()end
-mvars.mis_missionGameEndDelayTime=s
-e.FadeOutOnMissionGameEnd(t,i,"MissionGameEndFadeOutFinish")PlayRecord.RegistPlayRecord"MISSION_CLEAR"end
+mvars.mis_missionGameEndDelayTime=t
+e.FadeOutOnMissionGameEnd(s,i,"MissionGameEndFadeOutFinish")PlayRecord.RegistPlayRecord"MISSION_CLEAR"end
 function e.FadeOutOnMissionGameEnd(n,i,s)if n==0 then
 e._FadeOutOnMissionGameEnd(i,s)else
 mvars.mis_missionGameEndFadeSpeed=i
@@ -847,13 +849,13 @@ if gvars.needWaitMissionInitialize==false then
 e.ExecuteMissionFinalize()end
 end
 e.ResetNeedWaitMissionInitialize()end
-function e.MissionFinalize(n)local r,o,i,t,a,l
+function e.MissionFinalize(n)local a,r,i,t,o,l
 if s(n)then
-r=n.isNoFade
-o=n.isExecGameOver
+a=n.isNoFade
+r=n.isExecGameOver
 i=n.showLoadingTips
 t=n.setMute
-a=n.isInterruptMissionEnd
+o=n.isInterruptMissionEnd
 l=n.ignoreMtbsLoadLocationForce
 end
 if i~=nil then
@@ -864,15 +866,15 @@ end
 if t then
 mvars.mis_setMuteOnMissionFinalize=t
 end
-if a then
+if o then
 mvars.mis_isInterruptMissionEnd=true
 end
 if l then
 mvars.mis_missionFinalizeIgnoreMtbsLoadLocationForce=true
 end
-if r then
+if a then
 e.ExecuteMissionFinalize()else
-if o then
+if r then
 TppUI.FadeOut(TppUI.FADE_SPEED.FADE_NORMALSPEED,"MissionFinalizeAtGameOverFadeOutFinish",nil,{setMute=true})else
 TppUI.FadeOut(TppUI.FADE_SPEED.FADE_NORMALSPEED,"MissionFinalizeFadeOutFinish",nil,{setMute=true})end
 end
@@ -893,7 +895,7 @@ local t,s
 if e.IsFOBMission(gvars.mis_nextMissionCodeForMissionClear)then
 r=false
 TppSave.VarSave(n,true)TppSave.SaveGameData(n,nil,nil,nil,true)end
-if gvars.mis_nextMissionCodeForMissionClear~=c then
+if gvars.mis_nextMissionCodeForMissionClear~=u then
 i=e.IsHelicopterSpace(vars.missionCode)t=e.IsFreeMission(vars.missionCode)a=e.IsHelicopterSpace(gvars.mis_nextMissionCodeForMissionClear)s=e.IsFreeMission(gvars.mis_nextMissionCodeForMissionClear)if mvars.heli_missionStartRoute then
 if Tpp.IsTypeString(mvars.heli_missionStartRoute)then
 gvars.heli_missionStartRoute=o(mvars.heli_missionStartRoute)elseif Tpp.IsTypeNumber(mvars.heli_missionStartRoute)then
@@ -967,21 +969,28 @@ end
 local l=(vars.locationCode~=l)if not i then
 TppTerminal.AddStaffsFromTempBuffer(nil,o)end
 TppClock.SaveMissionStartClock()TppWeather.SaveMissionStartWeather()TppBuddyService.SetVarsMissionStart()TppBuddyService.BuddyMissionInit()TppRevenge.SaveMissionStartMineArea()TppMain.ReservePlayerLoadingPosition(TppDefine.MISSION_LOAD_TYPE.MISSION_FINALIZE,i,t,a,s,nil,l)TppWeather.OnEndMissionPrepareFunction()e.VarResetOnNewMission()if not e.IsFOBMission(vars.missionCode)then
-local e=true
-TppSave.VarSave(n,true)local i=false
+local i=true
+TppSave.VarSave(n,true)local e=false
 do
-i=true
+e=true
 end
-if i and(not o)then
-TppSave.SaveGameData(n,nil,nil,e,true)end
+if e and(not o)then
+TppSave.SaveGameData(n,nil,nil,i,true)end
 if mvars.mis_needSaveConfigOnNewMission then
-TppSave.VarSaveConfig()TppSave.SaveConfigData(nil,nil,e)end
+TppSave.VarSaveConfig()TppSave.SaveConfigData(nil,nil,i)end
 end
 if mvars.mis_isInterruptMissionEnd then
 local i,n=vars.missionHeroicPoint,vars.missionOgrePoint
 e.ResetEmegerncyMissionSetting()TppSave.VarSaveMBAndGlobal()TppSave.VarRestoreOnContinueFromCheckPoint()TppPlayer.ResetInitialPosition()TppMain.ReservePlayerLoadingPosition(TppDefine.MISSION_LOAD_TYPE.MISSION_RESTART)if(vars.missionCode==30050)then
 e.ResetMBFreeStartPositionToCommand()end
-e.VarResetOnNewMission()TppSave.VarSave()e.SetHeroicAndOgrePointInSlot(i,n)TppSave.SaveGameData(vars.missionCode)end
+e.VarResetOnNewMission()if(vars.missionCode==10240)then
+local e=TppPackList.GetLocationNameFormMissionCode(vars.missionCode)if e then
+local e=TppDefine.LOCATION_ID[e]if e then
+vars.locationCode=e
+end
+end
+end
+TppSave.VarSave()e.SetHeroicAndOgrePointInSlot(i,n)TppSave.SaveGameData(vars.missionCode)end
 if TppRadio.playingBlackTelInfo then
 mvars.mis_showLoadingTipsOnMissionFinalize=false
 end
@@ -1125,7 +1134,7 @@ end,option={isExecMissionClear=true,isExecGameOver=true,isExecMissionPrepare=tru
 e.PlayCommonRadioOnRideHelicopter()end
 end},{msg="Finish",sender="Timer_RemoveUserMarker",func=function()if Tpp.IsHelicopter(vars.playerVehicleGameObjectId)then
 TppUiCommand.RemovedAllUserMarker()end
-end},{msg="Finish",sender=r,func=function()if(mvars.mis_isAlertOutOfMissionArea==false)then
+end},{msg="Finish",sender=l,func=function()if(mvars.mis_isAlertOutOfMissionArea==false)then
 return
 end
 if e.CheckMissionClearOnOutOfMissionArea()then
@@ -1200,14 +1209,14 @@ e.ShowMissionReward()end
 end
 end
 end},{msg="BonusPopupAllClose",func=e.OnEndMissionReward}},Radio={{msg="Finish",func=TppRadio.OnFinishBlackTelephoneRadio},nil},Video={{msg="VideoPlay",func=function(e)TppMovie.DoMessage(e,"onStart")end},{msg="VideoStopped",func=function(e)TppMovie.DoMessage(e,"onEnd")end}}}end
-local f=o"FallDeath"local u=o"Suicide"function e.OnPlayerDead(s,n)if not TppNetworkUtil.IsHost()then
+local f=o"FallDeath"local c=o"Suicide"function e.OnPlayerDead(s,n)if not TppNetworkUtil.IsHost()then
 return
 end
 local i=e.IsFOBMission(vars.missionCode)if(not i)or TppPlayer.IsSneakPlayerInFOB(s)then
 if n==f then
 mvars.mis_isGameOverReasonSuicide=true
 e.ReserveGameOver(TppDefine.GAME_OVER_TYPE.PLAYER_FALL_DEAD,TppDefine.GAME_OVER_RADIO.PLAYER_DEAD)else
-if n==u then
+if n==c then
 mvars.mis_isGameOverReasonSuicide=true
 end
 e.ReserveGameOver(TppDefine.GAME_OVER_TYPE.PLAYER_DEAD,TppDefine.GAME_OVER_RADIO.PLAYER_DEAD)end
@@ -1215,21 +1224,21 @@ else
 svars.mis_fobDefenceGameOver=TppDefine.FOB_DEFENCE_GAME_OVER_TYPE.PLAYER_DEAD
 end
 end
-function e.OnEndMissionPreparation(n,i)mvars.mis_selectedDeployTime=n
+function e.OnEndMissionPreparation(n,s)mvars.mis_selectedDeployTime=n
 if gvars.mis_nextMissionCodeForEmergency==0 then
-local s
+local i
 if gvars.heli_missionStartRoute==0 then
-s=mvars.heli_missionStartRoute
+i=mvars.heli_missionStartRoute
 end
-local n=TppDefine.STORY_MISSION_CLUSTER_ID[gvars.mis_nextMissionCodeForMissionClear]if i then
-n=i
+local n=TppDefine.STORY_MISSION_CLUSTER_ID[gvars.mis_nextMissionCodeForMissionClear]if s then
+n=s
 end
-e.ReserveMissionClear{missionClearType=TppDefine.MISSION_CLEAR_TYPE.FROM_HELISPACE,nextMissionId=gvars.mis_nextMissionCodeForMissionClear,nextHeliRoute=s,nextClusterId=n}else
+e.ReserveMissionClear{missionClearType=TppDefine.MISSION_CLEAR_TYPE.FROM_HELISPACE,nextMissionId=gvars.mis_nextMissionCodeForMissionClear,nextHeliRoute=i,nextClusterId=n}else
 gvars.usingNormalMissionSlot=false
 e.GoToEmergencyMission()end
 end
 function e.GetNextMissionCodeForEmergency()return(mvars.mis_emergencyMissionCode or gvars.mis_nextMissionCodeForEmergency)end
-function e.OnAbortMissionPreparation()e.SetNextMissionCodeForMissionClear(c)gvars.heli_missionStartRoute=0
+function e.OnAbortMissionPreparation()e.SetNextMissionCodeForMissionClear(u)gvars.heli_missionStartRoute=0
 end
 function e.WaitFinishMissionEndPresentation()while(not TppUiCommand.IsEndMissionTelop())do
 if TppUiCommand.KeepMissionStartTelopBg then
@@ -1251,11 +1260,11 @@ e.ResetNeedWaitMissionInitialize()end
 function e.OnAllocate(n)e.systemCallbacks={OnEstablishMissionClear=function()e.MissionGameEnd{loadStartOnResult=false}end,OnDisappearGameEndAnnounceLog=e.ShowMissionResult,OnEndMissionCredit=nil,OnEndMissionReward=nil,OnGameOver=nil,OnOutOfMissionArea=nil,OnUpdateWhileMissionPrepare=nil,OnFobDefenceGameOver=nil,OnFinishBlackTelephoneRadio=function()if not gvars.needWaitMissionInitialize then
 e.ShowMissionReward()end
 end,OnOutOfHotZone=nil,OnOutOfHotZoneMissionClear=nil,OnUpdateStorySequenceInGame=nil,CheckMissionClearFunction=nil,OnReturnToMission=nil,OnAddStaffsFromTempBuffer=nil,CheckMissionClearOnRideOnFultonContainer=nil,OnRecovered=nil,OnSetMissionFinalScore=nil,OnEndDeliveryWarp=nil,OnFultonContainerMissionClear=nil}e.RegisterMissionID()if n.sequence then
-local t=n.sequence.missionObjectiveDefine
-local i=n.sequence.missionObjectiveTree
+local i=n.sequence.missionObjectiveDefine
+local t=n.sequence.missionObjectiveTree
 local o=n.sequence.missionObjectiveEnum
-if t and i then
-e.SetMissionObjectives(t,i,o)end
+if i and t then
+e.SetMissionObjectives(i,t,o)end
 if n.sequence.missionStartPosition then
 if s(n.sequence.missionStartPosition.orderBoxList)then
 mvars.mis_orderBoxList=n.sequence.missionStartPosition.orderBoxList
@@ -1271,7 +1280,7 @@ end
 end
 mvars.mis_isOutsideOfMissionArea=false
 mvars.mis_isOutsideOfHotZone=true
-e.MessageHandler={OnMessage=function(i,s,n,t,a,o)e.OnMessageWhileLoading(i,s,n,t,a,o)end}GameMessage.SetMessageHandler(e.MessageHandler,{"UI","Radio","Video","Network","Nt"})end
+e.MessageHandler={OnMessage=function(i,n,s,t,a,o)e.OnMessageWhileLoading(i,n,s,t,a,o)end}GameMessage.SetMessageHandler(e.MessageHandler,{"UI","Radio","Video","Network","Nt"})end
 function e.DisableInGameFlag()mvars.mis_missionStateIsNotInGame=true
 end
 function e.EnableInGameFlag(n)if(not gvars.usingNormalMissionSlot)and e.IsHelicopterSpace(vars.missionCode)then
@@ -1313,10 +1322,10 @@ local n=n.sequence.missionObjectiveEnum
 if i and s then
 e.SetMissionObjectives(i,s,n)end
 end
-local n={"OnEstablishMissionClear","OnDisappearGameEndAnnounceLog","OnEndMissionCredit","OnEndMissionReward","OnGameOver","OnOutOfMissionArea","OnUpdateWhileMissionPrepare","OnFobDefenceGameOver","OnFinishBlackTelephoneRadio","OnOutOfHotZone","OnOutOfHotZoneMissionClear","OnUpdateStorySequenceInGame","CheckMissionClearFunction","OnReturnToMission","OnAddStaffsFromTempBuffer","CheckMissionClearOnRideOnFultonContainer","OnRecovered","OnMissionGameEndFadeOutFinish","OnFultonContainerMissionClear"}for i,n in ipairs(n)do
-local i=_G.TppMission.systemCallbacks
-if i then
-local i=i[n]e.systemCallbacks=e.systemCallbacks or{}e.systemCallbacks[n]=i
+local n={"OnEstablishMissionClear","OnDisappearGameEndAnnounceLog","OnEndMissionCredit","OnEndMissionReward","OnGameOver","OnOutOfMissionArea","OnUpdateWhileMissionPrepare","OnFobDefenceGameOver","OnFinishBlackTelephoneRadio","OnOutOfHotZone","OnOutOfHotZoneMissionClear","OnUpdateStorySequenceInGame","CheckMissionClearFunction","OnReturnToMission","OnAddStaffsFromTempBuffer","CheckMissionClearOnRideOnFultonContainer","OnRecovered","OnMissionGameEndFadeOutFinish","OnFultonContainerMissionClear"}for n,i in ipairs(n)do
+local n=_G.TppMission.systemCallbacks
+if n then
+local n=n[i]e.systemCallbacks=e.systemCallbacks or{}e.systemCallbacks[i]=n
 end
 end
 end
@@ -1328,13 +1337,13 @@ function e.OnMessageWhileLoading(t,a,o,r,i,s)local n=Tpp.DEBUG_StrCode32ToString
 local n
 Tpp.DoMessage(e.messageExecTableWhileLoading,e.CheckMessageOptionWhileLoading,t,a,o,r,i,s,n)end
 function e.OnMessage(t,s,i,n,o,r,a)Tpp.DoMessage(e.messageExecTable,e.CheckMessageOption,t,s,i,n,o,r,a)end
-function e.CheckMessageOption(n)local r=false
+function e.CheckMessageOption(n)local t=false
 local a=false
-local t=false
+local r=false
 local i=false
 if n and s(n)then
-r=n[o"isExecMissionClear"]a=n[o"isExecGameOver"]t=n[o"isExecDemoPlaying"]i=n[o"isExecMissionPrepare"]end
-return e.CheckMissionState(r,a,t,i)end
+t=n[o"isExecMissionClear"]a=n[o"isExecGameOver"]r=n[o"isExecDemoPlaying"]i=n[o"isExecMissionPrepare"]end
+return e.CheckMissionState(t,a,r,i)end
 function e.CheckMissionState(i,s,t,a)local n=mvars
 local e=svars
 if e==nil then
@@ -1436,7 +1445,7 @@ end
 function e.OutsideOfHotZoneCount()if mvars.mis_isOutsideOfHotZone then
 e.ReserveMissionClearOnOutOfHotZone()end
 end
-local function u()if d"Timer_OutsideOfHotZoneCount"then
+local function c()if m"Timer_OutsideOfHotZoneCount"then
 C"Timer_OutsideOfHotZoneCount"end
 end
 function e.CheckMissionClearOnRideOnFultonContainer()if e.systemCallbacks.CheckMissionClearOnRideOnFultonContainer then
@@ -1458,17 +1467,17 @@ e._SetCanMissionClear()end
 if n.mis_missionStateIsNotInGame then
 return
 end
-local f,S,u,c=e.GetSyncMissionStatus()local m=n.mis_isAlertOutOfMissionArea
+local f,S,u,c=e.GetSyncMissionStatus()local p=n.mis_isAlertOutOfMissionArea
 local o=n.mis_isOutsideOfMissionArea
-local p=n.mis_isOutsideOfHotZone
-local l=i.mis_canMissionClear
+local d=n.mis_isOutsideOfHotZone
+local r=i.mis_canMissionClear
 if f and S then
 TppMain.DisableGameStatus()HighSpeedCamera.RequestToCancel()e.EstablishedMissionClear(i.mis_missionClearType)elseif u and c then
 TppMain.DisableGameStatus()HighSpeedCamera.RequestToCancel()if n.mis_isAborting then
 e.EstablishedMissionAbort()else
 e.EstablishedGameOver()end
-elseif l then
-e.UpdateAtCanMissionClear(p,o)else
+elseif r then
+e.UpdateAtCanMissionClear(d,o)else
 if o then
 local n=not a(vars.playerVehicleGameObjectId)if n then
 if e.CheckMissionClearOnOutOfMissionArea()then
@@ -1479,12 +1488,12 @@ e.systemCallbacks.OnOutOfMissionArea()end
 end
 end
 end
-if m then
-if not d(r)then
-t(r,g)end
+if p then
+if not m(l)then
+t(l,g)end
 else
-if d(r)then
-C(r)end
+if m(l)then
+C(l)end
 end
 end
 if TppSequence.IsMissionPrepareFinished()then
@@ -1516,25 +1525,25 @@ end
 end
 function e.GetSyncMissionStatus()local o=mvars
 local e=svars
-local a=TppNetworkUtil.IsHost()local r=TppNetworkUtil.IsSessionConnect()local t=false
-local i=false
+local a=TppNetworkUtil.IsHost()local r=TppNetworkUtil.IsSessionConnect()local i=false
 local n=false
+local t=false
 local s=false
 if a then
-t=e.mis_isDefiniteMissionClear and m"mis_isDefiniteMissionClear"i=m"mis_missionClearType"n=e.mis_isDefiniteGameOver and m"mis_isDefiniteGameOver"s=m"mis_gameOverType"else
+i=e.mis_isDefiniteMissionClear and p"mis_isDefiniteMissionClear"n=p"mis_missionClearType"t=e.mis_isDefiniteGameOver and p"mis_isDefiniteGameOver"s=p"mis_gameOverType"else
 if r then
-t=e.mis_isDefiniteMissionClear
-i=true
-n=e.mis_isDefiniteGameOver
+i=e.mis_isDefiniteMissionClear
+n=true
+t=e.mis_isDefiniteGameOver
 s=e.mis_gameOverType
 else
-t=o.mis_isReserveMissionClear
-i=true
-n=o.mis_isDefiniteGameOver
+i=o.mis_isReserveMissionClear
+n=true
+t=o.mis_isDefiniteGameOver
 s=true
 end
 end
-return t,i,n,s
+return i,n,t,s
 end
 function e.SeizeReliefVehicleOnAbort()if mvars.mis_abortIsTitleMode then
 return
@@ -1588,19 +1597,19 @@ function e.ExecuteVehicleSaveCarryOnClear()local n=vars.locationCode
 if n~=TppDefine.LOCATION_ID.AFGH and n~=TppDefine.LOCATION_ID.MAFR then
 return
 end
-local s=e.GetMissionClearType()local t=e.EvaluateVehicleCarryOption(s)local i=nil
-local n=nil
-if s==TppDefine.MISSION_CLEAR_TYPE.FREE_PLAY_ORDER_BOX_DEMO then
+local n=e.GetMissionClearType()local t=e.EvaluateVehicleCarryOption(n)local s=nil
+local i=nil
+if n==TppDefine.MISSION_CLEAR_TYPE.FREE_PLAY_ORDER_BOX_DEMO then
 if mvars.mis_orderBoxList then
 if gvars.mis_orderBoxName~=0 then
-local s=e.FindOrderBoxName(gvars.mis_orderBoxName)local e,s=e.GetOrderBoxLocator(s)if e then
-local t=Vector3(0,-.75,1.98)local e=Vector3(e[1],e[2],e[3])local t=-Quat.RotationY(TppMath.DegreeToRadian(s)):Rotate(t)i=t+e
-n=s
+local n=e.FindOrderBoxName(gvars.mis_orderBoxName)local e,n=e.GetOrderBoxLocator(n)if e then
+local t=Vector3(0,-.75,1.98)local e=Vector3(e[1],e[2],e[3])local t=-Quat.RotationY(TppMath.DegreeToRadian(n)):Rotate(t)s=t+e
+i=n
 end
 end
 end
 end
-Vehicle.SaveCarry{options=t,initialPosition=i,initialRotY=n}end
+Vehicle.SaveCarry{options=t,initialPosition=s,initialRotY=i}end
 function e.EstablishedMissionAbort()e.SeizeReliefVehicleOnAbort()TppQuest.OnMissionGameEnd()if mvars.mis_abortWithPlayRadio then
 TppRadio.PlayGameOverRadio()end
 if mvars.mis_abortIsTitleMode then
@@ -1654,20 +1663,20 @@ end
 end
 function e.UpdateAtCanMissionClear(n,o)if not n then
 mvars.mis_lastOutSideOfHotZoneButAlert=nil
-u()return
+c()return
 end
 local i=_()local n=R()local s=not a(vars.playerVehicleGameObjectId)if o then
 if n and s then
-u()e.ReserveMissionClearOnOutOfHotZone()end
+c()e.ReserveMissionClearOnOutOfHotZone()end
 else
 if(i and n)and s then
-if not d"Timer_OutsideOfHotZoneCount"then
+if not m"Timer_OutsideOfHotZoneCount"then
 t("Timer_OutsideOfHotZoneCount",A)end
 else
 if not i then
 mvars.mis_lastOutSideOfHotZoneButAlert=true
 end
-u()end
+c()end
 end
 end
 function e.ReserveMissionClearOnOutOfHotZone()if e.systemCallbacks.OnOutOfHotZoneMissionClear then
@@ -1700,24 +1709,24 @@ e.AbortForRideOnHelicopter()end
 end
 end
 function e.AbortForOutOfMissionArea(r)local n=true
-local i
-local o,a
 local t
+local i,o
+local a
 if s(r)then
 if r.isNoSave then
 n=true
 else
 n=false
-o=5.5
-a=TppUI.FADE_SPEED.FADE_HIGHSPEED
-i=TppPlayer.PlayMissionAbortCamera
-t=true
+i=5.5
+o=TppUI.FADE_SPEED.FADE_HIGHSPEED
+t=TppPlayer.PlayMissionAbortCamera
+a=true
 end
 end
 if TppLocation.IsAfghan()then
-e.AbortMission{nextMissionId=TppDefine.SYS_MISSION_ID.AFGH_FREE,isNoSave=n,fadeDelayTime=o,fadeSpeed=a,presentationFunction=i,playRadio=t}elseif TppLocation.IsMiddleAfrica()then
-e.AbortMission{nextMissionId=TppDefine.SYS_MISSION_ID.MAFR_FREE,isNoSave=n,fadeDelayTime=o,fadeSpeed=a,presentationFunction=i,playRadio=t}else
-e.AbortMission{nextMissionId=TppDefine.SYS_MISSION_ID.AFGH_FREE,isNoSave=n,fadeDelayTime=o,fadeSpeed=a,presentationFunction=i,playRadio=t}end
+e.AbortMission{nextMissionId=TppDefine.SYS_MISSION_ID.AFGH_FREE,isNoSave=n,fadeDelayTime=i,fadeSpeed=o,presentationFunction=t,playRadio=a}elseif TppLocation.IsMiddleAfrica()then
+e.AbortMission{nextMissionId=TppDefine.SYS_MISSION_ID.MAFR_FREE,isNoSave=n,fadeDelayTime=i,fadeSpeed=o,presentationFunction=t,playRadio=a}else
+e.AbortMission{nextMissionId=TppDefine.SYS_MISSION_ID.AFGH_FREE,isNoSave=n,fadeDelayTime=i,fadeSpeed=o,presentationFunction=t,playRadio=a}end
 end
 function e.AbortForRideOnHelicopter(t)local n=true
 local i=false
@@ -1829,10 +1838,10 @@ if gvars.mis_orderBoxName==0 then
 return
 end
 local n=e.FindOrderBoxName(gvars.mis_orderBoxName)return e._SetMissionOrderBoxPosition(n)end
-function e._SetMissionOrderBoxPosition(n)local e,i=e.GetOrderBoxLocator(n)if e then
-local n=Vector3(0,-.75,1.98)local s=Vector3(e[1],e[2],e[3])local e=-Quat.RotationY(TppMath.DegreeToRadian(i)):Rotate(n)local e=e+s
-local n=TppMath.Vector3toTable(e)local e=i
-TppPlayer.SetInitialPosition(n,e)TppPlayer.SetMissionStartPosition(n,e)return true
+function e._SetMissionOrderBoxPosition(n)local e,n=e.GetOrderBoxLocator(n)if e then
+local i=Vector3(0,-.75,1.98)local e=Vector3(e[1],e[2],e[3])local i=-Quat.RotationY(TppMath.DegreeToRadian(n)):Rotate(i)local e=i+e
+local e=TppMath.Vector3toTable(e)local n=n
+TppPlayer.SetInitialPosition(e,n)TppPlayer.SetMissionStartPosition(e,n)return true
 end
 end
 function e.FindOrderBoxName(n)for i,e in pairs(mvars.mis_orderBoxList)do
@@ -1841,11 +1850,11 @@ return e
 end
 end
 end
-function e.GetOrderBoxLocator(e)if not l(e)then
+function e.GetOrderBoxLocator(e)if not r(e)then
 return
 end
 return Tpp.GetLocator("OrderBoxIdentifier",e)end
-function e.GetOrderBoxLocatorByTransform(e)if not l(e)then
+function e.GetOrderBoxLocatorByTransform(e)if not r(e)then
 end
 return Tpp.GetLocatorByTransform("OrderBoxIdentifier",e)end
 function e.SetFobPlayerStartPoint()local n={"Command","Combat","Develop","Support","Medical","Spy","BaseDev"}local e=255
@@ -1907,17 +1916,17 @@ if(mvars.mis_missionGameEndDelayTime>.1)then
 t("Timer_MissionGameEndStart",mvars.mis_missionGameEndDelayTime)else
 t("Timer_MissionGameEndStart",.1)end
 end
-function e.OnMissionGameEndFadeOutFinish2nd()TppUiStatusManager.ClearStatus"GmpInfo"TppStory.UpdateStorySequence{updateTiming="OnMissionClear",missionId=e.GetMissionID()}TppResult.SetMissionFinalScore()e.KillDyingQuiet()TppTrophy.UnlockOnBuddyFriendlyMax()TppTrophy.UnlockOnAllMissionTaskCompleted()local r,a,i,s,o,n=TppStory.CheckAllMissionCleared()if r then
+function e.OnMissionGameEndFadeOutFinish2nd()TppUiStatusManager.ClearStatus"GmpInfo"TppStory.UpdateStorySequence{updateTiming="OnMissionClear",missionId=e.GetMissionID()}TppResult.SetMissionFinalScore()e.KillDyingQuiet()TppTrophy.UnlockOnBuddyFriendlyMax()TppTrophy.UnlockOnAllMissionTaskCompleted()local a,r,o,n,i,s=TppStory.CheckAllMissionCleared()if a then
 TppStory.CompleteAllMissionCleared()TppTrophy.Unlock(12)end
-if a then
+if r then
 TppStory.CompleteAllMissionSRankCleared()TppTrophy.Unlock(14)end
-if i then
-TppStory.CompleteAllNormalMissionCleared()TppEmblem.AcquireOnAllMissionCleared()end
-if s then
-TppStory.CompleteAllNormalMissionSRankCleared()TppEmblem.AcquireOnAllMissionSRankCleared()end
 if o then
-TppStory.CompleteAllHardMissionCleared()end
+TppStory.CompleteAllNormalMissionCleared()TppEmblem.AcquireOnAllMissionCleared()end
 if n then
+TppStory.CompleteAllNormalMissionSRankCleared()TppEmblem.AcquireOnAllMissionSRankCleared()end
+if i then
+TppStory.CompleteAllHardMissionCleared()end
+if s then
 TppStory.CompleteAllHardMissionSRankCleared()end
 if vars.totalMarkingCount>=750 then
 TppTerminal.AcquireKeyItem{dataBaseId=TppMotherBaseManagementConst.DESIGN_3020,pushReward=true}end
@@ -1946,7 +1955,7 @@ TppUiCommand.LoadoutSetMissionRecieveFromFreeToMission()end
 TppHero.AnnounceFirstMissionClearHeroPoint()TppPlayer.AggregateCaptureAnimal()if not e.IsHelicopterSpace(e.GetMissionID())then
 TppTerminal.AddStaffsFromTempBuffer()end
 e.ExecuteVehicleSaveCarryOnClear()e.ForceGoToMbFreeIfExistMbDemo()if not e.IsFOBMission(gvars.mis_nextMissionCodeForMissionClear)then
-TppSave.VarSave()end
+TppSave.EraseAllGameDataSaveRequest()TppSave.VarSave()end
 t("Timer_MissionGameEndStart2nd",.1)end
 function e.SetMissionObjectives(i,n,e)mvars.mis_missionObjectiveDefine=i
 mvars.mis_missionObjectiveTree=n
@@ -2037,7 +2046,7 @@ end
 if e.showEnemyRoutePoints then
 if TppUiCommand.ShowEnemyRoutePoints then
 local n=e.showEnemyRoutePoints.radioGroupName
-if l(n)then
+if r(n)then
 e.showEnemyRoutePoints.radioGroupName=o(n)end
 TppUiCommand.ShowEnemyRoutePoints(e.showEnemyRoutePoints)end
 end
@@ -2173,7 +2182,7 @@ TppOutOfMissionRangeEffect.Disable(1)TppTerminal.PlayTerminalVoice("VOICE_WARN_M
 function e.VarResetOnNewMission()TppScriptVars.InitForNewMission()TppCheckPoint.Reset()TppQuest.ResetQuestStatus()TppPackList.SetDefaultMissionPackLabelName()TppPlayer.UnsetRetryFlag()if GameConfig.GetStealthAssistEnabled()then
 mvars.mis_needSaveConfigOnNewMission=true
 GameConfig.SetStealthAssistEnabled(false)end
-TppPlayer.ResetStealthAssistCount()TppSave.ReserveVarRestoreForMissionStart()TppResult.ClearNewestPlayStyleHistory()e.SetNextMissionCodeForMissionClear(c)e.ResetMissionClearState()end
+TppPlayer.ResetStealthAssistCount()TppSave.ReserveVarRestoreForMissionStart()TppResult.ClearNewestPlayStyleHistory()e.SetNextMissionCodeForMissionClear(u)e.ResetMissionClearState()end
 function e.GetCurrentLocationHeliMissionAndLocationCode()if TppLocation.IsAfghan()then
 return TppDefine.SYS_MISSION_ID.AFGH_HELI,TppDefine.LOCATION_ID.AFGH
 elseif TppLocation.IsMiddleAfrica()then
@@ -2214,18 +2223,18 @@ if gvars.mis_nextClusterIdForEmergency~=TppDefine.INVALID_CLUSTER_ID then
 i=gvars.mis_nextClusterIdForEmergency
 end
 e.ReserveMissionClear{missionClearType=TppDefine.MISSION_CLEAR_TYPE.FROM_HELISPACE,nextMissionId=t,nextHeliRoute=s,nextLayoutCode=n,nextClusterId=i}end
-function e.RequestLoad(e,n,i)if not mvars then
+function e.RequestLoad(e,i,n)if not mvars then
 return
 end
 if gvars.isLoadedInitMissionOnSignInUserChanged then
 return
 end
-TppMain.EnablePause()mvars.mis_loadRequest={nextMission=e,currentMission=n,options=i}end
-function e.LoadWithChunkCheck()local t,s,i=mvars.mis_loadRequest.nextMission,mvars.mis_loadRequest.currentMission,mvars.mis_loadRequest.options
-local n=Tpp.GetChunkIndex(vars.locationCode)if e.IsChunkLoading(n)then
+TppMain.EnablePause()mvars.mis_loadRequest={nextMission=e,currentMission=i,options=n}end
+function e.LoadWithChunkCheck()local t,s,n=mvars.mis_loadRequest.nextMission,mvars.mis_loadRequest.currentMission,mvars.mis_loadRequest.options
+local i=Tpp.GetChunkIndex(vars.locationCode)if e.IsChunkLoading(i)then
 return
 end
-e.Load(t,s,i)mvars.mis_loadRequest=nil
+e.Load(t,s,n)mvars.mis_loadRequest=nil
 end
 function e.IsChunkLoading(e)if Chunk.GetChunkState(e)==Chunk.STATE_INSTALLED then
 if mvars.mis_isChunkLoading then
@@ -2263,8 +2272,8 @@ end
 TppMain.EnablePause()TppMain.EnableBlackLoading(s)if not TppEnemy.IsLoadedDefaultSoldier2CommonPackage()then
 TppEnemy.UnloadSoldier2CommonBlock()end
 if(i~=n)or(e and e.force)then
-local t=TppPackList.GetLocationNameFormMissionCode(n)local o=TppPackList.GetLocationNameFormMissionCode(i)local s
-if t=="MTBS"and o=="MTBS"then
+local o=TppPackList.GetLocationNameFormMissionCode(n)local t=TppPackList.GetLocationNameFormMissionCode(i)local s
+if o=="MTBS"and t=="MTBS"then
 if n~=TppDefine.SYS_MISSION_ID.MTBS_HELI then
 if not(e and e.ignoreMtbsLoadLocationForce)then
 s={force=true}end
@@ -2323,6 +2332,11 @@ TppBuddyService.SetSortieBuddyType(BuddyType.QUIET)end
 end
 end
 end
+function e.ResetQuietEquipIfUndevelop()if vars.buddyQuietEquipType==4 then
+if not TppMotherBaseManagement.IsEquipDevelopedFromDevelopID{equipDevelopID=6094}then
+TppBuddyService.SetVarsQuietWeaponType(0)end
+end
+end
 local n={[30050]=true,[50050]=true}local i={[TppDefine.MISSION_CLEAR_TYPE.ON_FOOT]=true,[TppDefine.MISSION_CLEAR_TYPE.RIDE_ON_HELICOPTER]=true,[TppDefine.MISSION_CLEAR_TYPE.RIDE_ON_VEHILCE]=true,[TppDefine.MISSION_CLEAR_TYPE.RIDE_ON_FULTON_CONTAINER]=true}function e.ForceGoToMbFreeIfExistMbDemo()if n[vars.missionCode]then
 return
 end
@@ -2361,9 +2375,9 @@ end
 if FadeFunction.IsFadeProcessing()then
 local n=e.delayTime
 local i=TppUI.FADE_SPEED.FADE_NORMALSPEED+1.2
-if l(n)then
+if r(n)then
 e.delayTime=TppRadio.PRESET_DELAY_TIME[n]+i
-elseif p(n)then
+elseif d(n)then
 e.delayTime=n+i
 else
 e.delayTime=i

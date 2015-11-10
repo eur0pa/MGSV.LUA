@@ -1,9 +1,18 @@
 local e={}e.MGO_INVITATION_CANCEL_POPUP_ID=5010
 e.CLOSE_INIVITATION_CANCEL_POPUP_INTERVAL=1.5
 e.PROCESS_STATE=Tpp.Enum{"EMPTY","START","SHOW_DIALOG","SUSPEND","FINISH"}e.TYPE=Tpp.Enum{"INVITATION_ACCEPT","DISCONNECT_FROM_PSN","DISCONNECT_FROM_KONAMI","DISCONNECT_FROM_NETWORK","SESSION_DISCONNECT_FROM_HOST","SIGNIN_USER_CHANGED","INVITATION_PATCH_DLC_CHECKING","INVITATION_PATCH_DLC_ERROR","INVITATION_ACCEPT_BY_OTHER","INVITATION_ACCEPT_WITHOUT_SIGNIN","WAIT_MGO_CHUNK_INSTALLATION"}e.GAME_MODE=Tpp.Enum{"TPP","TPP_FOB","MGO"}e.OnEndExceptionDialog={}e.mgoInvitationUpdateCount=0
+function e.IsDisabledMgoInChinaKorea()if(TppGameSequence.GetShortTargetArea()=="ck")then
+if(not TppGameSequence.IsMgoEnabled())then
+return true
+end
+end
+return false
+end
 e.SHOW_EXECPTION_DIALOG={[e.TYPE.INVITATION_ACCEPT]=function()e.mgoInvitationUpdateCount=0
 e.mgoInvitationPopupId=nil
-if TppStory.CanPlayMgo()then
+if e.IsDisabledMgoInChinaKorea()then
+return 5013
+elseif TppStory.CanPlayMgo()then
 if e.GetCurrentGameMode()==e.GAME_MODE.TPP_FOB then
 e.mgoInvitationPopupId=e.MGO_INVITATION_CANCEL_POPUP_ID
 return e.MGO_INVITATION_CANCEL_POPUP_ID
@@ -47,11 +56,7 @@ gvars.isLoadedInitMissionOnSignInUserChanged=true
 e.isLoadedInitMissionOnSignInUserChanged=true
 TppUI.FadeOut(TppUI.FADE_SPEED.FADE_MOMENT,"FadeOutOnEndExceptionDialogForSignInUserChange",nil,{setMute=true})FadeFunction.SetFadeCallEnable(false)SignIn.SetStartupProcessCompleted(false)TppUI.SetFadeColorToBlack()StageBlockCurrentPositionSetter.SetEnable(false)TppUiCommand.SetLoadIndicatorVisible(true)SubtitlesCommand.SetIsEnabledUiPrioStrong(false)TppRadio.Stop()TppMusicManager.StopMusicPlayer(1)TppMusicManager.EndSceneMode()TppRadioCommand.SetEnableIgnoreGamePause(false)GkEventTimerManager.StopAll()Mission.AddFinalizer(function()e.waitPatchDlcCheckCoroutine=nil
 TppSave.missionStartSaveFilePool=nil
-TppMission.DisablePauseForShowResult()vars.locationCode=TppDefine.LOCATION_ID.INIT
-vars.missionCode=TppDefine.SYS_MISSION_ID.INIT
-TppScriptVars.InitForNewGame()TppGVars.AllInitialize()TppSave.VarSave(TppDefine.SYS_MISSION_ID.INIT,true)TppSave.VarSaveConfig()TppSave.VarSavePersonalData()local n=TppSave.GetSaveGameDataQueue(vars.missionCode)for t,e in ipairs(n.slot)do
-TppScriptVars.CopySlot({n.savingSlot,e},e)end
-TppUiStatusManager.UnsetStatus("All","ABORT")FadeFunction.SetFadeCallEnable(true)end)TppVarInit.StartInitMission()return e.PROCESS_STATE.FINISH
+TppMission.DisablePauseForShowResult()TppVarInit.ClearAllVarsAndSlot()TppUiStatusManager.UnsetStatus("All","ABORT")FadeFunction.SetFadeCallEnable(true)end)TppVarInit.StartInitMission()return e.PROCESS_STATE.FINISH
 end
 function e.UpdateMgoInvitationAccept()if(e.currentErrorPopupLangId==e.MGO_INVITATION_CANCEL_POPUP_ID)then
 e.mgoInvitationUpdateCount=e.mgoInvitationUpdateCount+Time.GetFrameTime()if e.mgoInvitationUpdateCount>e.CLOSE_INIVITATION_CANCEL_POPUP_INTERVAL then
@@ -60,6 +65,9 @@ end
 end
 function e.OnEndExceptionDialogForMgoInvitationAccept()if not gvars.canExceptionHandling then
 return e.PROCESS_STATE.SUSPEND
+end
+if e.IsDisabledMgoInChinaKorea()then
+e.CancelMgoInvitation()return e.PROCESS_STATE.FINISH
 end
 if not TppStory.CanPlayMgo()then
 e.CancelMgoInvitation()return e.PROCESS_STATE.FINISH
@@ -97,7 +105,8 @@ e.GoToMgoByInivitaion()else
 Tpp.StartWaitChunkInstallation(Chunk.INDEX_MGO)local n=e.GetCurrentGameMode()e.Enqueue(e.TYPE.WAIT_MGO_CHUNK_INSTALLATION,n)end
 end
 function e.GoToMgoByInivitaion()TppPause.RegisterPause"GoToMGO"TppGameStatus.Set("GoToMGO","S_DISABLE_PLAYER_PAD")e.isNowGoingToMgo=true
-TppUI.FadeOut(TppUI.FADE_SPEED.FADE_MOMENT,"GoToMgoByInivitaion",nil,{setMute=true})Mission.SwitchApplication"mgo"end
+e.fadeOutRemainTimeForGoToMgo=TppUI.FADE_SPEED.FADE_HIGHSPEED
+TppUI.FadeOut(TppUI.FADE_SPEED.FADE_HIGHSPEED,"GoToMgoByInivitaion",nil,{setMute=true})FadeFunction.SetFadeCallEnable(false)end
 function e.UpdateMgoChunkInstallingPopup()Tpp.ShowChunkInstallingPopup(Chunk.INDEX_MGO,true)if Chunk.GetChunkState(Chunk.INDEX_MGO)==Chunk.STATE_INSTALLED then
 TppUiCommand.ErasePopup()end
 end
@@ -166,7 +175,7 @@ TppMission.ReturnToMission{withServerPenalty=true}end
 end
 return e.PROCESS_STATE.FINISH
 end
-e.POPUP_CLOSE_CHECK_FUNC={[e.TYPE.INVITATION_ACCEPT]=e.UpdateMgoInvitationAccept,[e.TYPE.INVITATION_PATCH_DLC_CHECKING]=e.UpdateMgoPatchDlcCheckingPopup,[e.TYPE.WAIT_MGO_CHUNK_INSTALLATION]=e.UpdateMgoChunkInstallingPopup}e.TPP_ON_END_EXECPTION_DIALOG={[e.TYPE.INVITATION_ACCEPT]=e.OnEndExceptionDialogForMgoInvitationAccept,[e.TYPE.DISCONNECT_FROM_PSN]=e.NoProcessOnEndExceptionDialog,[e.TYPE.DISCONNECT_FROM_KONAMI]=e.NoProcessOnEndExceptionDialog,[e.TYPE.DISCONNECT_FROM_NETWORK]=e.NoProcessOnEndExceptionDialog,[e.TYPE.SESSION_DISCONNECT_FROM_HOST]=e.NoProcessOnEndExceptionDialog,[e.TYPE.SIGNIN_USER_CHANGED]=e.OnEndExceptionDialogForSignInUserChange,[e.TYPE.INVITATION_PATCH_DLC_CHECKING]=e.OnEndExceptionDialogForPatchDlcCheck,[e.TYPE.INVITATION_PATCH_DLC_ERROR]=e.OnEndExceptionDialogForPatchDlcError,[e.TYPE.INVITATION_ACCEPT_BY_OTHER]=e.OnEndExceptionDialogForInvitationAcceptFromOther,[e.TYPE.INVITATION_ACCEPT_WITHOUT_SIGNIN]=e.OnEndExceptionDialogForInvitationAcceptWithoutSignIn,[e.TYPE.WAIT_MGO_CHUNK_INSTALLATION]=e.OnEndExceptionDialogForCheckMgoChunkInstallation}e.TPP_FOB_ON_END_EXECPTION_DIALOG={[e.TYPE.INVITATION_ACCEPT]=e.OnEndExceptionDialogForMgoInvitationAccept,[e.TYPE.DISCONNECT_FROM_PSN]=e.FobMissionEndOnException,[e.TYPE.DISCONNECT_FROM_KONAMI]=e.FobMissionEndOnException,[e.TYPE.DISCONNECT_FROM_NETWORK]=e.FobMissionEndOnException,[e.TYPE.SESSION_DISCONNECT_FROM_HOST]=e.FobMissionEndOnException,[e.TYPE.SIGNIN_USER_CHANGED]=e.OnEndExceptionDialogForSignInUserChange,[e.TYPE.INVITATION_PATCH_DLC_CHECKING]=e.OnEndExceptionDialogForPatchDlcCheck,[e.TYPE.INVITATION_ACCEPT_BY_OTHER]=e.OnEndExceptionDialogForInvitationAcceptFromOther,[e.TYPE.INVITATION_ACCEPT_WITHOUT_SIGNIN]=e.OnEndExceptionDialogForInvitationAcceptWithoutSignIn,[e.TYPE.WAIT_MGO_CHUNK_INSTALLATION]=e.OnEndExceptionDialogForCheckMgoChunkInstallation}function e.RegisterOnEndExceptionDialog(n,t)e.OnEndExceptionDialog[n]=t
+e.POPUP_CLOSE_CHECK_FUNC={[e.TYPE.INVITATION_ACCEPT]=e.UpdateMgoInvitationAccept,[e.TYPE.INVITATION_PATCH_DLC_CHECKING]=e.UpdateMgoPatchDlcCheckingPopup,[e.TYPE.WAIT_MGO_CHUNK_INSTALLATION]=e.UpdateMgoChunkInstallingPopup}e.TPP_ON_END_EXECPTION_DIALOG={[e.TYPE.INVITATION_ACCEPT]=e.OnEndExceptionDialogForMgoInvitationAccept,[e.TYPE.DISCONNECT_FROM_PSN]=e.NoProcessOnEndExceptionDialog,[e.TYPE.DISCONNECT_FROM_KONAMI]=e.NoProcessOnEndExceptionDialog,[e.TYPE.DISCONNECT_FROM_NETWORK]=e.NoProcessOnEndExceptionDialog,[e.TYPE.SESSION_DISCONNECT_FROM_HOST]=e.NoProcessOnEndExceptionDialog,[e.TYPE.SIGNIN_USER_CHANGED]=e.OnEndExceptionDialogForSignInUserChange,[e.TYPE.INVITATION_PATCH_DLC_CHECKING]=e.OnEndExceptionDialogForPatchDlcCheck,[e.TYPE.INVITATION_PATCH_DLC_ERROR]=e.OnEndExceptionDialogForPatchDlcError,[e.TYPE.INVITATION_ACCEPT_BY_OTHER]=e.OnEndExceptionDialogForInvitationAcceptFromOther,[e.TYPE.INVITATION_ACCEPT_WITHOUT_SIGNIN]=e.OnEndExceptionDialogForInvitationAcceptWithoutSignIn,[e.TYPE.WAIT_MGO_CHUNK_INSTALLATION]=e.OnEndExceptionDialogForCheckMgoChunkInstallation}e.TPP_FOB_ON_END_EXECPTION_DIALOG={[e.TYPE.INVITATION_ACCEPT]=e.OnEndExceptionDialogForMgoInvitationAccept,[e.TYPE.DISCONNECT_FROM_PSN]=e.FobMissionEndOnException,[e.TYPE.DISCONNECT_FROM_KONAMI]=e.FobMissionEndOnException,[e.TYPE.DISCONNECT_FROM_NETWORK]=e.FobMissionEndOnException,[e.TYPE.SESSION_DISCONNECT_FROM_HOST]=e.FobMissionEndOnException,[e.TYPE.SIGNIN_USER_CHANGED]=e.OnEndExceptionDialogForSignInUserChange,[e.TYPE.INVITATION_PATCH_DLC_CHECKING]=e.OnEndExceptionDialogForPatchDlcCheck,[e.TYPE.INVITATION_ACCEPT_BY_OTHER]=e.OnEndExceptionDialogForInvitationAcceptFromOther,[e.TYPE.INVITATION_ACCEPT_WITHOUT_SIGNIN]=e.OnEndExceptionDialogForInvitationAcceptWithoutSignIn,[e.TYPE.WAIT_MGO_CHUNK_INSTALLATION]=e.OnEndExceptionDialogForCheckMgoChunkInstallation}function e.RegisterOnEndExceptionDialog(t,n)e.OnEndExceptionDialog[t]=n
 end
 e.RegisterOnEndExceptionDialog(e.GAME_MODE.TPP,e.TPP_ON_END_EXECPTION_DIALOG)e.RegisterOnEndExceptionDialog(e.GAME_MODE.TPP_FOB,e.TPP_FOB_ON_END_EXECPTION_DIALOG)function e.GetCurrentGameMode()if TppSystemUtility.GetCurrentGameMode()=="MGO"then
 return e.GAME_MODE.MGO
@@ -189,23 +198,23 @@ end
 end
 end
 end
-function e.Enqueue(n,i)if not e.TYPE[n]then
+function e.Enqueue(n,t)if not e.TYPE[n]then
 return
 end
-local t=gvars.exc_exceptionQueueDepth
-local o=gvars.exc_exceptionQueueDepth+1
-if o>=TppDefine.EXCEPTION_QUEUE_MAX then
+local o=gvars.exc_exceptionQueueDepth
+local i=gvars.exc_exceptionQueueDepth+1
+if i>=TppDefine.EXCEPTION_QUEUE_MAX then
 return
 end
 if(gvars.exc_processingExecptionType==n)then
 return
 end
-if e.HasQueue(n,i)then
+if e.HasQueue(n,t)then
 return
 end
-gvars.exc_exceptionQueueDepth=o
-gvars.exc_exceptionQueue[t]=n
-gvars.exc_queueGameMode[t]=i
+gvars.exc_exceptionQueueDepth=i
+gvars.exc_exceptionQueue[o]=n
+gvars.exc_queueGameMode[o]=t
 end
 function e.Dequeue(e)local e=e or 0
 if e>gvars.exc_exceptionQueueDepth then
@@ -219,17 +228,17 @@ gvars.exc_queueGameMode[n]=0
 gvars.exc_exceptionQueueDepth=n-1
 return o,t
 end
-function e.HasQueue(t,e)for n=0,gvars.exc_exceptionQueueDepth do
-if(gvars.exc_exceptionQueue[n]==t)and((e==nil)or(gvars.exc_queueGameMode[n]==e))then
+function e.HasQueue(t,n)for e=0,gvars.exc_exceptionQueueDepth do
+if(gvars.exc_exceptionQueue[e]==t)and((n==nil)or(gvars.exc_queueGameMode[e]==n))then
 return true
 end
 end
 return false
 end
-function e.StartProcess(n,t)gvars.exc_processState=e.PROCESS_STATE.START
-gvars.exc_processingExecptionType=n
-gvars.exc_processingExecptionGameMode=t
-local o={[e.TYPE.INVITATION_PATCH_DLC_CHECKING]=true,[e.TYPE.INVITATION_PATCH_DLC_ERROR]=true,[e.TYPE.INVITATION_ACCEPT_BY_OTHER]=true,[e.TYPE.INVITATION_ACCEPT_WITHOUT_SIGNIN]=true,[e.TYPE.INVITATION_ACCEPT]=true,[e.TYPE.WAIT_MGO_CHUNK_INSTALLATION]=true}if(t==e.GAME_MODE.TPP_FOB)and(o[n])then
+function e.StartProcess(t,n)gvars.exc_processState=e.PROCESS_STATE.START
+gvars.exc_processingExecptionType=t
+gvars.exc_processingExecptionGameMode=n
+local o={[e.TYPE.INVITATION_PATCH_DLC_CHECKING]=true,[e.TYPE.INVITATION_PATCH_DLC_ERROR]=true,[e.TYPE.INVITATION_ACCEPT_BY_OTHER]=true,[e.TYPE.INVITATION_ACCEPT_WITHOUT_SIGNIN]=true,[e.TYPE.INVITATION_ACCEPT]=true,[e.TYPE.WAIT_MGO_CHUNK_INSTALLATION]=true}if(n==e.GAME_MODE.TPP_FOB)and(o[t])then
 TppGameStatus.Set("TppException","S_DISABLE_PLAYER_PAD")else
 e.EnablePause()end
 end
@@ -240,7 +249,22 @@ e.DisablePause()end
 function e.EnablePause()TppPause.RegisterPause"TppException.lua"TppGameStatus.Set("TppException","S_DISABLE_PLAYER_PAD")end
 function e.DisablePause()TppPause.UnregisterPause"TppException.lua"TppGameStatus.Reset("TppException","S_DISABLE_PLAYER_PAD")end
 e.currentErrorPopupLangId=nil
+local n=false
 function e.Update()if not gvars then
+return
+end
+if e.isNowGoingToMgo then
+if e.fadeOutRemainTimeForGoToMgo~=nil then
+if e.fadeOutRemainTimeForGoToMgo>0 then
+e.fadeOutRemainTimeForGoToMgo=e.fadeOutRemainTimeForGoToMgo-Time.GetFrameTime()else
+if not n then
+n=true
+Mission.SwitchApplication"mgo"end
+end
+end
+return
+end
+if gvars.isLoadedInitMissionOnSignInUserChanged then
 return
 end
 if gvars.exc_exceptionQueueDepth<=0 and(gvars.exc_processState<=e.PROCESS_STATE.EMPTY)then
@@ -303,7 +327,9 @@ end
 if e.isNowGoingToMgo then
 return
 end
-TppSave.ForbidSave()local n=e.GetCurrentGameMode()e.Enqueue(e.TYPE.SIGNIN_USER_CHANGED,n)e.Update()end
+TppSave.ForbidSave()while TppSave.IsEnqueuedSaveData()do
+TppSave.DequeueSave()end
+InvitationManager.EnableMessage(false)local n=e.GetCurrentGameMode()e.Enqueue(e.TYPE.SIGNIN_USER_CHANGED,n)e.Update()end
 function e.OnInvitationAcceptByOther()local n=e.GetCurrentGameMode()e.Enqueue(e.TYPE.INVITATION_ACCEPT_BY_OTHER,n)e.Update()end
 function e.OnInvitationAcceptWithoutSignIn()local n=e.GetCurrentGameMode()e.Enqueue(e.TYPE.INVITATION_ACCEPT_WITHOUT_SIGNIN,n)e.Update()end
 function e.OnDlcStatusChanged()if vars.missionCode==TppDefine.SYS_MISSION_ID.INIT then
@@ -318,6 +344,6 @@ else
 TppUiCommand.ShowErrorPopup(e,Popup.TYPE_ONE_BUTTON)end
 end
 local n={}function n.Update()e.Update()end
-function n:OnMessage(i,a,o,n,t,E)local T
-Tpp.DoMessage(e.messageExecTable,TppMission.CheckMessageOptionWhileLoading,i,a,o,n,t,E,T)end
+function n:OnMessage(i,a,o,n,t,T)local E
+Tpp.DoMessage(e.messageExecTable,TppMission.CheckMessageOptionWhileLoading,i,a,o,n,t,T,E)end
 ScriptUpdater.Create("exceptionMessageHandler",n,{"Network","Nt","UI","Dlc"})return e

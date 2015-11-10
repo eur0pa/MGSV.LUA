@@ -1,9 +1,9 @@
-local e={}local a={}local r={}local S=256
+local e={}local i={}local r={}local S=256
 local c=0
 local _=180
 local o=Fox.StrCode32
 local p=Tpp.IsTypeFunc
-local i=Tpp.IsTypeTable
+local a=Tpp.IsTypeTable
 local n=GkEventTimerManager.Start
 local s=TppScriptVars.SVarsIsSynchronized
 e.MISSION_PREPARE_STATE=Tpp.Enum{"START","WAIT_INITALIZE","WAIT_TEXTURE_LOADING","END_TEXTURE_LOADING","WAIT_SAVING_FILE","END_SAVING_FILE","FINISH"}local function s(n)local e=mvars.seq_sequenceTable
@@ -14,7 +14,7 @@ local function d(n)local e=mvars.seq_sequenceNames
 if e then
 return s(e[n])end
 end
-function e.RegisterSequences(n)if not i(n)then
+function e.RegisterSequences(n)if not a(n)then
 return
 end
 local s=#n
@@ -36,7 +36,7 @@ mvars.seq_sequenceNames=Tpp.Enum(s)end
 function e.RegisterSequenceTable(e)if e==nil then
 return
 end
-mvars.seq_sequenceTable=Tpp.MergeTable(e,a,true)local s={}for t,n in ipairs(mvars.seq_sequenceNames)do
+mvars.seq_sequenceTable=Tpp.MergeTable(e,i,true)local s={}for t,n in ipairs(mvars.seq_sequenceNames)do
 if e[n]==nil then
 e[n]=s
 end
@@ -48,17 +48,17 @@ n=mvars.seq_sequenceNames[s]end
 if n==nil then
 return
 end
-local a=false
+local i=false
 local t=false
 local r=false
 local s=true
-if e and i(e)then
-a=e.isExecMissionClear
+if e and a(e)then
+i=e.isExecMissionClear
 t=e.isExecGameOver
 r=e.isExecDemoPlaying
 s=e.isExecMissionPrepare
 end
-if TppMission.CheckMissionState(a,t,r,s)then
+if TppMission.CheckMissionState(i,t,r,s)then
 svars.seq_sequence=n
 return
 end
@@ -77,23 +77,23 @@ return e
 end
 end
 return""end
-local i=e.GetSequenceNameWithIndex
+local a=e.GetSequenceNameWithIndex
 function e.GetCurrentSequenceName()if svars then
-return i(svars.seq_sequence)end
+return a(svars.seq_sequence)end
 end
 function e.GetMissionStartSequenceName()if mvars.seq_missionStartSequence then
-return i(mvars.seq_missionStartSequence)end
+return a(mvars.seq_missionStartSequence)end
 end
 function e.GetMissionStartSequenceIndex()return mvars.seq_missionStartSequence
 end
 function e.GetContinueCount()local e=svars.seq_sequence
 return svars.seq_sequenceContinueCount[e]end
 function e.MakeSVarsTable(n)local s={}local e,t,t=1
-for a,n in pairs(n)do
+for i,n in pairs(n)do
 local t=type(n)if t=="boolean"then
-s[e]={name=a,type=TppScriptVars.TYPE_BOOL,value=n,save=true,sync=true,category=TppScriptVars.CATEGORY_MISSION}elseif t=="number"then
-s[e]={name=a,type=TppScriptVars.TYPE_INT32,value=n,save=true,sync=true,category=TppScriptVars.CATEGORY_MISSION}elseif t=="string"then
-s[e]={name=a,type=TppScriptVars.TYPE_UINT32,value=o(n),save=true,sync=true,category=TppScriptVars.CATEGORY_MISSION}elseif t=="table"then
+s[e]={name=i,type=TppScriptVars.TYPE_BOOL,value=n,save=true,sync=true,category=TppScriptVars.CATEGORY_MISSION}elseif t=="number"then
+s[e]={name=i,type=TppScriptVars.TYPE_INT32,value=n,save=true,sync=true,category=TppScriptVars.CATEGORY_MISSION}elseif t=="string"then
+s[e]={name=i,type=TppScriptVars.TYPE_UINT32,value=o(n),save=true,sync=true,category=TppScriptVars.CATEGORY_MISSION}elseif t=="table"then
 s[e]=n
 end
 e=e+1
@@ -104,7 +104,7 @@ local o=1
 local s=6
 local t=2
 r={"Seq_Mission_Prepare"}e.SYS_SEQUENCE_LENGTH=#r
-a.Seq_Mission_Prepare={Messages=function(e)return Tpp.StrCode32Table{UI={{msg="EndFadeIn",sender="FadeInOnGameStart",func=function()end,option={isExecMissionPrepare=true,isExecMissionClear=true,isExecGameOver=true}},{msg="StartMissionTelopFadeIn",func=function()n("Timer_HelicopterMoveStart",s)end,option={isExecMissionPrepare=true,isExecMissionClear=true,isExecGameOver=true}},{msg="StartMissionTelopFadeOut",func=function()mvars.seq_nowWaitingStartMissionTelopFadeOut=nil
+i.Seq_Mission_Prepare={Messages=function(e)return Tpp.StrCode32Table{UI={{msg="EndFadeIn",sender="FadeInOnGameStart",func=function()end,option={isExecMissionPrepare=true,isExecMissionClear=true,isExecGameOver=true}},{msg="StartMissionTelopFadeIn",func=function()n("Timer_HelicopterMoveStart",s)end,option={isExecMissionPrepare=true,isExecMissionClear=true,isExecGameOver=true}},{msg="StartMissionTelopFadeOut",func=function()mvars.seq_nowWaitingStartMissionTelopFadeOut=nil
 e.FadeInStartOnGameStart()end,option={isExecMissionPrepare=true,isExecMissionClear=true,isExecGameOver=true}},{msg="PushEndLoadingTips",func=function()mvars.seq_nowWaitingPushEndLoadingTips=nil
 n("Timer_WaitStartingGame",1)end,option={isExecMissionPrepare=true,isExecMissionClear=true,isExecGameOver=true}}},Timer={{msg="Finish",sender="Timer_WaitStartingGame",func=e.MissionGameStart,option={isExecMissionPrepare=true,isExecMissionClear=true,isExecGameOver=true}},{msg="Finish",sender="Timer_HelicopterMoveStart",func=e.HelicopterMoveStart,option={isExecMissionPrepare=true,isExecMissionClear=true,isExecGameOver=true}},{msg="Finish",sender="Timer_FadeInStartOnNoTelopHelicopter",func=e.FadeInStartOnGameStart,option={isExecMissionPrepare=true,isExecMissionClear=true,isExecGameOver=true}}}}end,OnEnter=function(n)mvars.seq_missionPrepareState=e.MISSION_PREPARE_STATE.WAIT_INITALIZE
 mvars.seq_textureLoadWaitStartTime=c
@@ -120,11 +120,11 @@ end,MissionGameStart=function()if mvars.seq_demoSequneceList[mvars.seq_missionSt
 TppMain.DisableBlackLoading()e.SetMissionGameStartSequence()else
 if mvars.seq_isHelicopterStart then
 if mvars.seq_noMissionTelopOnHelicopter then
-a.Seq_Mission_Prepare.HelicopterMoveStart()n("Timer_FadeInStartOnNoTelopHelicopter",t)else
+i.Seq_Mission_Prepare.HelicopterMoveStart()n("Timer_FadeInStartOnNoTelopHelicopter",t)else
 TppSoundDaemon.ResetMute"Loading"mvars.seq_nowWaitingStartMissionTelopFadeOut=true
 TppUI.StartMissionTelop()end
 else
-a.Seq_Mission_Prepare.FadeInStartOnGameStart()end
+i.Seq_Mission_Prepare.FadeInStartOnGameStart()end
 end
 end,FadeInStartOnGameStart=function()TppMain.DisableBlackLoading()local n
 if mvars.seq_isHelicopterStart then
@@ -140,13 +140,13 @@ TppUI.ShowAccessIconContinue()end
 TppMission.ExecuteSystemCallback"OnUpdateWhileMissionPrepare"local r=30
 local d=.35
 local s=false
-local a=false
-local a=Mission.GetTextureLoadedRate()local u=TppMission.CanStart()local l=TppMotherBaseManagement.IsEndedSyncControl()if t.SkipTextureLoadingWait()then
-a=1
+local i=false
+local i=Mission.GetTextureLoadedRate()local u=TppMission.CanStart()local l=TppMotherBaseManagement.IsEndedSyncControl()if t.SkipTextureLoadingWait()then
+i=1
 end
 local c=0
 local t=r
-local i=Time.GetRawElapsedTimeSinceStartUp()local S=i-mvars.seq_canMissionStartWaitStartTime
+local a=Time.GetRawElapsedTimeSinceStartUp()local S=a-mvars.seq_canMissionStartWaitStartTime
 if(u==false)and(S>_)then
 if not mvars.seq_doneDumpCanMissionStartRefrainIds then
 mvars.seq_doneDumpCanMissionStartRefrainIds=true
@@ -155,7 +155,9 @@ end
 if not l then
 return
 end
-TppTerminal.VarSaveMbMissionStartSyncEnd()TppSave.DoReservedSaveOnMissionStart()if TppMission.IsFOBMission(vars.missionCode)==true then
+if(not TppMission.IsDefiniteMissionClear())then
+TppTerminal.VarSaveMbMissionStartSyncEnd()TppSave.DoReservedSaveOnMissionStart()end
+if TppMission.IsFOBMission(vars.missionCode)==true then
 if TppNetworkUtil.IsRequestFobServerParameterBusy()then
 return
 end
@@ -163,11 +165,11 @@ end
 if u then
 if(mvars.seq_missionPrepareState<e.MISSION_PREPARE_STATE.WAIT_TEXTURE_LOADING)then
 mvars.seq_missionPrepareState=e.MISSION_PREPARE_STATE.WAIT_TEXTURE_LOADING
-TppMain.OnTextureLoadingWaitStart()mvars.seq_textureLoadWaitStartTime=i
+TppMain.OnTextureLoadingWaitStart()mvars.seq_textureLoadWaitStartTime=a
 end
 c=Time.GetRawElapsedTimeSinceStartUp()-mvars.seq_textureLoadWaitStartTime
 t=r-c
-if(a>d)or(t<0)then
+if(i>d)or(t<0)then
 s=true
 end
 if mvars.seq_forceStopWhileNotPressedPad then
@@ -304,14 +306,14 @@ local e
 s.OnEnter(s)end
 end
 end
-function e.OnMessage(o,s,i,a,r,n,t)if mvars.seq_sequenceTable==nil then
+function e.OnMessage(o,s,a,i,r,n,t)if mvars.seq_sequenceTable==nil then
 return
 end
 local e=mvars.seq_sequenceTable[mvars.seq_currentSequence]if e==nil then
 return
 end
 local e=e._messageExecTable
-Tpp.DoMessage(e,TppMission.CheckMessageOption,o,s,i,a,r,n,t)end
+Tpp.DoMessage(e,TppMission.CheckMessageOption,o,s,a,i,r,n,t)end
 function e.Update()local e=mvars
 local n=svars
 if e.seq_currentSequence==nil then
@@ -327,7 +329,7 @@ end
 function e.DebugUpdate()local e=mvars
 local s=svars
 local n=(nil).NewContext()if e.debug.showCurrentSequence or e.debug.showSequenceHistory then
-if e.debug.showCurrentSequence then(nil).Print(n,{.5,.5,1},"LuaSystem SEQ.showCurrSequence");(nil).Print(n," current_sequence = "..tostring(i(s.seq_sequence)))end
+if e.debug.showCurrentSequence then(nil).Print(n,{.5,.5,1},"LuaSystem SEQ.showCurrSequence");(nil).Print(n," current_sequence = "..tostring(a(s.seq_sequence)))end
 if e.debug.showSequenceHistory then(nil).Print(n,{.5,.5,1},"LuaSystem SEQ.showSeqHistory")for s,e in ipairs(e.debug.seq_sequenceHistory)do(nil).Print(n," seq["..(tostring(s)..("] = "..tostring(e))))end
 end
 end

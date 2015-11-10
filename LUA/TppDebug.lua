@@ -285,6 +285,12 @@ if(gvars.usingNormalMissionSlot==false)and(not(((vars.missionCode==10115)or(vars
 e(r,{1,.5,.5},"Now gvars.usingNormalMissionSlot is false, but not emergency mission. Call scripter!!!!!!")end
 if(vars.fobSneakMode==FobMode.MODE_SHAM)and(not((vars.missionCode==50050)or(TppMission.IsHelicopterSpace(vars.missionCode))))then
 e(r,{1,.5,.5},"Now vars.fobSneakMode isFobMode.MODE_SHAM, but not fob mission. Call scripter!!!!!!")end
+if TppSave.DEBUG_EraseAllGameDataCounter then
+if TppSave.DEBUG_EraseAllGameDataCounter>0 then
+e(r,{1,.5,.5},"TppSave.EraseAllGameDataSaveRequest : erase game data save request!")TppSave.DEBUG_EraseAllGameDataCounter=TppSave.DEBUG_EraseAllGameDataCounter-Time.GetFrameTime()else
+TppSave.DEBUG_EraseAllGameDataCounter=nil
+end
+end
 if o.qaDebug.forceCheckPointSave then
 o.qaDebug.forceCheckPointSave=false
 TppMission.UpdateCheckPoint{ignoreAlert=true,atCurrentPosition=true}end

@@ -30,7 +30,7 @@ GrTools.LoadShaderPack"shaders/ps4/GrSystemShaders_ps4.fsop"GrTools.LoadShaderPa
 GrTools.SetupSystemShaderResources()end
 if GrDaemon then
 GrTools():EnableTextureStreaming()if(e=="Windows"or e=="XboxOne")or e=="PS4"then
-GrTools.FontSystemInit((((1024*1024)*2)+(1024*200)))else
+GrTools.FontSystemInit((((1024*1024)*2)+(1024*500)))else
 GrTools.FontSystemInit((((1024*1024)*1)+(1024*700)))end
 GrTools.FontSystemLoad("FontSystem_DebugFont","/Assets/fox/font/DebugFont.ffnt")if e=="Windows"then
 if o=="directx9"then

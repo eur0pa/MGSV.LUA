@@ -1,5 +1,5 @@
 local e={}local i=Tpp.IsTypeFunc
-local s=Tpp.IsTypeTable
+local n=Tpp.IsTypeTable
 local i=Tpp.IsTypeString
 local i=Tpp.IsTypeNumber
 local i=bit.bnot
@@ -35,27 +35,32 @@ vars.missionCode=i
 vars.locationCode=e
 TppUiCommand.LoadoutSetForStartFromHelicopter()TppHelicopter.ResetMissionStartHelicopterRoute()TppPlayer.ResetInitialPosition()TppPlayer.ResetMissionStartPosition()end
 function e.InitializeOnStartTitle()e.InitializeOnStatingMainFrame()e.InitializeOnNewGameAtFirstTime()e.InitializeOnNewGame()end
-function e.InitializeOnStatingMainFrame()local i=1024
-local e={[TppDefine.SAVE_SLOT.GLOBAL+1]=14*i,[TppDefine.SAVE_SLOT.CHECK_POINT+1]=65*i,[TppDefine.SAVE_SLOT.RETRY+1]=11*i,[TppDefine.SAVE_SLOT.MB_MANAGEMENT+1]=80.5*i+2688,[TppDefine.SAVE_SLOT.QUEST+1]=2*i,[TppDefine.SAVE_SLOT.MISSION_START+1]=10*i,[TppDefine.SAVE_SLOT.CHECK_POINT_RESTARTABLE+1]=10*i}local t={}local a=0
-for n,i in ipairs(e)do
-a=a+i
-t[n]=i
+function e.ClearAllVarsAndSlot()vars.locationCode=TppDefine.LOCATION_ID.INIT
+vars.missionCode=TppDefine.SYS_MISSION_ID.INIT
+TppScriptVars.InitForNewGame()TppGVars.AllInitialize()TppSave.VarSave(TppDefine.SYS_MISSION_ID.INIT,true)TppSave.VarSaveConfig()TppSave.VarSavePersonalData()local i=TppSave.GetSaveGameDataQueue(vars.missionCode)for a,e in ipairs(i.slot)do
+TppScriptVars.CopySlot({i.savingSlot,e},e)end
 end
-e[TppDefine.SAVE_SLOT.SAVING+1]=a+92
+function e.InitializeOnStatingMainFrame()local i=1024
+local e={[TppDefine.SAVE_SLOT.GLOBAL+1]=14*i,[TppDefine.SAVE_SLOT.CHECK_POINT+1]=65*i,[TppDefine.SAVE_SLOT.RETRY+1]=11*i,[TppDefine.SAVE_SLOT.MB_MANAGEMENT+1]=80.5*i+2688,[TppDefine.SAVE_SLOT.QUEST+1]=2*i,[TppDefine.SAVE_SLOT.MISSION_START+1]=10*i,[TppDefine.SAVE_SLOT.CHECK_POINT_RESTARTABLE+1]=10*i}local a={}local t=0
+for n,i in ipairs(e)do
+t=t+i
+a[n]=i
+end
+e[TppDefine.SAVE_SLOT.SAVING+1]=t+92
 local n=1*i
-local a=TppGameSequence.GetTargetPlatform()if((a=="Steam"or a=="Win32")or a=="Win64")then
+local t=TppGameSequence.GetTargetPlatform()if((t=="Steam"or t=="Win32")or t=="Win64")then
 n=2*i
 end
 e[TppDefine.SAVE_SLOT.CONFIG+1]=n
-e[TppDefine.SAVE_SLOT.CONFIG_SAVE+1]=e[TppDefine.SAVE_SLOT.CONFIG+1]local a=3*i
-e[TppDefine.SAVE_SLOT.PERSONAL+1]=a
-e[TppDefine.SAVE_SLOT.PERSONAL_SAVE+1]=a
+e[TppDefine.SAVE_SLOT.CONFIG_SAVE+1]=e[TppDefine.SAVE_SLOT.CONFIG+1]local t=3*i
+e[TppDefine.SAVE_SLOT.PERSONAL+1]=t
+e[TppDefine.SAVE_SLOT.PERSONAL_SAVE+1]=t
 if TppSystemUtility.GetCurrentGameMode()=="MGO"then
 local i=16*i
 e[TppDefine.SAVE_SLOT.MGO+1]=i
 e[TppDefine.SAVE_SLOT.MGO_SAVE+1]=i
 end
-Tpp.DEBUG_DumpTable(t)Tpp.DEBUG_DumpTable(e)TppScriptVars.CreateSaveSlot(e)TppSave.RegistCompositSlotSize(t)TppSave.SetUpCompositSlot()TppScriptVars.SetFileSizeList{{TppSave.GetGameSaveFileName(),e[TppDefine.SAVE_SLOT.SAVING+1]},{TppDefine.CONFIG_SAVE_FILE_NAME,e[TppDefine.SAVE_SLOT.CONFIG+1]},{TppDefine.PERSONAL_DATA_SAVE_FILE_NAME,e[TppDefine.SAVE_SLOT.PERSONAL+1]},{TppDefine.PERSONAL_DATA_SAVE_FILE_NAME,e[TppDefine.SAVE_SLOT.PERSONAL+1]},{"MGO_GAME_DATA",16*i}}end
+Tpp.DEBUG_DumpTable(a)Tpp.DEBUG_DumpTable(e)TppScriptVars.CreateSaveSlot(e)TppSave.RegistCompositSlotSize(a)TppSave.SetUpCompositSlot()TppScriptVars.SetFileSizeList{{TppSave.GetGameSaveFileName(),e[TppDefine.SAVE_SLOT.SAVING+1]},{TppDefine.CONFIG_SAVE_FILE_NAME,e[TppDefine.SAVE_SLOT.CONFIG+1]},{TppDefine.PERSONAL_DATA_SAVE_FILE_NAME,e[TppDefine.SAVE_SLOT.PERSONAL+1]},{TppDefine.PERSONAL_DATA_SAVE_FILE_NAME,e[TppDefine.SAVE_SLOT.PERSONAL+1]},{"MGO_GAME_DATA",16*i}}end
 function e.InitializeOnNewGameAtFirstTime()vars.locationCode=TppDefine.LOCATION_ID.CYPR
 vars.missionCode=10010
 end
@@ -99,17 +104,17 @@ gvars.col_markerStatus_mafr[e]=0
 end
 local i={"tp_bgm_10_01","tp_bgm_10_02","tp_bgm_10_03","tp_bgm_10_04","tp_bgm_10_05","tp_bgm_10_06","tp_bgm_10_07"}for i,e in ipairs(i)do
 TppMotherBaseManagement.AddCassetteTapeTrack(e)end
-TppMotherBaseManagement.DirectAddResource{resource="Plant2005",count=20,isNew=true}gvars.solface_groupNumber=(math.random(0,255)*65536)+math.random(1,255)gvars.hosface_groupNumber=(math.random(0,65535)*65536)+math.random(1,65535)local i,a
+TppMotherBaseManagement.DirectAddResource{resource="Plant2005",count=20,isNew=true}gvars.solface_groupNumber=(math.random(0,255)*65536)+math.random(1,255)gvars.hosface_groupNumber=(math.random(0,65535)*65536)+math.random(1,65535)local a,i
 do
-i={{slot=TppDefine.WEAPONSLOT.PRIMARY_HIP,equip=TppEquip.EQP_None},{slot=TppDefine.WEAPONSLOT.SECONDARY,equip=TppEquip.EQP_None},{slot=TppDefine.WEAPONSLOT.SUPPORT_0,equip=TppEquip.EQP_None},{slot=TppDefine.WEAPONSLOT.SUPPORT_1,equip=TppEquip.EQP_None}}a={TppEquip.EQP_None,TppEquip.EQP_None,TppEquip.EQP_None,TppEquip.EQP_None}end
-e.SetInitPlayerWeapons(i)TppPlayer.SupplyAllAmmoFullOnMissionFinalize()e.SetInitPlayerItems(a)e.InitializeAllPlatformForNewGame()end
+a={{slot=TppDefine.WEAPONSLOT.PRIMARY_HIP,equip=TppEquip.EQP_None},{slot=TppDefine.WEAPONSLOT.SECONDARY,equip=TppEquip.EQP_None},{slot=TppDefine.WEAPONSLOT.SUPPORT_0,equip=TppEquip.EQP_None},{slot=TppDefine.WEAPONSLOT.SUPPORT_1,equip=TppEquip.EQP_None}}i={TppEquip.EQP_None,TppEquip.EQP_None,TppEquip.EQP_None,TppEquip.EQP_None}end
+e.SetInitPlayerWeapons(a)TppPlayer.SupplyAllAmmoFullOnMissionFinalize()e.SetInitPlayerItems(i)e.InitializeAllPlatformForNewGame()end
 function e.InitializeForNewMission(e)TppSave.VarRestoreOnMissionStart()TppStory.DisableMissionNewOpenFlag(vars.missionCode)TppClock.RestoreMissionStartClock()if e.sequence and e.sequence.MISSION_START_INITIAL_WEATHER then
 TppWeather.SetMissionStartWeather(e.sequence.MISSION_START_INITIAL_WEATHER)end
 TppWeather.RestoreMissionStartWeather()TppPlayer.SetInitialPlayerState(e)TppPlayer.ResetDisableAction()TppEnemy.RestoreOnMissionStart()if e.sequence then
 TppPlayer.InitItemStockCount()end
-Player.ResetVarsOnMissionStart()TppPlayer.SetSelfSubsistenceOnHardMission()TppPlayer.RestoreChimeraWeaponParameter()if e.sequence and s(e.sequence.playerInitialWeaponTable)then
+Player.ResetVarsOnMissionStart()TppPlayer.SetSelfSubsistenceOnHardMission()TppPlayer.RestoreChimeraWeaponParameter()if e.sequence and n(e.sequence.playerInitialWeaponTable)then
 TppPlayer.SetInitWeapons(e.sequence.playerInitialWeaponTable)end
-TppPlayer.RestorePlayerWeaponsOnMissionStart()TppPlayer.SetMissionStartAmmoCount()if e.sequence and s(e.sequence.playerInitialItemTable)then
+TppPlayer.RestorePlayerWeaponsOnMissionStart()TppPlayer.SetMissionStartAmmoCount()if e.sequence and n(e.sequence.playerInitialItemTable)then
 TppPlayer.SetInitItems(e.sequence.playerInitialItemTable)end
 TppPlayer.RestorePlayerItemsOnMissionStart()TppUI.OnMissionStart()local e=TppMission.SetMissionOrderBoxPosition()if not e then
 if TppMission.IsFreeMission(vars.missionCode)then
@@ -140,7 +145,7 @@ function e.SetInitPlayerWeapons(e)for e,i in pairs(e)do
 local a=i.ammo
 local e=i.slot
 local t=i.equip
-local s=i.ammoMax
+local p=i.ammoMax
 local i=i.bulletId
 if e>=TppDefine.WEAPONSLOT.SUPPORT_0 and e<=TppDefine.WEAPONSLOT.SUPPORT_3 then
 local n=e-TppDefine.WEAPONSLOT.SUPPORT_0
@@ -151,7 +156,7 @@ else
 vars.initWeapons[e]=t
 vars.ammoStockIds[e]=i
 vars.ammoStockCounts[e]=a
-vars.ammoInWeapons[e]=s
+vars.ammoInWeapons[e]=p
 vars.isInitialWeapon[e]=1
 end
 end
