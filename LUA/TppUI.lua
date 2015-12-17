@@ -1,11 +1,11 @@
-local e={}local u=Fox.StrCode32
+local e={}local r=Fox.StrCode32
 local i=Tpp.IsTypeTable
-local s=GameObject.GetGameObjectId
-local o=GameObject.NULL_ID
+local o=GameObject.GetGameObjectId
+local s=GameObject.NULL_ID
 local p=FadeFunction.CallFadeIn
-local r=FadeFunction.CallFadeOut
+local _=FadeFunction.CallFadeOut
 local d=0
-e.FADE_SPEED={FADE_MOMENT=0,FADE_HIGHESTSPEED=.5,FADE_HIGHSPEED=1,FADE_NORMALSPEED=2,FADE_LOWSPEED=4,FADE_LOWESTSPEED=8}e.ANNOUNCE_LOG_TYPE={updateMissionInfo="announce_mission_info_update",updateMissionInfo_AddDocument="announce_doc_add",updateMap="announce_map_update",recoverTarget="announce_target_extract",eliminateTarget="announce_target_eliminate",destroyTarget="announce_target_destroy",achieveObjectiveCount="announce_objective_complete_num",achieveAllObjectives="announce_objective_complete",emergencyMissionOccur="announce_mission_add_emerg",deleteEmergencyMission="announce_mission_del_emerg",getIntel="announce_get_intel_file",recoverTargetCount="announce_target_extract_num",recoverEnemy="announce_collection_enemy",recoverHostage="announce_collection_hostage",target_died="announce_target_died",target_eliminate_failed="announce_target_eliminate_failed",target_extract_failed="announce_target_extract_failed",staff_dead="announce_staff_dead",staff_dying="announce_staff_dying",hostage_died="announce_hostage_died",fob_sneaking_failed="announce_fob_sneaking_failed",boy_died="announce_boy_died",leaveHotZone="announce_left_hot_zone",closeOutOfMissionArea="announce_mission_area_warning",callHeliRecieved="announce_support_callheli_received",heliArrivedLZ="announce_heli_arrive_LZ",callSupportBuddyReceived="announce_support_callboddy_received",gmpGet="announce_ops_get_gmp",gmpCostFulton="announce_gmp_cost_fulton",gmpCostSupply="announce_gmp_cost_supply",gmpCostAttack="announce_gmp_cost_attack",gmpCostHeli="announce_gmp_cost_heli",gmpCostOps="announce_gmp_cost_ops",extractionAllived="announce_extraction_arrived",extractSoldiers="announce_extract_soldier",extractPrisoners="announce_extract_prisoner",getDiamond="announce_get_diamond",unitLvUpRd="announce_unit_lvup_RD",unitLvUpBaseDev="announce_unit_lvup_base_dev",unitLvUpSupport="announce_unit_lvup_support",unitLvUpIntel="announce_unit_lvup_intel",unitLvUpCombat="announce_unit_lvup_combat",unitLvUpSecurity="announce_unit_lvup_security",unitLvUpMedical="announce_unit_lvup_medical",unitLvDownRd="announce_unit_lvdown_RD",unitLvDownBaseDev="announce_unit_lvdown_base_dev",unitLvDownSupport="announce_unit_lvdown_support",unitLvDownIntel="announce_unit_lvdown_intel",unitLvDownCombat="announce_unit_lvdown_combat",unitLvDownSecurity="announce_unit_lvdown_security",unitLvDownMedical="announce_unit_lvdown_medical",missionListUpdate="announce_mission_list_update",missionAdd="announce_mission_add",extractionFailed="announce_extraction_failed",sunset="announce_sunset",sunrise="announce_sunrise",weather_sunny="announce_weather_sunny",weather_cloudy="announce_weather_cloudy",weather_rainy="announce_weather_rain",weather_sandstorm="announce_weather_sandstorm",weather_foggy="announce_weather_fog",getKyeItem="announce_ops_get_item",getPoster="announce_get_gravure",destroyRadar="announce_destroy_radar",unlockLz="announce_unlock_lz",heroicPointUp="announce_fame_up",heroicPointDown="announce_fame_down",outpost_neutralize="announce_outpost_neutralize",guradpost_neutralize="announce_guradpost_neutralize",announce_nuclear_zero="announce_nuclear_zero",fob_add="announce_fob_add",fobReqHelp="announce_fob_req_help",fobFindIntruder="announce_fob_find_intruder",fobFound="announce_fob_found",fobWormholeFrom="announce_fob_wormhole_from",fobWormholeTo="announce_fob_wormhole_to",fobReport="announce_online_910_from_0_prio_0",fobStolenStaff="announce_staff_num",task_complete="announce_task_complete",fobDefFailed="announce_fob_def_failed",fobDefSuccess="announce_fob_def_success",fobDefSuccessPra="announce_fob_def_success_pra",fobRivalArrive="announce_fob_helper_arrive",fobRivalEscape="announce_fob_helper_escape",fobIntruderEscape="announce_fob_intruder_escape",fobNoticeIntruder="announce_online_900_from_0_prio_0",fobReqPractice="announce_fob_req_practice",fobVisitFob="announce_fob_visit_fob",fobVisitFob1="announce_fob_visit_fob1",fobVisitFob2="announce_fob_visit_fob2",fobVisitFob3="announce_fob_visit_fob3",fobVisitFob4="announce_fob_visit_fob4",fobBatrayed="announce_fob_batrayed",fobBetray="announce_fob_betray",espPf_a="announce_esp_pf_a",espFulton_a="announce_esp_fulton_a",espFulton_d="announce_esp_fulton_d",espFultonContainer_a="announce_esp_container_fulton_a",espFultonContainer_d="announce_esp_container_fulton_d",espKill_a="announce_esp_kill_a",espKill_d="announce_esp_kill_d",espDestroy_a="announce_esp_destroy_a",espDestroy_d="announce_esp_destroy_d",espKillStaff_a="announce_esp_killstaff_a",espKillStaff_d="announce_esp_killstaff_d",espMarking_d="announce_esp_marking_d",espKillTarget_d="announce_esp_kill_target_d",fob_leave_owner="announce_fob_leave_owner",fob_leave_visiter="announce_fob_leave_fob",espFultonTarget_d="announce_esp_target_fulton_d",fob_practice_fin="announce_fob_practice_fin",esp_stun="announce_esp_stun",esp_sleep="announce_esp_sleep",esp_stun_d="announce_esp_stun_df",esp_sleep_d="announce_esp_sleep_df",esp_stun_a="announce_esp_stun_at",esp_sleep_a="announce_esp_sleep_at",mbstaff_died="announce_mbstaff_died",horse_died="announce_horse_died",quiet_died="announce_quiet_died",ddog_died="announce_ddog_died",dwalker_died="announce_dwalker_died",quest_add="announce_quest_add",quest_complete="announce_quest_complete",quest_delete="announce_quest_delete",quest_list_update="announce_quest_list_update",quest_defeat_armor="announce_quest_defeat_armor",quest_defeat_zombie="announce_quest_defeat_zombie",mine_quest_log="announce_quest_disposal_mine",quest_extract_elite="announce_quest_extract_elite",quest_extract_hostage="announce_quest_extract_hostage",quest_defeat_armor_vehicle="announce_quest_defeat_armor_vehicle",quest_defeat_tunk="announce_quest_defeat_tunk",quest_get_photo="announce_get_photo",quest_target_eliminate="announce_quest_target_destroy",find_keyitem="announce_find_keyitem",find_em_string="announce_find_em_string",find_em_back="announce_find_em_back",find_em_front="announce_find_em_front",get_tape="announce_get_tape",looting_weapon="announce_looting_weapon",get_wgear="announce_get_wgear",add_delivery_point="announce_add_delivery_point",get_invoice="announce_get_invoice",disposal_mine="announce_disposal_mine",disposal_decoy="announce_disposal_decoy",destroyed_skull="announce_destroyed_skull",trial_update="announce_trial_update",destroyed_support_heli="announce_destroyed_support_heli",add_alt_machine="announce_add_alt_machine",get_blueprint="announce_get_blueprint",recoveredFilmCase="announce_get_film_case",find_processed_res="announce_find_processed_res",find_diamond="announce_find_diamond",find_plant="announce_find_plant",refresh="announce_refresh",get_hero="announce_get_hero",lost_hero="announce_lost_hero"}e.ANNOUNCE_LOG_PRIORITY={"eliminateTarget","recoveredFilmCase","recoverTarget","destroyTarget","achieveAllObjectives","achieveObjectiveCount","getIntel","updateMissionInfo","updateMissionInfo_AddDocument","updateMap"}e.BUDDY_LANG_ID={[BuddyType.HORSE]="name_buddy_dh",[BuddyType.DOG]="name_buddy_dd",[BuddyType.QUIET]="marker_chara_quiet"}e.EMBLEM_ANNOUNCE_LOG_TYPE={[Fox.StrCode32"front"]="find_em_front",[Fox.StrCode32"base"]="find_em_back",[Fox.StrCode32"word"]="find_em_string"}function e.Messages()return Tpp.StrCode32Table{GameObject={{msg="ArrivedAtLandingZoneWaitPoint",sender="SupportHeli",func=function()e.ShowAnnounceLog"heliArrivedLZ"end}},UI={{msg="EndFadeIn",func=e.EnableGameStatusOnFade,option={isExecMissionClear=true,isExecDemoPlaying=true,isExecGameOver=true}},{msg="EndFadeOut",func=e.DisableGameStatusOnFadeOutEnd,option={isExecMissionClear=true,isExecDemoPlaying=true,isExecGameOver=true}},{msg="ConfigurationUpdated",func=function()if vars.missionCode==TppDefine.SYS_MISSION_ID.INIT then
+e.FADE_SPEED={FADE_MOMENT=0,FADE_HIGHESTSPEED=.5,FADE_HIGHSPEED=1,FADE_NORMALSPEED=2,FADE_LOWSPEED=4,FADE_LOWESTSPEED=8}e.ANNOUNCE_LOG_TYPE={updateMissionInfo="announce_mission_info_update",updateMissionInfo_AddDocument="announce_doc_add",updateMap="announce_map_update",recoverTarget="announce_target_extract",eliminateTarget="announce_target_eliminate",destroyTarget="announce_target_destroy",achieveObjectiveCount="announce_objective_complete_num",achieveAllObjectives="announce_objective_complete",emergencyMissionOccur="announce_mission_add_emerg",deleteEmergencyMission="announce_mission_del_emerg",getIntel="announce_get_intel_file",recoverTargetCount="announce_target_extract_num",recoverEnemy="announce_collection_enemy",recoverHostage="announce_collection_hostage",target_died="announce_target_died",target_eliminate_failed="announce_target_eliminate_failed",target_extract_failed="announce_target_extract_failed",staff_dead="announce_staff_dead",staff_dying="announce_staff_dying",hostage_died="announce_hostage_died",fob_sneaking_failed="announce_fob_sneaking_failed",boy_died="announce_boy_died",leaveHotZone="announce_left_hot_zone",closeOutOfMissionArea="announce_mission_area_warning",callHeliRecieved="announce_support_callheli_received",heliArrivedLZ="announce_heli_arrive_LZ",callSupportBuddyReceived="announce_support_callboddy_received",gmpGet="announce_ops_get_gmp",gmpCostFulton="announce_gmp_cost_fulton",gmpCostSupply="announce_gmp_cost_supply",gmpCostAttack="announce_gmp_cost_attack",gmpCostHeli="announce_gmp_cost_heli",gmpCostOps="announce_gmp_cost_ops",extractionAllived="announce_extraction_arrived",extractSoldiers="announce_extract_soldier",extractPrisoners="announce_extract_prisoner",getDiamond="announce_get_diamond",unitLvUpRd="announce_unit_lvup_RD",unitLvUpBaseDev="announce_unit_lvup_base_dev",unitLvUpSupport="announce_unit_lvup_support",unitLvUpIntel="announce_unit_lvup_intel",unitLvUpCombat="announce_unit_lvup_combat",unitLvUpSecurity="announce_unit_lvup_security",unitLvUpMedical="announce_unit_lvup_medical",unitLvDownRd="announce_unit_lvdown_RD",unitLvDownBaseDev="announce_unit_lvdown_base_dev",unitLvDownSupport="announce_unit_lvdown_support",unitLvDownIntel="announce_unit_lvdown_intel",unitLvDownCombat="announce_unit_lvdown_combat",unitLvDownSecurity="announce_unit_lvdown_security",unitLvDownMedical="announce_unit_lvdown_medical",missionListUpdate="announce_mission_list_update",missionAdd="announce_mission_add",extractionFailed="announce_extraction_failed",sunset="announce_sunset",sunrise="announce_sunrise",weather_sunny="announce_weather_sunny",weather_cloudy="announce_weather_cloudy",weather_rainy="announce_weather_rain",weather_sandstorm="announce_weather_sandstorm",weather_foggy="announce_weather_fog",getKyeItem="announce_ops_get_item",getPoster="announce_get_gravure",destroyRadar="announce_destroy_radar",unlockLz="announce_unlock_lz",heroicPointUp="announce_fame_up",heroicPointDown="announce_fame_down",outpost_neutralize="announce_outpost_neutralize",guradpost_neutralize="announce_guradpost_neutralize",announce_nuclear_zero="announce_nuclear_zero",fob_add="announce_fob_add",fobReqHelp="announce_fob_req_help",fobFindIntruder="announce_fob_find_intruder",fobFound="announce_fob_found",fobWormholeFrom="announce_fob_wormhole_from",fobWormholeTo="announce_fob_wormhole_to",fobReport="announce_online_910_from_0_prio_0",fobStolenStaff="announce_staff_num",task_complete="announce_task_complete",fobDefFailed="announce_fob_def_failed",fobDefSuccess="announce_fob_def_success",fobDefSuccessPra="announce_fob_def_success_pra",fobRivalArrive="announce_fob_helper_arrive",fobRivalEscape="announce_fob_helper_escape",fobIntruderEscape="announce_fob_intruder_escape",fobNoticeIntruder="announce_online_900_from_0_prio_0",fobReqPractice="announce_fob_req_practice",fobVisitFob="announce_fob_visit_fob",fobVisitFob1="announce_fob_visit_fob1",fobVisitFob2="announce_fob_visit_fob2",fobVisitFob3="announce_fob_visit_fob3",fobVisitFob4="announce_fob_visit_fob4",fobBatrayed="announce_fob_batrayed",fobBetray="announce_fob_betray",espPf_a="announce_esp_pf_a",espFulton_a="announce_esp_fulton_a",espFulton_d="announce_esp_fulton_d",espFultonContainer_a="announce_esp_container_fulton_a",espFultonContainer_d="announce_esp_container_fulton_d",espKill_a="announce_esp_kill_a",espKill_d="announce_esp_kill_d",espDestroy_a="announce_esp_destroy_a",espDestroy_d="announce_esp_destroy_d",espKillStaff_a="announce_esp_killstaff_a",espKillStaff_d="announce_esp_killstaff_d",espMarking_d="announce_esp_marking_d",espKillTarget_d="announce_esp_kill_target_d",fob_leave_owner="announce_fob_leave_owner",fob_leave_visiter="announce_fob_leave_fob",espFultonTarget_d="announce_esp_target_fulton_d",fob_practice_fin="announce_fob_practice_fin",esp_stun="announce_esp_stun",esp_sleep="announce_esp_sleep",esp_stun_d="announce_esp_stun_df",esp_sleep_d="announce_esp_sleep_df",esp_stun_a="announce_esp_stun_at",esp_sleep_a="announce_esp_sleep_at",esp_headshot_d="announce_esp_hs_df",esp_ttd_d="announce_esp_ttd_df",esp_headshot_a="announce_esp_hs_at",esp_ttd_a="announce_esp_ttd_at",fob_get_ransom="announce_fob_get_ransom_d90",mbstaff_died="announce_mbstaff_died",horse_died="announce_horse_died",quiet_died="announce_quiet_died",ddog_died="announce_ddog_died",dwalker_died="announce_dwalker_died",quest_add="announce_quest_add",quest_complete="announce_quest_complete",quest_delete="announce_quest_delete",quest_list_update="announce_quest_list_update",quest_defeat_armor="announce_quest_defeat_armor",quest_defeat_zombie="announce_quest_defeat_zombie",mine_quest_log="announce_quest_disposal_mine",quest_extract_elite="announce_quest_extract_elite",quest_extract_hostage="announce_quest_extract_hostage",quest_defeat_armor_vehicle="announce_quest_defeat_armor_vehicle",quest_defeat_tunk="announce_quest_defeat_tunk",quest_get_photo="announce_get_photo",quest_target_eliminate="announce_quest_target_destroy",find_keyitem="announce_find_keyitem",find_em_string="announce_find_em_string",find_em_back="announce_find_em_back",find_em_front="announce_find_em_front",get_tape="announce_get_tape",looting_weapon="announce_looting_weapon",get_wgear="announce_get_wgear",add_delivery_point="announce_add_delivery_point",get_invoice="announce_get_invoice",disposal_mine="announce_disposal_mine",disposal_decoy="announce_disposal_decoy",destroyed_skull="announce_destroyed_skull",trial_update="announce_trial_update",destroyed_support_heli="announce_destroyed_support_heli",add_alt_machine="announce_add_alt_machine",get_blueprint="announce_get_blueprint",recoveredFilmCase="announce_get_film_case",find_processed_res="announce_find_processed_res",find_diamond="announce_find_diamond",find_plant="announce_find_plant",refresh="announce_refresh",get_hero="announce_get_hero",lost_hero="announce_lost_hero"}e.ANNOUNCE_LOG_PRIORITY={"eliminateTarget","recoveredFilmCase","recoverTarget","destroyTarget","achieveAllObjectives","achieveObjectiveCount","getIntel","updateMissionInfo","updateMissionInfo_AddDocument","updateMap"}e.BUDDY_LANG_ID={[BuddyType.HORSE]="name_buddy_dh",[BuddyType.DOG]="name_buddy_dd",[BuddyType.QUIET]="marker_chara_quiet"}e.EMBLEM_ANNOUNCE_LOG_TYPE={[Fox.StrCode32"front"]="find_em_front",[Fox.StrCode32"base"]="find_em_back",[Fox.StrCode32"word"]="find_em_string"}function e.Messages()return Tpp.StrCode32Table{GameObject={{msg="ArrivedAtLandingZoneWaitPoint",sender="SupportHeli",func=function()e.ShowAnnounceLog"heliArrivedLZ"end}},UI={{msg="EndFadeIn",func=e.EnableGameStatusOnFade,option={isExecMissionClear=true,isExecDemoPlaying=true,isExecGameOver=true}},{msg="EndFadeOut",func=e.DisableGameStatusOnFadeOutEnd,option={isExecMissionClear=true,isExecDemoPlaying=true,isExecGameOver=true}},{msg="ConfigurationUpdated",func=function()if vars.missionCode==TppDefine.SYS_MISSION_ID.INIT then
 return
 end
 TppSave.VarSaveConfig()if TppSave.IsSavingWithFileName(TppDefine.CONFIG_SAVE_FILE_NAME)or TppSave.HasQueue(TppDefine.CONFIG_SAVE_FILE_NAME)then
@@ -24,14 +24,14 @@ return e
 end
 return nil
 end
-function e.FadeIn(o,a,i,n)local t=t(a)if n then
+function e.FadeIn(i,a,o,n)local t=t(a)if n then
 mvars.ui_onEndFadeInExceptGameStatus=n.exceptGameStatus
 elseif mvars.ui_onEndFadeInOverrideExceptGameStatus then
 mvars.ui_onEndFadeInExceptGameStatus=mvars.ui_onEndFadeInOverrideExceptGameStatus
 else
 mvars.ui_onEndFadeInExceptGameStatus=nil
 end
-TppSoundDaemon.ResetMute"Outro"p(o,t,i)e.EnableGameStatusOnFadeInStart()end
+TppSoundDaemon.ResetMute"Outro"p(i,t,o)e.EnableGameStatusOnFadeInStart()end
 function e.OverrideFadeInGameStatus(e)mvars.ui_onEndFadeInOverrideExceptGameStatusTemporary=e
 end
 function e.UnsetOverrideFadeInGameStatus()mvars.ui_onEndFadeInOverrideExceptGameStatusTemporary=nil
@@ -40,7 +40,7 @@ function e.GetOverrideGameStatus()return mvars.ui_onEndFadeInOverrideExceptGameS
 end
 function e.SetFadeColorToBlack()FadeFunction.SetFadeColor(0,0,0,255)end
 function e.SetFadeColorToWhite()FadeFunction.SetFadeColor(255,255,255,255)end
-function e.FadeOut(s,o,p,n)local a,i
+function e.FadeOut(p,o,s,n)local a,i
 if Tpp.IsTypeTable(n)then
 a=n.setMute
 i=n.exceptGameStatus
@@ -50,7 +50,7 @@ TppSound.SetMuteOnLoading()else
 if(not TppSoundDaemon.CheckCurrentMuteIs"Pause")and(not TppSoundDaemon.CheckCurrentMuteMoreThan"Outro")then
 TppSoundDaemon.SetMute"Outro"end
 end
-r(s,n,p)end
+_(p,n,s)end
 function e.ShowAnnounceLog(a,t,o,n,i)if gvars.ini_isTitleMode then
 return
 end
@@ -60,29 +60,29 @@ TppUiCommand.AnnounceLogDelayTime(n)end
 TppUiCommand.AnnounceLogViewLangId(e,t,o)elseif i then
 local e=TppUiCommand.GetCurrentMissionSubGoalByNo(i)TppUiCommand.AnnounceLogViewLangId(e)end
 end
-function e.ShowColorAnnounceLog(t,i,a,n)if gvars.ini_isTitleMode then
+function e.ShowColorAnnounceLog(a,t,i,n)if gvars.ini_isTitleMode then
 return
 end
-local e=e.ANNOUNCE_LOG_TYPE[t]if e then
+local e=e.ANNOUNCE_LOG_TYPE[a]if e then
 if n then
 TppUiCommand.AnnounceLogDelayTime(n)end
-TppUiCommand.AnnounceLogViewLangId(e,i,a,0,0,true)end
+TppUiCommand.AnnounceLogViewLangId(e,t,i,0,0,true)end
 end
-function e.ShowJoinAnnounceLog(i,a,t,o,n)if gvars.ini_isTitleMode then
-return
-end
-local i=e.ANNOUNCE_LOG_TYPE[i]local e=e.ANNOUNCE_LOG_TYPE[a]if i and e then
-if n then
-TppUiCommand.AnnounceLogDelayTime(n)end
-TppUiCommand.AnnounceLogViewJoinLangId(i,e,t,o)end
-end
-function e.ShowColorJoinAnnounceLog(i,o,t,a,n)if gvars.ini_isTitleMode then
+function e.ShowJoinAnnounceLog(i,o,t,a,n)if gvars.ini_isTitleMode then
 return
 end
 local i=e.ANNOUNCE_LOG_TYPE[i]local e=e.ANNOUNCE_LOG_TYPE[o]if i and e then
 if n then
 TppUiCommand.AnnounceLogDelayTime(n)end
-TppUiCommand.AnnounceLogViewJoinLangId(i,e,t,a,0,0,true)end
+TppUiCommand.AnnounceLogViewJoinLangId(i,e,t,a)end
+end
+function e.ShowColorJoinAnnounceLog(n,a,o,t,i)if gvars.ini_isTitleMode then
+return
+end
+local n=e.ANNOUNCE_LOG_TYPE[n]local e=e.ANNOUNCE_LOG_TYPE[a]if n and e then
+if i then
+TppUiCommand.AnnounceLogDelayTime(i)end
+TppUiCommand.AnnounceLogViewJoinLangId(n,e,o,t,0,0,true)end
 end
 function e.ShowEmergencyAnnounceLog(n)e.ShowAnnounceLog"emergencyMissionOccur"if not(TppUiStatusManager.CheckStatus("AnnounceLog","INVALID_LOG")or TppUiStatusManager.CheckStatus("AnnounceLog","SUSPEND_LOG"))then
 if n==true then
@@ -90,19 +90,19 @@ TppSoundDaemon.PostEvent"sfx_s_fob_emergency"else
 TppSoundDaemon.PostEvent"sfx_s_fob_alert"end
 end
 end
-function e.EnableMissionPhoto(i,e,n,a,t)TppUiCommand.EnableMissionPhotoId(i)if TppUiCommand.IsMissionPhotoIdEnable(i)then
-if e or n then
-if e==nil then
-e=false
+function e.EnableMissionPhoto(e,i,n,a,t)TppUiCommand.EnableMissionPhotoId(e)if TppUiCommand.IsMissionPhotoIdEnable(e)then
+if i or n then
+if i==nil then
+i=false
 end
 if n==nil then
 n=false
 end
-TppUiCommand.SetAdditonalMissionPhotoId(i,e,n)end
+TppUiCommand.SetAdditonalMissionPhotoId(e,i,n)end
 if a then
 end
 if t then
-local e=u(t)TppUiCommand.SetMissionPhotoRadioGroupName(i,e)end
+local n=r(t)TppUiCommand.SetMissionPhotoRadioGroupName(e,n)end
 end
 end
 function e.DisableMissionPhoto(e,n)if TppUiCommand.IsMissionPhotoIdEnable(e)then
@@ -117,12 +117,12 @@ end
 local n,i
 if Tpp.IsTypeString(e.gameObjectName)then
 i=e.gameObjectName
-n=s(i)elseif Tpp.IsTypeNumber(e.gameObjectId)then
+n=o(i)elseif Tpp.IsTypeNumber(e.gameObjectId)then
 n=e.gameObjectId
 else
 return
 end
-if n==o then
+if n==s then
 return
 end
 e.gameObjectId=n
@@ -133,19 +133,19 @@ end
 local n,i
 if Tpp.IsTypeString(e.gameObjectName)then
 i=e.gameObjectName
-n=s(i)elseif Tpp.IsTypeNumber(e.gameObjectId)then
+n=o(i)elseif Tpp.IsTypeNumber(e.gameObjectId)then
 n=e.gameObjectId
 else
 return
 end
-if n==o then
+if n==s then
 return
 end
 e.gameObjectId=n
 TppUiCommand.DeactivateSpySearchForGameObject(e)end
-function e.StartMissionTelop(e,n,i)TppSoundDaemon.SetMute"Telop"if e then
+function e.StartMissionTelop(e,i,n)TppSoundDaemon.SetMute"Telop"if e then
 TppUiCommand.SetMissionStartTelopId(e)end
-TppUiCommand.CallMissionStartTelop(n,i)TppSound.PostJingleOnMissionStartTelop()end
+TppUiCommand.CallMissionStartTelop(i,n)TppSound.PostJingleOnMissionStartTelop()end
 function e.GetMaxMissionTask(e)local e=TppResult.MISSION_TASK_LIST[e]if e then
 return#e
 end
@@ -156,8 +156,8 @@ end
 if not i(a)then
 return
 end
-local n={}for i,e in pairs(a)do
-n[i]=e
+local n={}for e,i in pairs(a)do
+n[e]=i
 end
 local i=n.taskNo
 if not i then
@@ -177,14 +177,14 @@ end
 if n.isComplete then
 n.isHide=false
 local n=vars.missionCode
-local o=e.GetTaskCompletedNumber(n)e.SetTaskLastCompleted(i,true)local a=e.GetTaskCompletedNumber(n)local i=e.GetMaxMissionTask(n)if i==nil then
+local o=e.GetTaskCompletedNumber(n)e.SetTaskLastCompleted(i,true)local i=e.GetTaskCompletedNumber(n)local a=e.GetMaxMissionTask(n)if a==nil then
 return
 end
 if t then
-if a>o then
-e.ShowAnnounceLog("task_complete",a,i)end
+if i>o then
+e.ShowAnnounceLog("task_complete",i,a)end
 end
-if e.IsAllTaskCompleted(n)then
+TppMission.SetPlayRecordClearInfo()TppChallengeTask.RequestUpdate"MISSION_TASK"if e.IsAllTaskCompleted(n)then
 TppEmblem.AcquireOnAllMissionTaskComleted(n)end
 end
 if e.IsTaskLastCompleted(i)then
@@ -235,11 +235,11 @@ end
 function e.ShowControlGuide(n)if not i(n)then
 return
 end
-local t,a,i,o,s,p,r
+local t,o,i,a,s,p,r
 t=n.actionName
-a=n.continue
+o=n.continue
 i=n.time
-o=n.isOnce
+a=n.isOnce
 s=n.isOnceThisGame
 p=n.pauseControl
 r=n.ignoreRadio
@@ -252,7 +252,7 @@ end
 local e=TppDefine.CONTROL_GUIDE[t]local n=TppDefine.CONTROL_GUIDE_LANG_ID_LIST[e]if n==nil then
 return
 end
-if o then
+if a then
 if gvars.ui_isControlGuideShownOnce[e]then
 return
 end
@@ -268,7 +268,7 @@ if not i then
 i=TppTutorial.DISPLAY_TIME.DEFAULT
 end
 TppUiCommand.SetButtonGuideDispTime(i)if not p then
-if(a==true)then
+if(o==true)then
 TppUiCommand.CallButtonGuideContinue(n,false,false,false)else
 TppUiCommand.CallButtonGuide(n,false,false,false)end
 else
@@ -281,10 +281,10 @@ end
 function e.ShowTipsGuide(n)if not i(n)then
 return
 end
-local a,t,i,r,p,o,s
-a=n.contentName
-t=n.isOnce
-i=n.isOnceThisGame
+local i,a,t,r,p,o,s
+i=n.contentName
+a=n.isOnce
+t=n.isOnceThisGame
 p=n.time
 o=n.ignoreRadio
 s=n.ignoreDisplay
@@ -296,29 +296,29 @@ if TppUiCommand.IsDispGuide"TipsGuide"then
 return
 end
 end
-if type(a)~="string"then
+if type(i)~="string"then
 return
 end
-local e=TppDefine.TIPS[a]if e==nil then
+local e=TppDefine.TIPS[i]if e==nil then
 return
 end
 local n=nil
-local a=TppDefine.TIPS_REDUNDANT_REF[e]if not a then
+local i=TppDefine.TIPS_REDUNDANT_REF[e]if not i then
 n=tostring(e)else
-n=tostring(a)end
+n=tostring(i)end
 if n==nil then
 return
 end
-if t and i then
+if a and t then
 return
 end
-if t then
+if a then
 if gvars.ui_isTipsGuideShownOnce[e]then
 return
 end
 gvars.ui_isTipsGuideShownOnce[e]=true
 end
-if i then
+if t then
 if gvars.ui_isTipsGuidShownInThisGame[e]then
 return
 end
@@ -415,10 +415,10 @@ if TppUiCommand.InitAllEnemyRoutePoints then
 TppUiCommand.InitAllEnemyRoutePoints()end
 TppUiCommand.ClearIconUniqueInformation()end
 function e.LoadAndWaitUiDefaultBlock()TppUiCommand.LoadUiDefaultBlock()local e=0
-local n,i=0,25
-local e=false
-e=not TppUiCommand.IsTppUiReady()while e and(n<i)do
-e=not TppUiCommand.IsTppUiReady()n=n+Time.GetFrameTime()coroutine.yield()end
+local e,i=0,25
+local n=false
+n=not TppUiCommand.IsTppUiReady()while n and(e<i)do
+n=not TppUiCommand.IsTppUiReady()e=e+Time.GetFrameTime()coroutine.yield()end
 end
 function e.OnMissionStart()local e=vars.missionCode
 local n=TppMission.IsHelicopterSpace(e)if n then
@@ -507,24 +507,20 @@ table.insert(e,2,GamePauseMenu.STORE_ITEM)end
 if not(TppGameMode.GetUserMode()<=TppGameMode.U_SIGN_OUT)then
 table.insert(e,2,GamePauseMenu.SIGN_IN)end
 TppUiCommand.RegisterPauseMenuPage(e)end
-function e.RegisterFobSneakPauseMenuPage()local e={GamePauseMenu.ABORT_MISSION_RETURN_TO_ACC}if(vars.fobSneakMode==FobMode.MODE_SHAM)and(TppNetworkUtil.GetSessionMemberCount()==1)then
+function e.RegisterFobSneakPauseMenuPage()local e
+if vars.fobIsPlaceMode~=1 then
+e={GamePauseMenu.ABORT_MISSION_RETURN_TO_ACC}else
+e={GamePauseMenu.ABORT_MISSION_PLACEMENT_MODE}end
+if(vars.fobSneakMode==FobMode.MODE_SHAM)and(TppNetworkUtil.GetSessionMemberCount()==1)then
 table.insert(e,1,GamePauseMenu.RESTART_FROM_MISSION_START)end
 TppUiCommand.RegisterPauseMenuPage(e)end
 function e.RegisterFobSneakGameOverMenuItems()local e={GameOverMenu.GAME_OVER_ABORT}if(vars.fobSneakMode==FobMode.MODE_SHAM)and(TppNetworkUtil.GetSessionMemberCount()==1)then
 table.insert(e,1,GameOverMenu.GAME_OVER_RESTART)end
 TppUiCommand.RegisterGameOverMenuItems(e)end
 function e.OnReload()e.Init()end
-function e.OnMessage(t,o,a,p,s,n,i)Tpp.DoMessage(e.messageExecTable,TppMission.CheckMessageOption,t,o,a,p,s,n,i)end
-function e.OnChangeSVars(i,n)local e=TppServerManager.FobIsSneak()if FobUI then
-if i=="sneakEventTaskValue"then
-if e then
-FobUI.UpdateEventTaskView(n,e)end
-end
-if i=="defenceEventTaskValue"then
-if(not e)then
-FobUI.UpdateEventTaskView(n,e)end
-end
-end
+function e.OnMessage(o,a,p,s,i,t,n)Tpp.DoMessage(e.messageExecTable,TppMission.CheckMessageOption,o,a,p,s,i,t,n)end
+function e.OnChangeSVars(n,e)if FobUI then
+FobUI.OnChangeSVars(n,e)end
 end
 function e.DisableGameStatusOnFade(n)local e={S_DISABLE_NPC=false}if i(n)then
 for n,i in pairs(n)do

@@ -122,7 +122,7 @@ TppPlayer.SetMissionStartPositionFromNoOrderBoxPosition()end
 end
 TppPlayer.SetInitialPositionFromMissionStartPosition()TppMotherBaseManagement.ClearAllStaffBonusPopupFlag()TppBuddyService.ResetVarsMissionStart()if not gvars.ini_isTitleMode then
 Vehicle.LoadCarry()end
-Gimmick.RestoreSaveDataPermanentGimmickFromMission()TppMotherBaseManagement.SetupAfterRestoreFromSVars()end
+Gimmick.RestoreSaveDataPermanentGimmickFromMission()TppMotherBaseManagement.SetupAfterRestoreFromSVars()RecordRanking.WriteServerRankingScore()end
 function e.InitializeForContinue(e)TppSave.VarRestoreOnContinueFromCheckPoint()TppEnemy.RestoreOnContinueFromCheckPoint()if not TppMission.IsFOBMission(vars.missionCode)then
 Gimmick.RestoreSaveDataPermanentGimmickFromCheckPoint()end
 TppMotherBaseManagement.SetupAfterRestoreFromSVars()vars.requestFlagsAboutEquip=255
@@ -145,7 +145,7 @@ function e.SetInitPlayerWeapons(e)for e,i in pairs(e)do
 local a=i.ammo
 local e=i.slot
 local t=i.equip
-local p=i.ammoMax
+local o=i.ammoMax
 local i=i.bulletId
 if e>=TppDefine.WEAPONSLOT.SUPPORT_0 and e<=TppDefine.WEAPONSLOT.SUPPORT_3 then
 local n=e-TppDefine.WEAPONSLOT.SUPPORT_0
@@ -156,7 +156,7 @@ else
 vars.initWeapons[e]=t
 vars.ammoStockIds[e]=i
 vars.ammoStockCounts[e]=a
-vars.ammoInWeapons[e]=p
+vars.ammoInWeapons[e]=o
 vars.isInitialWeapon[e]=1
 end
 end

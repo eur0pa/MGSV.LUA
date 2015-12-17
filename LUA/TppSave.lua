@@ -18,6 +18,7 @@ function e.IsExistConfigSaveFile()return TppScriptVars.FileExists(TppDefine.CONF
 function e.IsExistPersonalSaveFile()return TppScriptVars.FileExists(TppDefine.PERSONAL_DATA_SAVE_FILE_NAME)end
 function e.ForbidSave()gvars.permitGameSave=false
 end
+function e.IsForbidSave()return(not gvars.permitGameSave)end
 function e.NeedWaitSavingErrorCheck()if gvars.sav_SaveResultCheckFileName==0 then
 return false
 else

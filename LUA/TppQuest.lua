@@ -444,7 +444,7 @@ TppStory.UpdateStorySequence{updateTiming="OnSideOpsClear"}if not e.PlayClearRad
 e.GoToMBAfterClear(t)end
 e.GetClearKeyItem(t)e.GetClearCassette(t)e.GetClearEmblem(t)if e.GetSideOpsInfo(t)then
 TppTrophy.Unlock(15)end
-TppUiCommand.SetSideOpsListUpdate()for n,e in ipairs(f)do
+TppMission.SetPlayRecordClearInfo()TppChallengeTask.RequestUpdate"SIDEOPS"TppUiCommand.SetSideOpsListUpdate()for n,e in ipairs(f)do
 if t==e then
 TppMotherBaseManagement.SetLockedTanFlag{locked=false}return
 end

@@ -1,7 +1,7 @@
 local e={}local r=Tpp.ApendArray
 local n=Tpp.DEBUG_StrCode32ToString
-local i=Tpp.IsTypeFunc
-local t=Tpp.IsTypeTable
+local t=Tpp.IsTypeFunc
+local i=Tpp.IsTypeTable
 local f=TppScriptVars.IsSavingOrLoading
 local M=ScriptBlock.UpdateScriptsInScriptBlocks
 local m=Mission.GetCurrentMessageResendCount
@@ -50,35 +50,35 @@ end
 end
 s()if n.sequence then
 if f30050_sequence then
-function f30050_sequence.NeedPlayQuietWishGoMission()local n=TppQuest.IsCleard"mtbs_q99011"local t=not TppDemo.IsPlayedMBEventDemo"QuietWishGoMission"local e=TppDemo.GetMBDemoName()==nil
-return(n and t)and e
+function f30050_sequence.NeedPlayQuietWishGoMission()local n=TppQuest.IsCleard"mtbs_q99011"local i=not TppDemo.IsPlayedMBEventDemo"QuietWishGoMission"local e=TppDemo.GetMBDemoName()==nil
+return(n and i)and e
 end
 end
-if i(n.sequence.MissionPrepare)then
+if t(n.sequence.MissionPrepare)then
 n.sequence.MissionPrepare()end
-if i(n.sequence.OnEndMissionPrepareSequence)then
+if t(n.sequence.OnEndMissionPrepareSequence)then
 TppSequence.SetOnEndMissionPrepareFunction(n.sequence.OnEndMissionPrepareSequence)end
 end
 for n,e in pairs(n)do
-if i(e.OnLoad)then
+if t(e.OnLoad)then
 e.OnLoad()end
 end
 do
-local o={}for t,e in ipairs(Tpp._requireList)do
+local o={}for i,e in ipairs(Tpp._requireList)do
 if _G[e]then
 if _G[e].DeclareSVars then
 r(o,_G[e].DeclareSVars(n))end
 end
 end
 local s={}for n,e in pairs(n)do
-if i(e.DeclareSVars)then
+if t(e.DeclareSVars)then
 r(s,e.DeclareSVars())end
-if t(e.saveVarsList)then
+if i(e.saveVarsList)then
 r(s,TppSequence.MakeSVarsTable(e.saveVarsList))end
 end
 r(o,s)TppScriptVars.DeclareSVars(o)TppScriptVars.SetSVarsNotificationEnabled(false)while f()do
 coroutine.yield()end
-TppRadioCommand.SetScriptDeclVars()local i=vars.mbLayoutCode
+TppRadioCommand.SetScriptDeclVars()local t=vars.mbLayoutCode
 if gvars.ini_isTitleMode then
 TppPlayer.MissionStartPlayerTypeSetting()else
 if TppMission.IsMissionStart()then
@@ -90,18 +90,20 @@ TppVarInit.ClearIsContinueFromTitle()end
 TppUiCommand.ExcludeNonPermissionContents()TppStory.SetMissionClearedS10030()if(not TppMission.IsDefiniteMissionClear())then
 TppTerminal.StartSyncMbManagementOnMissionStart()end
 if TppLocation.IsMotherBase()then
-if i~=vars.mbLayoutCode then
+if t~=vars.mbLayoutCode then
 if vars.missionCode==30050 then
-vars.mbLayoutCode=i
+vars.mbLayoutCode=t
 else
 vars.mbLayoutCode=TppLocation.ModifyMbsLayoutCode(TppMotherBaseManagement.GetMbsTopologyType())end
 end
 end
-TppPlayer.FailSafeInitialPositionForFreePlay()e.StageBlockCurrentPosition(true)TppMission.SetSortieBuddy()TppMission.ResetQuietEquipIfUndevelop()TppStory.UpdateStorySequence{updateTiming="BeforeBuddyBlockLoad"}if n.sequence then
+TppPlayer.FailSafeInitialPositionForFreePlay()e.StageBlockCurrentPosition(true)TppMission.SetSortieBuddy()if vars.missionCode~=10260 then
+TppMission.ResetQuietEquipIfUndevelop()end
+TppStory.UpdateStorySequence{updateTiming="BeforeBuddyBlockLoad"}if n.sequence then
 local e=n.sequence.DISABLE_BUDDY_TYPE
 if e then
 local n
-if t(e)then
+if i(e)then
 n=e
 else
 n={e}end
@@ -119,7 +121,7 @@ TppBuddy2BlockController.Load()end
 end
 TppSequence.SaveMissionStartSequence()TppScriptVars.SetSVarsNotificationEnabled(true)end
 if n.enemy then
-if t(n.enemy.soldierPowerSettings)then
+if i(n.enemy.soldierPowerSettings)then
 TppEnemy.SetUpPowerSettings(n.enemy.soldierPowerSettings)end
 end
 TppRevenge.DecideRevenge(n)if TppEquip.CreateEquipMissionBlockGroup then
@@ -151,52 +153,52 @@ TppAnimalBlock.InitializeBlockStatus()if TppQuestList then
 TppQuest.RegisterQuestList(TppQuestList.questList)TppQuest.RegisterQuestPackList(TppQuestList.questPackList)end
 TppHelicopter.AdjustBuddyDropPoint()if n.sequence then
 local e=n.sequence.NPC_ENTRY_POINT_SETTING
-if t(e)then
+if i(e)then
 TppEnemy.NPCEntryPointSetting(e)end
 end
 TppLandingZone.OverwriteBuddyVehiclePosForALZ()if n.enemy then
-if t(n.enemy.vehicleSettings)then
+if i(n.enemy.vehicleSettings)then
 TppEnemy.SetUpVehicles()end
-if i(n.enemy.SpawnVehicleOnInitialize)then
+if t(n.enemy.SpawnVehicleOnInitialize)then
 n.enemy.SpawnVehicleOnInitialize()end
 TppReinforceBlock.SetUpReinforceBlock()end
-for t,e in pairs(n)do
-if i(e.Messages)then
-n[t]._messageExecTable=Tpp.MakeMessageExecTable(e.Messages())end
+for i,e in pairs(n)do
+if t(e.Messages)then
+n[i]._messageExecTable=Tpp.MakeMessageExecTable(e.Messages())end
 end
 if mvars.loc_locationCommonTable then
 mvars.loc_locationCommonTable.OnInitialize()end
-TppLandingZone.OnInitialize()for t,e in ipairs(Tpp._requireList)do
+TppLandingZone.OnInitialize()for i,e in ipairs(Tpp._requireList)do
 if _G[e].Init then
 _G[e].Init(n)end
 end
 if n.enemy then
 if GameObject.DoesGameObjectExistWithTypeName"TppSoldier2"then
 GameObject.SendCommand({type="TppSoldier2"},{id="CreateFaceIdList"})end
-if t(n.enemy.soldierDefine)then
+if i(n.enemy.soldierDefine)then
 TppEnemy.DefineSoldiers(n.enemy.soldierDefine)end
-if n.enemy.InitEnemy and i(n.enemy.InitEnemy)then
+if n.enemy.InitEnemy and t(n.enemy.InitEnemy)then
 n.enemy.InitEnemy()end
-if t(n.enemy.soldierPersonalAbilitySettings)then
+if i(n.enemy.soldierPersonalAbilitySettings)then
 TppEnemy.SetUpPersonalAbilitySettings(n.enemy.soldierPersonalAbilitySettings)end
-if t(n.enemy.travelPlans)then
+if i(n.enemy.travelPlans)then
 TppEnemy.SetTravelPlans(n.enemy.travelPlans)end
-TppEnemy.SetUpSoldiers()if t(n.enemy.soldierDefine)then
+TppEnemy.SetUpSoldiers()if i(n.enemy.soldierDefine)then
 TppEnemy.InitCpGroups()TppEnemy.RegistCpGroups(n.enemy.cpGroups)TppEnemy.SetCpGroups()if mvars.loc_locationGimmickCpConnectTable then
 TppGimmick.SetCommunicateGimmick(mvars.loc_locationGimmickCpConnectTable)end
 end
-if t(n.enemy.interrogation)then
+if i(n.enemy.interrogation)then
 TppInterrogation.InitInterrogation(n.enemy.interrogation)end
-if t(n.enemy.useGeneInter)then
+if i(n.enemy.useGeneInter)then
 TppInterrogation.AddGeneInter(n.enemy.useGeneInter)end
-if t(n.enemy.uniqueInterrogation)then
+if i(n.enemy.uniqueInterrogation)then
 TppInterrogation.InitUniqueInterrogation(n.enemy.uniqueInterrogation)end
 do
 local e
-if t(n.enemy.routeSets)then
+if i(n.enemy.routeSets)then
 e=n.enemy.routeSets
 for e,n in pairs(e)do
-if not t(mvars.ene_soldierDefine[e])then
+if not i(mvars.ene_soldierDefine[e])then
 end
 end
 end
@@ -205,7 +207,7 @@ TppEnemy.RegisterRouteSet(e)TppEnemy.MakeShiftChangeTable()TppEnemy.SetUpCommand
 end
 if n.enemy.soldierSubTypes then
 TppEnemy.SetUpSoldierSubTypes(n.enemy.soldierSubTypes)end
-TppRevenge.SetUpEnemy()TppEnemy.ApplyPowerSettingsOnInitialize()TppEnemy.ApplyPersonalAbilitySettingsOnInitialize()TppEnemy.SetOccasionalChatList()TppEneFova.ApplyUniqueSetting()if n.enemy.SetUpEnemy and i(n.enemy.SetUpEnemy)then
+TppRevenge.SetUpEnemy()TppEnemy.ApplyPowerSettingsOnInitialize()TppEnemy.ApplyPersonalAbilitySettingsOnInitialize()TppEnemy.SetOccasionalChatList()TppEneFova.ApplyUniqueSetting()if n.enemy.SetUpEnemy and t(n.enemy.SetUpEnemy)then
 n.enemy.SetUpEnemy()end
 if TppMission.IsMissionStart()then
 TppEnemy.RestoreOnMissionStart2()else
@@ -215,10 +217,10 @@ if not TppMission.IsMissionStart()then
 TppWeather.RestoreFromSVars()TppMarker.RestoreMarkerLocator()end
 TppPlayer.RestoreSupplyCbox()TppPlayer.RestoreSupportAttack()TppTerminal.MakeMessage()if n.sequence then
 local e=n.sequence.SetUpRoutes
-if e and i(e)then
+if e and t(e)then
 e()end
 TppEnemy.RegisterRouteAnimation()local e=n.sequence.SetUpLocation
-if e and i(e)then
+if e and t(e)then
 e()end
 end
 for n,e in pairs(n)do
@@ -232,7 +234,7 @@ TppPlaced.StartToCreateFromLocators()end
 if TppMission.IsMissionStart()then
 TppRadioCommand.RestoreRadioState()else
 TppRadioCommand.RestoreRadioStateContinueFromCheckpoint()end
-TppMission.PostMissionOrderBoxPositionToBuddyDog()e.SetUpdateFunction(n)e.SetMessageFunction(n)TppQuest.UpdateActiveQuest()TppDevelopFile.OnMissionCanStart()if TppMission.GetMissionID()==30010 or TppMission.GetMissionID()==30020 then
+TppMission.SetPlayRecordClearInfo()TppChallengeTask.RequestUpdateAllChecker()TppMission.PostMissionOrderBoxPositionToBuddyDog()e.SetUpdateFunction(n)e.SetMessageFunction(n)TppQuest.UpdateActiveQuest()TppDevelopFile.OnMissionCanStart()if TppMission.GetMissionID()==30010 or TppMission.GetMissionID()==30020 then
 if TppQuest.IsActiveQuestHeli()then
 TppEnemy.ReserveQuestHeli()end
 end
@@ -242,7 +244,7 @@ c={}o=0
 T={}u=0
 a={TppMission.Update,TppSequence.Update,TppSave.Update,TppDemo.Update,TppPlayer.Update,TppMission.UpdateForMissionLoad}l=#a
 for n,e in pairs(e)do
-if i(e.OnUpdate)then
+if t(e.OnUpdate)then
 o=o+1
 c[o]=e.OnUpdate
 end
@@ -288,8 +290,8 @@ TppTerminal.OnMissionGameStart()if TppSequence.IsLandContinue()then
 TppMission.EnableAlertOutOfMissionAreaIfAlertAreaStart()end
 TppSoundDaemon.ResetMute"Telop"end
 function e.ClearStageBlockMessage()StageBlock.ClearLargeBlockNameForMessage()StageBlock.ClearSmallBlockIndexForMessage()end
-function e.ReservePlayerLoadingPosition(n,s,o,t,i,a,p)e.DisableGameStatus()if n==TppDefine.MISSION_LOAD_TYPE.MISSION_FINALIZE then
-if t then
+function e.ReservePlayerLoadingPosition(n,s,o,i,t,a,p)e.DisableGameStatus()if n==TppDefine.MISSION_LOAD_TYPE.MISSION_FINALIZE then
+if i then
 TppHelicopter.ResetMissionStartHelicopterRoute()TppPlayer.ResetInitialPosition()TppPlayer.ResetMissionStartPosition()TppPlayer.ResetNoOrderBoxMissionStartPosition()TppMission.ResetIsStartFromHelispace()TppMission.ResetIsStartFromFreePlay()elseif s then
 if gvars.heli_missionStartRoute~=0 then
 TppPlayer.SetStartStatusRideOnHelicopter()if mvars.mis_helicopterMissionStartPosition then
@@ -299,7 +301,7 @@ TppPlayer.SetStartStatus(TppDefine.INITIAL_PLAYER_STATE.ON_FOOT)local e=TppDefin
 TppPlayer.SetInitialPosition(e,0)TppPlayer.SetMissionStartPosition(e,0)else
 TppPlayer.ResetInitialPosition()TppPlayer.ResetMissionStartPosition()end
 end
-TppPlayer.ResetNoOrderBoxMissionStartPosition()TppMission.SetIsStartFromHelispace()TppMission.ResetIsStartFromFreePlay()elseif i then
+TppPlayer.ResetNoOrderBoxMissionStartPosition()TppMission.SetIsStartFromHelispace()TppMission.ResetIsStartFromFreePlay()elseif t then
 if TppLocation.IsMotherBase()then
 TppPlayer.SetStartStatusRideOnHelicopter()else
 TppPlayer.ResetInitialPosition()TppHelicopter.ResetMissionStartHelicopterRoute()TppPlayer.SetStartStatus(TppDefine.INITIAL_PLAYER_STATE.ON_FOOT)TppPlayer.SetMissionStartPositionToCurrentPosition()end
@@ -323,13 +325,13 @@ TppPlayer.ResetInitialPosition()TppPlayer.ResetMissionStartPosition()TppPlayer.R
 end
 elseif n==TppDefine.MISSION_LOAD_TYPE.MISSION_ABORT then
 TppPlayer.ResetInitialPosition()TppHelicopter.ResetMissionStartHelicopterRoute()TppMission.ResetIsStartFromHelispace()TppMission.ResetIsStartFromFreePlay()if a then
-if i then
-TppPlayer.SetStartStatus(TppDefine.INITIAL_PLAYER_STATE.ON_FOOT)TppHelicopter.ResetMissionStartHelicopterRoute()TppPlayer.SetMissionStartPositionToCurrentPosition()TppPlayer.ResetNoOrderBoxMissionStartPosition()elseif t then
+if t then
+TppPlayer.SetStartStatus(TppDefine.INITIAL_PLAYER_STATE.ON_FOOT)TppHelicopter.ResetMissionStartHelicopterRoute()TppPlayer.SetMissionStartPositionToCurrentPosition()TppPlayer.ResetNoOrderBoxMissionStartPosition()elseif i then
 TppPlayer.ResetMissionStartPosition()elseif vars.missionCode~=5 then
 end
 else
-if t then
-TppHelicopter.ResetMissionStartHelicopterRoute()TppPlayer.ResetInitialPosition()TppPlayer.ResetMissionStartPosition()elseif i then
+if i then
+TppHelicopter.ResetMissionStartHelicopterRoute()TppPlayer.ResetInitialPosition()TppPlayer.ResetMissionStartPosition()elseif t then
 TppMission.SetMissionOrderBoxPosition()elseif vars.missionCode~=5 then
 end
 end
@@ -350,17 +352,17 @@ coroutine.yield()end
 end
 end
 end
-function e.OnReload(n)for t,e in pairs(n)do
-if i(e.OnLoad)then
+function e.OnReload(n)for i,e in pairs(n)do
+if t(e.OnLoad)then
 e.OnLoad()end
-if i(e.Messages)then
-n[t]._messageExecTable=Tpp.MakeMessageExecTable(e.Messages())end
+if t(e.Messages)then
+n[i]._messageExecTable=Tpp.MakeMessageExecTable(e.Messages())end
 end
 if n.enemy then
-if t(n.enemy.routeSets)then
+if i(n.enemy.routeSets)then
 TppClock.UnregisterClockMessage"ShiftChangeAtNight"TppClock.UnregisterClockMessage"ShiftChangeAtMorning"TppEnemy.RegisterRouteSet(n.enemy.routeSets)TppEnemy.MakeShiftChangeTable()end
 end
-for t,e in ipairs(Tpp._requireList)do
+for i,e in ipairs(Tpp._requireList)do
 if _G[e].OnReload then
 _G[e].OnReload(n)end
 end
@@ -372,15 +374,15 @@ e.SetUpdateFunction(n)e.SetMessageFunction(n)end
 function e.OnUpdate(e)local e
 local n=a
 local e=c
-local t=T
+local i=T
 for e=1,l do
 n[e]()end
 for n=1,o do
 e[n]()end
 M()end
-function e.OnChangeSVars(e,n,t)for i,e in ipairs(Tpp._requireList)do
+function e.OnChangeSVars(e,n,i)for t,e in ipairs(Tpp._requireList)do
 if _G[e].OnChangeSVars then
-_G[e].OnChangeSVars(n,t)end
+_G[e].OnChangeSVars(n,i)end
 end
 end
 function e.SetMessageFunction(e)S={}s=0
@@ -391,21 +393,21 @@ s=s+1
 S[s]=_G[e].OnMessage
 end
 end
-for n,t in pairs(e)do
+for n,i in pairs(e)do
 if e[n]._messageExecTable then
 p=p+1
 d[p]=e[n]._messageExecTable
 end
 end
 end
-function e.OnMessage(n,e,t,i,o,a,r)local n=mvars
+function e.OnMessage(n,e,i,t,o,a,r)local n=mvars
 local l=""local T
 local c=Tpp.DoMessage
 local u=TppMission.CheckMessageOption
 local T=TppDebug
 local T=P
 local T=h
-local T=TppDefine.MESSAGE_GENERATION[e]and TppDefine.MESSAGE_GENERATION[e][t]if not T then
+local T=TppDefine.MESSAGE_GENERATION[e]and TppDefine.MESSAGE_GENERATION[e][i]if not T then
 T=TppDefine.DEFAULT_MESSAGE_GENERATION
 end
 local m=m()if m<T then
@@ -413,19 +415,19 @@ return Mission.ON_MESSAGE_RESULT_RESEND
 end
 for s=1,s do
 local n=l
-S[s](e,t,i,o,a,r,n)end
+S[s](e,i,t,o,a,r,n)end
 for n=1,p do
 local s=l
-c(d[n],u,e,t,i,o,a,r,s)end
+c(d[n],u,e,i,t,o,a,r,s)end
 if n.loc_locationCommonTable then
-n.loc_locationCommonTable.OnMessage(e,t,i,o,a,r,l)end
+n.loc_locationCommonTable.OnMessage(e,i,t,o,a,r,l)end
 if n.order_box_script then
-n.order_box_script.OnMessage(e,t,i,o,a,r,l)end
+n.order_box_script.OnMessage(e,i,t,o,a,r,l)end
 if n.animalBlockScript and n.animalBlockScript.OnMessage then
-n.animalBlockScript.OnMessage(e,t,i,o,a,r,l)end
+n.animalBlockScript.OnMessage(e,i,t,o,a,r,l)end
 end
 function e.OnTerminate(e)if e.sequence then
-if i(e.sequence.OnTerminate)then
+if t(e.sequence.OnTerminate)then
 e.sequence.OnTerminate()end
 end
 end

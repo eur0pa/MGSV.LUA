@@ -318,7 +318,7 @@ function e.SetupBuddy(t)if e.NeedLoadBuddyBlock(t)then
 local e=e.demoOptions[t]if e and e.forceEnableBuddyType then
 vars.buddyType=e.forceEnableBuddyType
 end
-TppBuddy2BlockController.Load()TppBuddy2BlockController.ReserveCallBuddy(vars.buddyType,BuddyInitStatus.RIDE,Vector3(0,0,0),0)end
+TppBuddy2BlockController.ReserveCallBuddy(vars.buddyType,BuddyInitStatus.RIDE,Vector3(0,0,0),0)TppBuddy2BlockController.Load()end
 end
 function e.IsShowReward(t)local e=e.demoOptions[t]if e then
 return e.isShowReward

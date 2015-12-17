@@ -1,31 +1,31 @@
 local e={}local i=Fox.StrCode32
 local t=type
-local L=GameObject.GetGameObjectId
-local u=GameObject.GetTypeIndex
-local B=TppGameObject.GAME_OBJECT_TYPE_PLAYER2
-local M=TppGameObject.GAME_OBJECT_TYPE_SOLDIER2
-local U=TppGameObject.GAME_OBJECT_TYPE_COMMAND_POST2
+local I=GameObject.GetGameObjectId
+local d=GameObject.GetTypeIndex
+local S=TppGameObject.GAME_OBJECT_TYPE_PLAYER2
+local b=TppGameObject.GAME_OBJECT_TYPE_SOLDIER2
+local m=TppGameObject.GAME_OBJECT_TYPE_COMMAND_POST2
 local n=TppGameObject.GAME_OBJECT_TYPE_HOSTAGE2
 local n=TppGameObject.GAME_OBJECT_TYPE_HOSTAGE_UNIQUE
 local n=TppGameObject.GAME_OBJECT_TYPE_HOSTAGE_UNIQUE2
-local E=TppGameObject.GAME_OBJECT_TYPE_HELI2
-local O=TppGameObject.GAME_OBJECT_TYPE_ENEMY_HELI
-local D=TppGameObject.GAME_OBJECT_TYPE_HORSE2
-local C=TppGameObject.GAME_OBJECT_TYPE_VEHICLE
-local m=TppGameObject.GAME_OBJECT_TYPE_WALKERGEAR2
-local b=TppGameObject.GAME_OBJECT_TYPE_COMMON_WALKERGEAR2
-local g=TppGameObject.GAME_OBJECT_TYPE_VOLGIN2
-local _=TppGameObject.GAME_OBJECT_TYPE_MARKER2_LOCATOR
-local P=TppGameObject.GAME_OBJECT_TYPE_BOSSQUIET2
-local S=TppGameObject.GAME_OBJECT_TYPE_PARASITE2
-local I=TppGameObject.GAME_OBJECT_TYPE_SECURITYCAMERA2
-local G=TppGameObject.GAME_OBJECT_TYPE_UAV
-local A=TppGameObject.PHASE_ALERT
+local G=TppGameObject.GAME_OBJECT_TYPE_HELI2
+local h=TppGameObject.GAME_OBJECT_TYPE_ENEMY_HELI
+local A=TppGameObject.GAME_OBJECT_TYPE_HORSE2
+local E=TppGameObject.GAME_OBJECT_TYPE_VEHICLE
+local P=TppGameObject.GAME_OBJECT_TYPE_WALKERGEAR2
+local C=TppGameObject.GAME_OBJECT_TYPE_COMMON_WALKERGEAR2
+local O=TppGameObject.GAME_OBJECT_TYPE_VOLGIN2
+local D=TppGameObject.GAME_OBJECT_TYPE_MARKER2_LOCATOR
+local B=TppGameObject.GAME_OBJECT_TYPE_BOSSQUIET2
+local g=TppGameObject.GAME_OBJECT_TYPE_PARASITE2
+local L=TppGameObject.GAME_OBJECT_TYPE_SECURITYCAMERA2
+local f=TppGameObject.GAME_OBJECT_TYPE_UAV
+local M=TppGameObject.PHASE_ALERT
 local p=GameObject.NULL_ID
 local n=bit.bnot
 local n,n,n=bit.band,bit.bor,bit.bxor
 e.requires={"/Assets/tpp/script/lib/TppDefine.lua","/Assets/tpp/script/lib/TppMath.lua","/Assets/tpp/script/lib/TppSave.lua","/Assets/tpp/script/lib/TppLocation.lua","/Assets/tpp/script/lib/TppSequence.lua","/Assets/tpp/script/lib/TppWeather.lua","/Assets/tpp/script/lib/TppDbgStr32.lua","/Assets/tpp/script/lib/TppDebug.lua","/Assets/tpp/script/lib/TppClock.lua","/Assets/tpp/script/lib/TppUI.lua","/Assets/tpp/script/lib/TppResult.lua","/Assets/tpp/script/lib/TppSound.lua","/Assets/tpp/script/lib/TppTerminal.lua","/Assets/tpp/script/lib/TppMarker.lua","/Assets/tpp/script/lib/TppRadio.lua","/Assets/tpp/script/lib/TppPlayer.lua","/Assets/tpp/script/lib/TppHelicopter.lua","/Assets/tpp/script/lib/TppScriptBlock.lua","/Assets/tpp/script/lib/TppMission.lua","/Assets/tpp/script/lib/TppStory.lua","/Assets/tpp/script/lib/TppDemo.lua","/Assets/tpp/script/lib/TppEnemy.lua","/Assets/tpp/script/lib/TppGeneInter.lua","/Assets/tpp/script/lib/TppInterrogation.lua","/Assets/tpp/script/lib/TppGimmick.lua","/Assets/tpp/script/lib/TppMain.lua","/Assets/tpp/script/lib/TppDemoBlock.lua","/Assets/tpp/script/lib/TppAnimalBlock.lua","/Assets/tpp/script/lib/TppCheckPoint.lua","/Assets/tpp/script/lib/TppPackList.lua","/Assets/tpp/script/lib/TppQuest.lua","/Assets/tpp/script/lib/TppTrap.lua","/Assets/tpp/script/lib/TppReward.lua","/Assets/tpp/script/lib/TppRevenge.lua","/Assets/tpp/script/lib/TppReinforceBlock.lua","/Assets/tpp/script/lib/TppEneFova.lua","/Assets/tpp/script/lib/TppFreeHeliRadio.lua","/Assets/tpp/script/lib/TppHero.lua","/Assets/tpp/script/lib/TppTelop.lua","/Assets/tpp/script/lib/TppRatBird.lua","/Assets/tpp/script/lib/TppMovie.lua","/Assets/tpp/script/lib/TppAnimal.lua","/Assets/tpp/script/lib/TppException.lua","/Assets/tpp/script/lib/TppTutorial.lua","/Assets/tpp/script/lib/TppLandingZone.lua","/Assets/tpp/script/lib/TppCassette.lua","/Assets/tpp/script/lib/TppEmblem.lua","/Assets/tpp/script/lib/TppDevelopFile.lua","/Assets/tpp/script/lib/TppPaz.lua","/Assets/tpp/script/lib/TppRanking.lua","/Assets/tpp/script/lib/TppTrophy.lua","/Assets/tpp/script/lib/TppMbFreeDemo.lua"}function e.IsTypeFunc(e)return t(e)=="function"end
-local f=e.IsTypeFunc
+local T=e.IsTypeFunc
 function e.IsTypeTable(e)return t(e)=="table"end
 local a=e.IsTypeTable
 function e.IsTypeString(e)return t(e)=="string"end
@@ -58,16 +58,16 @@ local l=string.sub(e,0,n-1)table.insert(t,l)e=string.sub(e,n+1)end
 end
 return t
 end
-function e.StrCode32Table(n)local l={}for n,r in pairs(n)do
+function e.StrCode32Table(n)local r={}for n,l in pairs(n)do
 local n=n
 if t(n)=="string"then
 n=i(n)end
-if t(r)=="table"then
-l[n]=e.StrCode32Table(r)else
-l[n]=r
+if t(l)=="table"then
+r[n]=e.StrCode32Table(l)else
+r[n]=l
 end
 end
-return l
+return r
 end
 function e.ApendArray(e,n)for t,n in pairs(n)do
 e[#e+1]=n
@@ -83,94 +83,94 @@ end
 end
 return n
 end
-function e.BfsPairs(r)local i,t,l={r},1,1
-local function p(n,e)local n,e=e,nil
+function e.BfsPairs(r)local i,n,t={r},1,1
+local function o(l,e)local l,e=e,nil
 while true do
-n,e=next(i[t],n)if a(e)then
-l=l+1
-i[l]=e
-end
-if n then
-return n,e
-else
+l,e=next(i[n],l)if a(e)then
 t=t+1
-if t>l then
+i[t]=e
+end
+if l then
+return l,e
+else
+n=n+1
+if n>t then
 return
 end
 end
 end
 end
-return p,r,nil
+return o,r,nil
 end
-e._DEBUG_svars={}e._DEBUG_gvars={}function e.MakeMessageExecTable(e)if e==nil then
+e._DEBUG_svars={}e._DEBUG_gvars={}function e.MakeMessageExecTable(n)if n==nil then
 return
 end
-if next(e)==nil then
+if next(n)==nil then
 return
 end
-local n={}local T=i"msg"local u=i"func"local c=i"sender"local h=i"option"for e,l in pairs(e)do
-n[e]=n[e]or{}for l,r in pairs(l)do
-local l,s,d,o=l,nil,nil,nil
-if f(r)then
-d=r
-elseif a(r)and f(r[u])then
-l=i(r[T])local n={}if(t(r[c])=="string")or(t(r[c])=="number")then
-n[1]=r[c]elseif a(r[c])then
-n=r[c]end
-s={}for l,n in pairs(n)do
-if t(n)=="string"then
-if e==i"GameObject"then
-s[l]=L(n)if msgSndr==p then
+local e={}local f=i"msg"local d=i"func"local u=i"sender"local _=i"option"for n,l in pairs(n)do
+e[n]=e[n]or{}for l,r in pairs(l)do
+local l,s,c,o=l,nil,nil,nil
+if T(r)then
+c=r
+elseif a(r)and T(r[d])then
+l=i(r[f])local e={}if(t(r[u])=="string")or(t(r[u])=="number")then
+e[1]=r[u]elseif a(r[u])then
+e=r[u]end
+s={}for l,e in pairs(e)do
+if t(e)=="string"then
+if n==i"GameObject"then
+s[l]=I(e)if msgSndr==p then
 end
 else
-s[l]=i(n)end
-elseif t(n)=="number"then
-s[l]=n
+s[l]=i(e)end
+elseif t(e)=="number"then
+s[l]=e
 end
 end
-d=r[u]o=r[h]end
-if d then
-n[e][l]=n[e][l]or{}if next(s)~=nil then
+c=r[d]o=r[_]end
+if c then
+e[n][l]=e[n][l]or{}if next(s)~=nil then
 for r,t in pairs(s)do
-n[e][l].sender=n[e][l].sender or{}n[e][l].senderOption=n[e][l].senderOption or{}if n[e][l].sender[t]then
+e[n][l].sender=e[n][l].sender or{}e[n][l].senderOption=e[n][l].senderOption or{}if e[n][l].sender[t]then
 end
-n[e][l].sender[t]=d
+e[n][l].sender[t]=c
 if o and a(o)then
-n[e][l].senderOption[t]=o
+e[n][l].senderOption[t]=o
 end
 end
 else
-if n[e][l].func then
+if e[n][l].func then
 end
-n[e][l].func=d
+e[n][l].func=c
 if o and a(o)then
-n[e][l].option=o
+e[n][l].option=o
 end
 end
 end
 end
 end
-return n
+return e
 end
-function e.DoMessage(n,r,t,o,a,p,i,l,s)if not n then
+function e.DoMessage(n,t,r,l,s,p,a,o,i)if not n then
 return
 end
-local n=n[t]if not n then
+local n=n[r]if not n then
 return
 end
-local n=n[o]if not n then
+local n=n[l]if not n then
 return
 end
-local t=true
-e.DoMessageAct(n,r,a,p,i,l,s,t)end
-function e.DoMessageAct(n,r,e,l,i,a,t)if n.func then
+local l=true
+e.DoMessageAct(n,t,s,p,a,o,i,l)end
+function e.DoMessageAct(n,r,e,l,a,i,t)if n.func then
 if r(n.option)then
-n.func(e,l,i,a)end
+n.func(e,l,a,i)end
 end
 local t=n.sender
 if t and t[e]then
 if r(n.senderOption[e])then
-t[e](e,l,i,a)end
+t[e](e,l,a,i)end
 end
 end
 function e.GetRotationY(e)if not e then
@@ -184,21 +184,21 @@ return TppMath.Vector3toTable(n),e.GetRotationY(t)else
 return nil
 end
 end
-function e.GetLocatorByTransform(t,n)local e=e.GetDataWithIdentifier(t,n,"TransformData")if e==nil then
+function e.GetLocatorByTransform(n,t)local e=e.GetDataWithIdentifier(n,t,"TransformData")if e==nil then
 return
 end
 local e=e.worldTransform
 return e.translation,e.rotQuat
 end
-function e.GetDataWithIdentifier(e,n,t)local e=DataIdentifier.GetDataWithIdentifier(e,n)if e==NULL then
+function e.GetDataWithIdentifier(t,e,n)local e=DataIdentifier.GetDataWithIdentifier(t,e)if e==NULL then
 return
 end
-if(e:IsKindOf(t)==false)then
+if(e:IsKindOf(n)==false)then
 return
 end
 return e
 end
-function e.GetDataBodyWithIdentifier(n,e,t)local e=DataIdentifier.GetDataBodyWithIdentifier(n,e)if(e.data==nil)then
+function e.GetDataBodyWithIdentifier(e,n,t)local e=DataIdentifier.GetDataBodyWithIdentifier(e,n)if(e.data==nil)then
 return
 end
 if(e.data:IsKindOf(t)==false)then
@@ -278,68 +278,72 @@ end
 if e==p then
 return
 end
-local e=u(e)if e==n then
+local e=d(e)if e==n then
 return true
 else
 return false
 end
 end
-function e.IsPlayer(e)return n(e,B)end
+function e.IsPlayer(e)return n(e,S)end
 function e.IsLocalPlayer(e)if e==PlayerInfo.GetLocalPlayerIndex()then
 return true
 else
 return false
 end
 end
-function e.IsSoldier(e)return n(e,M)end
-function e.IsCommandPost(e)return n(e,U)end
+function e.IsSoldier(e)return n(e,b)end
+function e.IsCommandPost(e)return n(e,m)end
 function e.IsHostage(e)if e==nil then
 return
 end
 if e==p then
 return
 end
-local e=u(e)return TppDefine.HOSTAGE_GM_TYPE[e]end
-function e.IsVolgin(e)return n(e,g)end
-function e.IsHelicopter(e)return n(e,E)end
-function e.IsEnemyHelicopter(e)return n(e,O)end
-function e.IsHorse(e)return n(e,D)end
-function e.IsVehicle(e)return n(e,C)end
-function e.IsPlayerWalkerGear(e)return n(e,m)end
-function e.IsEnemyWalkerGear(e)return n(e,b)end
+local e=d(e)return TppDefine.HOSTAGE_GM_TYPE[e]end
+function e.IsVolgin(e)return n(e,O)end
+function e.IsHelicopter(e)return n(e,G)end
+function e.IsEnemyHelicopter(e)return n(e,h)end
+function e.IsHorse(e)return n(e,A)end
+function e.IsVehicle(e)return n(e,E)end
+function e.IsPlayerWalkerGear(e)return n(e,P)end
+function e.IsEnemyWalkerGear(e)return n(e,C)end
+function e.IsUav(e)return n(e,f)end
 function e.IsFultonContainer(e)return n(e,TppGameObject.GAME_OBJECT_TYPE_FULTONABLE_CONTAINER)end
+function e.IsMortar(e)return n(e,TppGameObject.GAME_OBJECT_TYPE_MORTAR)end
+function e.IsGatlingGun(e)return n(e,TppGameObject.GAME_OBJECT_TYPE_GATLINGGUN)end
+function e.IsMachineGun(e)return n(e,TppGameObject.GAME_OBJECT_TYPE_MACHINEGUN)end
 function e.IsFultonableGimmick(e)if e==nil then
 return
 end
 if e==p then
 return
 end
-local e=u(e)return TppDefine.FULTONABLE_GIMMICK_TYPE[e]end
+local e=d(e)return TppDefine.FULTONABLE_GIMMICK_TYPE[e]end
 function e.GetBuddyTypeFromGameObjectId(e)if e==nil then
 return
 end
 if e==p then
 return
 end
-local e=u(e)return TppDefine.BUDDY_GM_TYPE_TO_BUDDY_TYPE[e]end
-function e.IsMarkerLocator(e)return n(e,_)end
+local e=d(e)return TppDefine.BUDDY_GM_TYPE_TO_BUDDY_TYPE[e]end
+function e.IsMarkerLocator(e)return n(e,D)end
 function e.IsAnimal(e)if e==nil then
 return
 end
 if e==p then
 return
 end
-local e=u(e)return TppDefine.ANIMAL_GAMEOBJECT_TYPE[e]end
-function e.IsBossQuiet(e)return n(e,P)end
-function e.IsParasiteSquad(e)return n(e,S)end
-function e.IsSecurityCamera(e)return n(e,I)end
-function e.IsGunCamera(n)if n==p then
+local e=d(e)return TppDefine.ANIMAL_GAMEOBJECT_TYPE[e]end
+function e.IsBossQuiet(e)return n(e,B)end
+function e.IsParasiteSquad(e)return n(e,g)end
+function e.IsSecurityCamera(e)return n(e,L)end
+function e.IsGunCamera(e)if e==p then
 return false
 end
-local t={id="IsGunCamera"}local e=false
-e=GameObject.SendCommand(n,t)return e
+local t={id="IsGunCamera"}local n=false
+n=GameObject.SendCommand(e,t)return n
 end
-function e.IsUAV(e)return n(e,G)end
+function e.IsUAV(e)return n(e,f)end
 function e.IncrementPlayData(e)if gvars[e]==nil then
 return
 end
@@ -347,7 +351,7 @@ if gvars[e]<TppDefine.MAX_32BIT_UINT then
 gvars[e]=gvars[e]+1
 end
 end
-function e.IsNotAlert()if vars.playerPhase<A then
+function e.IsNotAlert()if vars.playerPhase<M then
 return true
 else
 return false
@@ -360,32 +364,32 @@ else
 return false
 end
 end
-function e.AreaToIndices(e)local l,t,n,r=e[1],e[2],e[3],e[4]local e={}for n=l,n do
-for t=t,r do
+function e.AreaToIndices(e)local r,l,n,t=e[1],e[2],e[3],e[4]local e={}for n=r,n do
+for t=l,t do
 table.insert(e,{n,t})end
 end
 return e
 end
-function e.CheckBlockArea(e,t,n)local l,e,r,i=e[1],e[2],e[3],e[4]if(((t>=l)and(t<=r))and(n>=e))and(n<=i)then
+function e.CheckBlockArea(e,t,n)local l,e,i,r=e[1],e[2],e[3],e[4]if(((t>=l)and(t<=i))and(n>=e))and(n<=r)then
 return true
 end
 return false
 end
-function e.FillBlockArea(n,e,i,t,r,l)for e=e,t do
-n[e]=n[e]or{}for t=i,r do
-n[e][t]=l
+function e.FillBlockArea(e,n,l,r,t,i)for n=n,r do
+e[n]=e[n]or{}for t=l,t do
+e[n][t]=i
 end
 end
 end
 function e.GetCurrentStageSmallBlockIndex()local e=2
-local n,t=StageBlock.GetCurrentMinimumSmallBlockIndex()return(n+e),(t+e)end
-function e.IsLoadedSmallBlock(n,t)local l=4
-local e,r=StageBlock.GetCurrentMinimumSmallBlockIndex()local i=e+l
-local l=e+l
-return((e<=n and i>=n)and r<=t)and l>=t
+local t,n=StageBlock.GetCurrentMinimumSmallBlockIndex()return(t+e),(n+e)end
+function e.IsLoadedSmallBlock(n,l)local t=4
+local e,r=StageBlock.GetCurrentMinimumSmallBlockIndex()local i=e+t
+local t=e+t
+return((e<=n and i>=n)and r<=l)and t>=l
 end
-function e.IsLoadedLargeBlock(e)local n=i(e)local e=StageBlock.GetLoadedLargeBlocks(0)for t,e in pairs(e)do
-if e==n then
+function e.IsLoadedLargeBlock(e)local e=i(e)local n=StageBlock.GetLoadedLargeBlocks(0)for t,n in pairs(n)do
+if n==e then
 return true
 end
 end
@@ -396,11 +400,11 @@ return e
 end
 return nil
 end
-function e.GetChunkIndex(t,n)local e
-if n then
+function e.GetChunkIndex(n,t)local e
+if t then
 e=Chunk.INDEX_MGO
 else
-e=TppDefine.LOCATION_CHUNK_INDEX_TABLE[t]if e==nil then
+e=TppDefine.LOCATION_CHUNK_INDEX_TABLE[n]if e==nil then
 end
 return e
 end
@@ -435,35 +439,41 @@ end
 function e.GetFormatedStorageSizePopupParam(t)local n=1024
 local e=1024*n
 local l=1024*e
-local l,r,i=t/l,t/e,t/n
+local i,r,l=t/l,t/e,t/n
 local n=0
-local e=""if l>=1 then
-n=l*100
+local e=""if i>=1 then
+n=i*100
 e="G"elseif r>=1 then
 n=r*100
-e="M"elseif i>=1 then
-n=i*100
+e="M"elseif l>=1 then
+n=l*100
 e="K"else
 return t,"",0
 end
 local n=math.ceil(n)return n,e,2
 end
-function e.PatchDlcCheckCoroutine(t,l,r)local function e(e)end
-local function n()if TppUiCommand.IsShowPopup()then
+function e.PatchDlcCheckCoroutine(t,l,i,e)if e==nil then
+e=PatchDlc.PATCH_DLC_TYPE_MGO_DATA
+end
+local n={[PatchDlc.PATCH_DLC_TYPE_MGO_DATA]=true,[PatchDlc.PATCH_DLC_TYPE_TPP_COMPATIBILITY_DATA]=true}if not n[e]then
+Fox.Hungup"Invalid dlc type."return false
+end
+local function n(e)end
+local function r()if TppUiCommand.IsShowPopup()then
 TppUiCommand.ErasePopup()while TppUiCommand.IsShowPopup()do
-e"waiting popup closed..."coroutine.yield()end
+n"waiting popup closed..."coroutine.yield()end
 end
 end
-local function i()while TppSave.IsSaving()do
-e"waiting saving end..."coroutine.yield()end
+local function a()while TppSave.IsSaving()do
+n"waiting saving end..."coroutine.yield()end
 end
-i()PatchDlc.StartCheckingPatchDlc()if PatchDlc.IsCheckingPatchDlc()then
-if not r then
-n()TppUiCommand.SetPopupType"POPUP_TYPE_NO_BUTTON_NO_EFFECT"TppUiCommand.ShowErrorPopup(5100)end
+a()PatchDlc.StartCheckingPatchDlc(e)if PatchDlc.IsCheckingPatchDlc()then
+if not i then
+r()local n={[PatchDlc.PATCH_DLC_TYPE_MGO_DATA]=5100,[PatchDlc.PATCH_DLC_TYPE_TPP_COMPATIBILITY_DATA]=5150}local e=n[e]TppUiCommand.SetPopupType"POPUP_TYPE_NO_BUTTON_NO_EFFECT"TppUiCommand.ShowErrorPopup(e)end
 while PatchDlc.IsCheckingPatchDlc()do
-e"waiting checking PatchDlc end..."coroutine.yield()TppUI.ShowAccessIconContinue()end
+n"waiting checking PatchDlc end..."coroutine.yield()TppUI.ShowAccessIconContinue()end
 end
-n()if PatchDlc.DoesExistPatchDlc()then
+r()if PatchDlc.DoesExistPatchDlc(e)then
 if t then
 t()end
 return true
@@ -473,28 +483,37 @@ l()end
 return false
 end
 end
+function e.IsPatchDlcValidPlatform(n)local e={[PatchDlc.PATCH_DLC_TYPE_MGO_DATA]={PS3=true,PS4=true},[PatchDlc.PATCH_DLC_TYPE_TPP_COMPATIBILITY_DATA]={Xbox360=true,PS3=true,PS4=true}}local e=e[n]if not e then
+Fox.Hungup"Invalid dlc type."return false
+end
+local n=Fox.GetPlatformName()if e[n]then
+return true
+else
+return false
+end
+end
 function e.ClearDidCancelPatchDlcDownloadRequest()if(vars.didCancelPatchDlcDownloadRequest==1)then
 vars.didCancelPatchDlcDownloadRequest=0
 vars.isPersonalDirty=1
 TppSave.CheckAndSavePersonalData()end
 end
-function e.DEBUG_DunmpBlockArea(t,l,n)local e="       "for n=1,n do
-e=e..string.format("%02d,",n)end
-for l=1,l do
-local e=""for n=1,n do
-e=e..string.format("%02d,",t[l][n])end
+function e.DEBUG_DunmpBlockArea(l,t,e)local n="       "for e=1,e do
+n=n..string.format("%02d,",e)end
+for t=1,t do
+local n=""for e=1,e do
+n=n..string.format("%02d,",l[t][e])end
 end
 end
-function e.DEBUG_DumpTable(l,n)if n==nil then
+function e.DEBUG_DumpTable(r,n)if n==nil then
 end
-if(t(l)~="table")then
+if(t(r)~="table")then
 return
 end
-local r=""if n then
+local l=""if n then
 for e=0,n do
-r=r.." "end
+l=l.." "end
 end
-for r,l in pairs(l)do
+for r,l in pairs(r)do
 if t(l)=="table"then
 local n=n or 0
 n=n+1

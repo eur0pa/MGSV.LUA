@@ -207,7 +207,14 @@ TppPackList.AddMissionPack(TppDefine.MISSION_COMMON_PACK.HELICOPTER)TppPackList.
 TppPackList.AddMissionPack(TppDefine.MISSION_COMMON_PACK.FOB_HOSTAGE)do
 local s={{type="hostage",name="hos_o50050_event5_0000",faceId=621,bodyId=143},{type="hostage",name="hos_o50050_event5_0001",faceId=640,bodyId=143},{type="hostage",name="hos_o50050_event5_0002",faceId=641,bodyId=143},{type="hostage",name="hos_o50050_event5_0003",faceId=646,bodyId=143}}TppEneFova.AddUniqueSettingPackage(s)end
 end
-TppPackList.AddMissionPack"/Assets/tpp/pack/mission2/online/o50050/o50050_additional.fpk"TppPackList.AddLocationCommonScriptPack(s)TppPackList.AddDefaultMissionAreaPack(s)TppPackList.AddFOBLayoutPack(s)end
+if TppEnemy.IsZombieEventFOB()then
+TppSoldierFace.SetUseZombieFova{enabled=true}end
+if TppEnemy.IsParasiteMetalEventFOB()then
+TppPackList.AddMissionPack"/Assets/tpp/pack/mission2/online/o50050/o50055_parasite_metal.fpk"end
+TppPackList.AddMissionPack"/Assets/tpp/pack/mission2/online/o50050/o50050_additional.fpk"TppPackList.AddLocationCommonScriptPack(s)if TppEnemy.IsSpecialEventFOB()then
+TppPackList.AddMissionPack"/Assets/tpp/pack/mission2/online/o50050/o50055_area.fpk"else
+TppPackList.AddDefaultMissionAreaPack(s)end
+TppPackList.AddFOBLayoutPack(s)end
 function a.GetLocationPackagePath(s)local p=p[s]if p then
 end
 TppLocation.SetBuddyBlock(s)return p

@@ -1,6 +1,6 @@
-local e={}local s=Fox.StrCode32
+local e={}local p=Fox.StrCode32
 local n=Tpp.IsTypeFunc
-local p=Tpp.IsTypeTable
+local s=Tpp.IsTypeTable
 local o=Tpp.IsTypeString
 local l=Tpp.IsTypeNumber
 local r=GameObject.GetGameObjectId
@@ -9,15 +9,15 @@ local n=TppGameObject.GAME_OBJECT_TYPE_VEHICLE
 local a=GameObject.NULL_ID
 local n=GameObject.SendCommand
 local t=Tpp.DEBUG_StrCode32ToString
-local _="quest_cp"local d=EnemySubType or{}local function c(i)local e={}for t,n in ipairs(i)do
-if p(n)then
-e[t]=c(n)else
-local n=r(i[t])if n and n~=a then
-e[n]=t
+local _="quest_cp"local d=EnemySubType or{}local function c(e)local t={}for n,i in ipairs(e)do
+if s(i)then
+t[n]=c(i)else
+local e=r(e[n])if e and e~=a then
+t[e]=n
 end
 end
 end
-return e
+return t
 end
 function e.Messages()return Tpp.StrCode32Table{Player={{msg="RideHelicopterWithHuman",func=e._RideHelicopterWithHuman}},GameObject={{msg="Dead",func=e._OnDead},{msg="PlacedIntoVehicle",func=e._PlacedIntoVehicle},{msg="Damage",func=e._OnDamage},{msg="RoutePoint2",func=e._DoRoutePointMessage},{msg="LostControl",func=e._OnHeliBroken},{msg="VehicleBroken",func=e._OnVehicleBroken,option={isExecDemoPlaying=true}},{msg="WalkerGearBroken",func=e._OnWalkerGearBroken},{msg="ChangePhaseForAnnounce",func=e._AnnouncePhaseChange},{msg="InterrogateUpHero",func=function(n)local e=e.GetSoldierType(n)if(e~=EnemyType.TYPE_DD)then
 TppTrophy.Unlock(30)end
@@ -28,7 +28,7 @@ e.subTypeOfCp[n]=t
 end
 end
 local t=TppEnemyBodyId or{}e.childBodyIdTable={t.chd0_v00,t.chd0_v01,t.chd0_v02,t.chd0_v03,t.chd0_v05,t.chd0_v06,t.chd0_v07,t.chd0_v08,t.chd0_v09,t.chd0_v10,t.chd0_v11}e.bodyIdTable={SOVIET_A={ASSAULT={t.svs0_rfl_v00_a,t.svs0_rfl_v00_a,t.svs0_rfl_v01_a,t.svs0_mcg_v00_a},ASSAULT_OB={t.svs0_rfl_v02_a,t.svs0_mcg_v02_a},SNIPER={t.svs0_snp_v00_a},SHOTGUN={t.svs0_rfl_v00_a,t.svs0_rfl_v01_a},SHOTGUN_OB={t.svs0_rfl_v02_a},MG={t.svs0_mcg_v00_a,t.svs0_mcg_v01_a},MG_OB={t.svs0_mcg_v02_a},MISSILE={t.svs0_rfl_v00_a},SHIELD={t.svs0_rfl_v00_a},ARMOR={t.sva0_v00_a},RADIO={t.svs0_rdo_v00_a}},SOVIET_B={ASSAULT={t.svs0_rfl_v00_b,t.svs0_rfl_v00_b,t.svs0_rfl_v01_b,t.svs0_mcg_v00_b},ASSAULT_OB={t.svs0_rfl_v02_b,t.svs0_mcg_v02_b},SNIPER={t.svs0_snp_v00_b},SHOTGUN={t.svs0_rfl_v00_b,t.svs0_rfl_v01_b},SHOTGUN_OB={t.svs0_rfl_v02_b},MG={t.svs0_mcg_v00_b,t.svs0_mcg_v01_b},MG_OB={t.svs0_mcg_v02_b},MISSILE={t.svs0_rfl_v00_b},SHIELD={t.svs0_rfl_v00_b},ARMOR={t.sva0_v00_a},RADIO={t.svs0_rdo_v00_b}},PF_A={ASSAULT={t.pfs0_rfl_v00_a,t.pfs0_mcg_v00_a},ASSAULT_OB={t.pfs0_rfl_v00_a,t.pfs0_rfl_v01_a,t.pfs0_mcg_v00_a},SNIPER={t.pfs0_snp_v00_a},SHOTGUN={t.pfs0_rfl_v00_a},SHOTGUN_OB={t.pfs0_rfl_v00_a,t.pfs0_rfl_v01_a},MG={t.pfs0_mcg_v00_a},MISSILE={t.pfs0_rfl_v00_a},SHIELD={t.pfs0_rfl_v00_a},ARMOR={t.pfa0_v00_b},RADIO={t.pfs0_rdo_v00_a}},PF_B={ASSAULT={t.pfs0_rfl_v00_b,t.pfs0_mcg_v00_b},ASSAULT_OB={t.pfs0_rfl_v00_b,t.pfs0_rfl_v01_b,t.pfs0_mcg_v00_b},SNIPER={t.pfs0_snp_v00_b},SHOTGUN={t.pfs0_rfl_v00_b},SHOTGUN_OB={t.pfs0_rfl_v00_b,t.pfs0_rfl_v01_b},MG={t.pfs0_mcg_v00_b},MISSILE={t.pfs0_rfl_v00_b},SHIELD={t.pfs0_rfl_v00_b},ARMOR={t.pfa0_v00_a},RADIO={t.pfs0_rdo_v00_b}},PF_C={ASSAULT={t.pfs0_rfl_v00_c,t.pfs0_mcg_v00_c},ASSAULT_OB={t.pfs0_rfl_v00_c,t.pfs0_rfl_v01_c,t.pfs0_mcg_v00_c},SNIPER={t.pfs0_snp_v00_c},SHOTGUN={t.pfs0_rfl_v00_c},SHOTGUN_OB={t.pfs0_rfl_v00_c,t.pfs0_rfl_v01_c},MG={t.pfs0_mcg_v00_c},MISSILE={t.pfs0_rfl_v00_c},SHIELD={t.pfs0_rfl_v01_c},ARMOR={t.pfa0_v00_c},RADIO={t.pfs0_rdo_v00_c}},DD_A={ASSAULT={t.dds3_main0_v00}},DD_FOB={ASSAULT={t.dds5_main0_v00}},DD_PW={ASSAULT={t.dds0_main1_v00}},SKULL_CYPR={ASSAULT={t.wss0_main0_v00}},SKULL_AFGH={ASSAULT={t.wss4_main0_v00}},CHILD={ASSAULT=e.childBodyIdTable}}e.weaponIdTable={SOVIET_A={NORMAL={HANDGUN=TppEquip.EQP_WP_East_hg_010,SMG=TppEquip.EQP_WP_East_sm_010,ASSAULT=TppEquip.EQP_WP_East_ar_010,SNIPER=TppEquip.EQP_WP_East_sr_011,SHOTGUN=TppEquip.EQP_WP_Com_sg_011,MG=TppEquip.EQP_WP_East_mg_010,MISSILE=TppEquip.EQP_WP_East_ms_010,SHIELD=TppEquip.EQP_SLD_SV},STRONG={HANDGUN=TppEquip.EQP_WP_East_hg_010,SMG=TppEquip.EQP_WP_East_sm_020,ASSAULT=TppEquip.EQP_WP_East_ar_030,SNIPER=TppEquip.EQP_WP_East_sr_020,SHOTGUN=TppEquip.EQP_WP_Com_sg_020,MG=TppEquip.EQP_WP_East_mg_010,MISSILE=TppEquip.EQP_WP_Com_ms_010,SHIELD=TppEquip.EQP_SLD_SV}},PF_A={NORMAL={HANDGUN=TppEquip.EQP_WP_West_hg_010,SMG=TppEquip.EQP_WP_West_sm_010,ASSAULT=TppEquip.EQP_WP_West_ar_010,SNIPER=TppEquip.EQP_WP_West_sr_011,SHOTGUN=TppEquip.EQP_WP_Com_sg_011,MG=TppEquip.EQP_WP_West_mg_010,MISSILE=TppEquip.EQP_WP_West_ms_010,SHIELD=TppEquip.EQP_SLD_PF_01},STRONG={HANDGUN=TppEquip.EQP_WP_West_hg_010,SMG=TppEquip.EQP_WP_West_sm_020,ASSAULT=TppEquip.EQP_WP_West_ar_020,SNIPER=TppEquip.EQP_WP_West_sr_020,SHOTGUN=TppEquip.EQP_WP_Com_sg_020,MG=TppEquip.EQP_WP_West_mg_010,MISSILE=TppEquip.EQP_WP_Com_ms_010,SHIELD=TppEquip.EQP_SLD_PF_01}},PF_B={NORMAL={HANDGUN=TppEquip.EQP_WP_West_hg_010,SMG=TppEquip.EQP_WP_West_sm_010,ASSAULT=TppEquip.EQP_WP_West_ar_010,SNIPER=TppEquip.EQP_WP_West_sr_011,SHOTGUN=TppEquip.EQP_WP_Com_sg_011,MG=TppEquip.EQP_WP_West_mg_010,MISSILE=TppEquip.EQP_WP_West_ms_010,SHIELD=TppEquip.EQP_SLD_PF_00},STRONG={HANDGUN=TppEquip.EQP_WP_West_hg_010,SMG=TppEquip.EQP_WP_West_sm_020,ASSAULT=TppEquip.EQP_WP_West_ar_020,SNIPER=TppEquip.EQP_WP_West_sr_020,SHOTGUN=TppEquip.EQP_WP_Com_sg_020,MG=TppEquip.EQP_WP_West_mg_010,MISSILE=TppEquip.EQP_WP_Com_ms_010,SHIELD=TppEquip.EQP_SLD_PF_00}},PF_C={NORMAL={HANDGUN=TppEquip.EQP_WP_West_hg_010,SMG=TppEquip.EQP_WP_West_sm_010,ASSAULT=TppEquip.EQP_WP_West_ar_010,SNIPER=TppEquip.EQP_WP_West_sr_011,SHOTGUN=TppEquip.EQP_WP_Com_sg_011,MG=TppEquip.EQP_WP_West_mg_010,MISSILE=TppEquip.EQP_WP_West_ms_010,SHIELD=TppEquip.EQP_SLD_PF_02},STRONG={HANDGUN=TppEquip.EQP_WP_West_hg_010,SMG=TppEquip.EQP_WP_West_sm_020,ASSAULT=TppEquip.EQP_WP_West_ar_020,SNIPER=TppEquip.EQP_WP_West_sr_020,SHOTGUN=TppEquip.EQP_WP_Com_sg_020,MG=TppEquip.EQP_WP_West_mg_010,MISSILE=TppEquip.EQP_WP_Com_ms_010,SHIELD=TppEquip.EQP_SLD_PF_02}},DD=nil,SKULL_CYPR={NORMAL={HANDGUN=TppEquip.EQP_WP_West_hg_020,SMG=TppEquip.EQP_WP_East_sm_030}},SKULL={NORMAL={HANDGUN=TppEquip.EQP_WP_West_hg_020,SMG=TppEquip.EQP_WP_West_sm_020,ASSAULT=TppEquip.EQP_WP_West_ar_030,SNIPER=TppEquip.EQP_WP_West_sr_020,SHOTGUN=TppEquip.EQP_WP_Com_sg_011,MG=TppEquip.EQP_WP_West_mg_020,MISSILE=TppEquip.EQP_WP_West_ms_010,SHIELD=TppEquip.EQP_SLD_PF_02},STRONG={HANDGUN=TppEquip.EQP_WP_West_hg_020,SMG=TppEquip.EQP_WP_West_sm_020,ASSAULT=TppEquip.EQP_WP_West_ar_030,SNIPER=TppEquip.EQP_WP_West_sr_020,SHOTGUN=TppEquip.EQP_WP_Com_sg_020,MG=TppEquip.EQP_WP_West_mg_020,MISSILE=TppEquip.EQP_WP_Com_ms_010,SHIELD=TppEquip.EQP_SLD_PF_02}},CHILD={NORMAL={HANDGUN=TppEquip.EQP_WP_East_hg_010,ASSAULT=TppEquip.EQP_WP_East_ar_020}}}e.gunLightWeaponIds={[TppEquip.EQP_WP_Com_sg_011]=TppEquip.EQP_WP_Com_sg_011_FL,[TppEquip.EQP_WP_Com_sg_020]=TppEquip.EQP_WP_Com_sg_020_FL,[TppEquip.EQP_WP_West_ar_010]=TppEquip.EQP_WP_West_ar_010_FL,[TppEquip.EQP_WP_West_ar_020]=TppEquip.EQP_WP_West_ar_020_FL,[TppEquip.EQP_WP_East_ar_010]=TppEquip.EQP_WP_East_ar_010_FL,[TppEquip.EQP_WP_East_ar_030]=TppEquip.EQP_WP_East_ar_030_FL}local t=MbsDevelopedEquipType or{}e.DDWeaponIdInfo={HANDGUN={{equipId=TppEquip.EQP_WP_West_hg_010}},SMG={{equipId=TppEquip.EQP_WP_East_sm_047,isNoKill=true,developedEquipType=t.SM_2040_NOKILL,developId=2044},{equipId=TppEquip.EQP_WP_East_sm_045,isNoKill=true,developedEquipType=t.SM_2040_NOKILL,developId=2043},{equipId=TppEquip.EQP_WP_East_sm_044,isNoKill=true,developedEquipType=t.SM_2040_NOKILL,developId=2042},{equipId=TppEquip.EQP_WP_East_sm_043,isNoKill=true,developedEquipType=t.SM_2040_NOKILL,developId=2041},{equipId=TppEquip.EQP_WP_East_sm_042,isNoKill=true,developedEquipType=t.SM_2040_NOKILL,developId=2040},{equipId=TppEquip.EQP_WP_West_sm_017,developedEquipType=t.SM_2014,developId=2014},{equipId=TppEquip.EQP_WP_West_sm_016,developedEquipType=t.SM_2010,developId=2013},{equipId=TppEquip.EQP_WP_West_sm_015,developedEquipType=t.SM_2010,developId=2012},{equipId=TppEquip.EQP_WP_West_sm_014,developedEquipType=t.SM_2010,developId=2011},{equipId=TppEquip.EQP_WP_West_sm_010,developedEquipType=t.SM_2010,developId=2010}},SHOTGUN={{equipId=TppEquip.EQP_WP_Com_sg_038,isNoKill=true,developedEquipType=t.SG_4027_NOKILL,developId=4028},{equipId=TppEquip.EQP_WP_Com_sg_030,isNoKill=true,developedEquipType=t.SG_4027_NOKILL,developId=4027},{equipId=TppEquip.EQP_WP_Com_sg_025,isNoKill=true,developedEquipType=t.SG_4035_NOKILL,developId=4037},{equipId=TppEquip.EQP_WP_Com_sg_024,isNoKill=true,developedEquipType=t.SG_4035_NOKILL,developId=4036},{equipId=TppEquip.EQP_WP_Com_sg_023,isNoKill=true,developedEquipType=t.SG_4035_NOKILL,developId=4035},{equipId=TppEquip.EQP_WP_Com_sg_018,developedEquipType=t.SG_4040,developId=4044},{equipId=TppEquip.EQP_WP_Com_sg_016,developedEquipType=t.SG_4040,developId=4043},{equipId=TppEquip.EQP_WP_Com_sg_015,developedEquipType=t.SG_4040,developId=4042},{equipId=TppEquip.EQP_WP_Com_sg_020,developedEquipType=t.SG_4040,developId=4041},{equipId=TppEquip.EQP_WP_Com_sg_013,developedEquipType=t.SG_4040,developId=4040},{equipId=TppEquip.EQP_WP_Com_sg_011,developedEquipType=t.SG_4020,developId=4020}},ASSAULT={{equipId=TppEquip.EQP_WP_West_ar_077,isNoKill=true,developedEquipType=t.AR_3060_NOKILL,developId=3064},{equipId=TppEquip.EQP_WP_West_ar_075,isNoKill=true,developedEquipType=t.AR_3060_NOKILL,developId=3063},{equipId=TppEquip.EQP_WP_West_ar_070,isNoKill=true,developedEquipType=t.AR_3060_NOKILL,developId=3062},{equipId=TppEquip.EQP_WP_West_ar_063,isNoKill=true,developedEquipType=t.AR_3060_NOKILL,developId=3061},{equipId=TppEquip.EQP_WP_West_ar_060,isNoKill=true,developedEquipType=t.AR_3060_NOKILL,developId=3060},{equipId=TppEquip.EQP_WP_West_ar_057,developedEquipType=t.AR_3036,developId=3042},{equipId=TppEquip.EQP_WP_West_ar_050,developedEquipType=t.AR_3036,developId=3038},{equipId=TppEquip.EQP_WP_West_ar_055,developedEquipType=t.AR_3036,developId=3037},{equipId=TppEquip.EQP_WP_West_ar_010,developedEquipType=t.AR_3036,developId=3036},{equipId=TppEquip.EQP_WP_West_ar_042,developedEquipType=t.AR_3030,developId=3031},{equipId=TppEquip.EQP_WP_West_ar_040}},SNIPER={{equipId=TppEquip.EQP_WP_West_sr_048,isNoKill=true,developedEquipType=t.SR_6037_NOKILL,developId=6039},{equipId=TppEquip.EQP_WP_West_sr_047,isNoKill=true,developedEquipType=t.SR_6037_NOKILL,developId=6038},{equipId=TppEquip.EQP_WP_West_sr_037,isNoKill=true,developedEquipType=t.SR_6037_NOKILL,developId=6037},{equipId=TppEquip.EQP_WP_East_sr_034,isNoKill=true,developedEquipType=t.SR_6005_NOKILL,developId=6006},{equipId=TppEquip.EQP_WP_East_sr_033,isNoKill=true,developedEquipType=t.SR_6005_NOKILL,developId=6008},{equipId=TppEquip.EQP_WP_East_sr_032,isNoKill=true,developedEquipType=t.SR_6005_NOKILL,developId=6005},{equipId=TppEquip.EQP_WP_West_sr_027,developedEquipType=t.SR_6030,developId=6033},{equipId=TppEquip.EQP_WP_West_sr_020,developedEquipType=t.SR_6030,developId=6032},{equipId=TppEquip.EQP_WP_West_sr_014,developedEquipType=t.SR_6030,developId=6031},{equipId=TppEquip.EQP_WP_West_sr_013,developedEquipType=t.SR_6030,developId=6030},{equipId=TppEquip.EQP_WP_West_sr_011,developedEquipType=t.SR_6010,developId=6010}},MG={{equipId=TppEquip.EQP_WP_West_mg_037,developedEquipType=t.MG_7000,developId=7004},{equipId=TppEquip.EQP_WP_West_mg_030,developedEquipType=t.MG_7000,developId=7003},{equipId=TppEquip.EQP_WP_West_mg_024,developedEquipType=t.MG_7000,developId=7002},{equipId=TppEquip.EQP_WP_West_mg_023,developedEquipType=t.MG_7000,developId=7001},{equipId=TppEquip.EQP_WP_West_mg_020,developedEquipType=t.MG_7000,developId=7e3}},MISSILE={{equipId=TppEquip.EQP_WP_West_ms_020,isNoKill=true,developedEquipType=t.MS_8013_NOKILL,developId=8013},{equipId=TppEquip.EQP_WP_Com_ms_026,developedEquipType=t.MS_8020,developId=8023},{equipId=TppEquip.EQP_WP_Com_ms_020,developedEquipType=t.MS_8020,developId=8022},{equipId=TppEquip.EQP_WP_Com_ms_024,developedEquipType=t.MS_8020,developId=8021},{equipId=TppEquip.EQP_WP_Com_ms_023,developedEquipType=t.MS_8020,developId=8020}},SHIELD={{equipId=TppEquip.EQP_SLD_DD,developedEquipType=t.SD_9000,developId=9e3}},GRENADE={{equipId=TppEquip.EQP_SWP_Grenade_G05,developedEquipType=t.GRENADE,developId=10045},{equipId=TppEquip.EQP_SWP_Grenade_G04,developedEquipType=t.GRENADE,developId=10044},{equipId=TppEquip.EQP_SWP_Grenade_G03,developedEquipType=t.GRENADE,developId=10043},{equipId=TppEquip.EQP_SWP_Grenade_G02,developedEquipType=t.GRENADE,developId=10042},{equipId=TppEquip.EQP_SWP_Grenade_G01,developedEquipType=t.GRENADE,developId=10041},{equipId=TppEquip.EQP_SWP_Grenade}},STUN_GRENADE={{equipId=TppEquip.EQP_SWP_StunGrenade_G03,isNoKill=true,developedEquipType=t.STUN_GRENADE,developId=10063},{equipId=TppEquip.EQP_SWP_StunGrenade_G02,isNoKill=true,developedEquipType=t.STUN_GRENADE,developId=10062},{equipId=TppEquip.EQP_SWP_StunGrenade_G01,isNoKill=true,developedEquipType=t.STUN_GRENADE,developId=10061},{equipId=TppEquip.EQP_SWP_StunGrenade,isNoKill=true,developedEquipType=t.STUN_GRENADE,developId=10060}},SNEAKING_SUIT={{equipId=6,isNoKill=true,developedEquipType=t.SNEAKING_SUIT,developId=19042},{equipId=5,isNoKill=true,developedEquipType=t.SNEAKING_SUIT,developId=19057},{equipId=4,isNoKill=true,developedEquipType=t.SNEAKING_SUIT,developId=19056},{equipId=3,isNoKill=true,developedEquipType=t.SNEAKING_SUIT,developId=19052},{equipId=2,isNoKill=true,developedEquipType=t.SNEAKING_SUIT,developId=19051},{equipId=1,isNoKill=true,developedEquipType=t.SNEAKING_SUIT,developId=19050}},BATTLE_DRESS={{equipId=6,developedEquipType=t.BATTLE_DRESS,developId=19043},{equipId=5,developedEquipType=t.BATTLE_DRESS,developId=19059},{equipId=4,developedEquipType=t.BATTLE_DRESS,developId=19058},{equipId=3,developedEquipType=t.BATTLE_DRESS,developId=19055},{equipId=2,developedEquipType=t.BATTLE_DRESS,developId=19054},{equipId=1,developedEquipType=t.BATTLE_DRESS,developId=19053}}}do
-e.ROUTE_SET_TYPETAG[s"day"]="day"e.ROUTE_SET_TYPETAG[s"night"]="night"e.ROUTE_SET_TYPETAG[s"caution"]="caution"e.ROUTE_SET_TYPETAG[s"hold"]="hold"e.ROUTE_SET_TYPETAG[s"travel"]="travel"e.ROUTE_SET_TYPETAG[s"new"]="new"e.ROUTE_SET_TYPETAG[s"old"]="old"e.ROUTE_SET_TYPETAG[s"midnight"]="midnight"e.ROUTE_SET_TYPETAG[s"sleep"]="sleep"end
+e.ROUTE_SET_TYPETAG[p"day"]="day"e.ROUTE_SET_TYPETAG[p"night"]="night"e.ROUTE_SET_TYPETAG[p"caution"]="caution"e.ROUTE_SET_TYPETAG[p"hold"]="hold"e.ROUTE_SET_TYPETAG[p"travel"]="travel"e.ROUTE_SET_TYPETAG[p"new"]="new"e.ROUTE_SET_TYPETAG[p"old"]="old"e.ROUTE_SET_TYPETAG[p"midnight"]="midnight"e.ROUTE_SET_TYPETAG[p"sleep"]="sleep"end
 e.DEFAULT_HOLD_TIME=60
 e.DEFAULT_TRAVEL_HOLD_TIME=15
 e.DEFAULT_SLEEP_TIME=300
@@ -36,19 +36,19 @@ e.FOB_DD_SUIT_ATTCKER=1
 e.FOB_DD_SUIT_SNEAKING=2
 e.FOB_DD_SUIT_BTRDRS=3
 e.FOB_PF_SUIT_ARMOR=4
-function e._ConvertSoldierNameKeysToId(e)local i={}local n={}Tpp.MergeTable(n,e)for n,s in pairs(n)do
+function e._ConvertSoldierNameKeysToId(e)local t={}local n={}Tpp.MergeTable(n,e)for n,s in pairs(n)do
 if o(n)then
-local t=r("TppSoldier2",n)if t~=a then
-table.insert(i,n)e[t]=s
+local i=r("TppSoldier2",n)if i~=a then
+table.insert(t,n)e[i]=s
 end
 end
 end
-for t,n in ipairs(i)do
+for t,n in ipairs(t)do
 e[n]=nil
 end
 end
 function e._SetUpSoldierTypes(t,n)for a,n in ipairs(n)do
-if p(n)then
+if s(n)then
 e._SetUpSoldierTypes(t,n)else
 mvars.ene_soldierTypes[n]=EnemyType["TYPE_"..t]end
 end
@@ -57,7 +57,7 @@ function e.SetUpSoldierTypes(n)for n,t in pairs(n)do
 e._SetUpSoldierTypes(n,t)end
 end
 function e._SetUpSoldierSubTypes(t,n)for a,n in ipairs(n)do
-if p(n)then
+if s(n)then
 e._SetUpSoldierSubTypes(t,n)else
 local e=r("TppSoldier2",n)mvars.ene_soldierSubType[e]=t
 end
@@ -105,8 +105,8 @@ else
 e.ApplyPersonalAbilitySettings(n,t)end
 end
 end
-function e.SetSoldierType(e,n)mvars.ene_soldierTypes[e]=n
-GameObject.SendCommand(e,{id="SetSoldier2Type",type=n})end
+function e.SetSoldierType(n,e)mvars.ene_soldierTypes[n]=e
+GameObject.SendCommand(n,{id="SetSoldier2Type",type=e})end
 function e.GetSoldierType(n)local e=TppMission.GetMissionID()if n==nil or n==a then
 if e==10080 or e==11080 then
 return EnemyType.TYPE_PF
@@ -138,7 +138,7 @@ e=EnemyType.TYPE_SKULL
 end
 return e
 end
-function e.SetSoldierSubType(n,e)mvars.ene_soldierSubType[n]=e
+function e.SetSoldierSubType(e,n)mvars.ene_soldierSubType[e]=n
 end
 function e.GetSoldierSubType(t,a)local n=TppMission.GetMissionID()if n==10115 or n==11115 then
 return"DD_PW"end
@@ -176,7 +176,7 @@ return"CHILD_A"else
 return"SOVIET_A"end
 return nil
 end
-function e._CreateDDWeaponIdTable(s,o,p)local r={NORMAL={}}local t=r.NORMAL
+function e._CreateDDWeaponIdTable(p,s,o)local r={NORMAL={}}local t=r.NORMAL
 mvars.ene_ddWeaponCount=0
 t.IS_NOKILL={}local e=e.DDWeaponIdInfo
 for a,e in pairs(e)do
@@ -185,11 +185,11 @@ local n=false
 local i=e.developedEquipType
 if i==nil then
 n=true
-elseif e.isNoKill and not p then
+elseif e.isNoKill and not o then
 n=false
 else
 local e=e.developId
-local e=TppMotherBaseManagement.GetEquipDevelopRank(e)if(o>=e and s[i]>=e)then
+local e=TppMotherBaseManagement.GetEquipDevelopRank(e)if(s>=e and p[i]>=e)then
 n=true
 end
 end
@@ -273,11 +273,11 @@ n=e.weaponIdTable.SOVIET_A
 end
 return n
 end
-function e.GetWeaponId(t,i)local a,p,r
-local n=e.GetSoldierType(t)local o=e.GetSoldierSubType(t,n)local t=TppMission.GetMissionID()if(t==10080 or t==11080)and n==EnemyType.TYPE_CHILD then
+function e.GetWeaponId(t,i)local a,p,s
+local n=e.GetSoldierType(t)local r=e.GetSoldierSubType(t,n)local t=TppMission.GetMissionID()if(t==10080 or t==11080)and n==EnemyType.TYPE_CHILD then
 return TppEquip.EQP_WP_Wood_ar_010,TppEquip.EQP_WP_West_hg_010,nil
 end
-local t=e.GetWeaponIdTable(n,o)if t==nil then
+local t=e.GetWeaponIdTable(n,r)if t==nil then
 return nil,nil,nil
 end
 local n={}if TppRevenge.IsUsingStrongWeapon()and t.STRONG then
@@ -285,20 +285,20 @@ n=t.STRONG
 else
 n=t.NORMAL
 end
-r=TppEquip.EQP_None
+s=TppEquip.EQP_None
 p=n.HANDGUN
-local s={}if TppRevenge.IsUsingStrongSniper()and t.STRONG then
-s=t.STRONG
-else
-s=t.NORMAL
-end
-local o={}if TppRevenge.IsUsingStrongMissile()and t.STRONG then
+local o={}if TppRevenge.IsUsingStrongSniper()and t.STRONG then
 o=t.STRONG
 else
 o=t.NORMAL
 end
-if i.SNIPER and s.SNIPER then
-a=s.SNIPER
+local r={}if TppRevenge.IsUsingStrongMissile()and t.STRONG then
+r=t.STRONG
+else
+r=t.NORMAL
+end
+if i.SNIPER and o.SNIPER then
+a=o.SNIPER
 elseif i.SHOTGUN and n.SHOTGUN then
 a=n.SHOTGUN
 elseif i.MG and n.MG then
@@ -309,14 +309,14 @@ else
 a=n.ASSAULT
 end
 if i.SHIELD and n.SHIELD then
-r=n.SHIELD
-elseif i.MISSILE and o.MISSILE then
-r=o.MISSILE
+s=n.SHIELD
+elseif i.MISSILE and r.MISSILE then
+s=r.MISSILE
 end
 if i.GUN_LIGHT then
 local e=e.gunLightWeaponIds[a]a=e or a
 end
-return a,p,r
+return a,p,s
 end
 function e.GetBodyId(t,o,r,a)local i
 local n={}if o==EnemyType.TYPE_SOVIET then
@@ -428,10 +428,10 @@ return true
 end
 return false
 end
-function e.AddPowerSetting(t,a)local n=mvars.ene_soldierPowerSettings[t]or{}for t,a in pairs(a)do
-n[t]=a
+function e.AddPowerSetting(n,a)local t=mvars.ene_soldierPowerSettings[n]or{}for a,n in pairs(a)do
+t[a]=n
 end
-e.ApplyPowerSetting(t,n)end
+e.ApplyPowerSetting(n,t)end
 function e.ApplyPowerSetting(t,i)if t==a then
 return
 end
@@ -511,7 +511,7 @@ end
 mvars.ene_soldierPowerSettings[t]=n
 i=n
 local n=0
-local o=e.GetBodyId(t,r,a,i)local s=e.GetFaceId(t,r,a,i)local l=e.GetBalaclavaFaceId(t,r,a,i)local e,p,r=e.GetWeaponId(t,i)if i.HELMET then
+local o=e.GetBodyId(t,r,a,i)local p=e.GetFaceId(t,r,a,i)local l=e.GetBalaclavaFaceId(t,r,a,i)local r,s,e=e.GetWeaponId(t,i)if i.HELMET then
 n=n+WearEquip.HELMET
 end
 if i.GAS_MASK then
@@ -523,9 +523,9 @@ end
 if i.SOFT_ARMOR then
 n=n+WearEquip.SOFT_ARMOR
 end
-if(e~=nil or secondaryWeapon~=nil)or r~=nil then
-GameObject.SendCommand(t,{id="SetEquipId",primary=e,secondary=p,tertiary=r})end
-GameObject.SendCommand(t,{id="ChangeFova",bodyId=o,faceId=s,balaclavaFaceId=l})GameObject.SendCommand(t,{id="SetWearEquip",flag=n})local e={SOVIET_A=d.SOVIET_A,SOVIET_B=d.SOVIET_B,PF_A=d.PF_A,PF_B=d.PF_B,PF_C=d.PF_C,DD_A=d.DD_A,DD_FOB=d.DD_FOB,DD_PW=d.DD_PW,CHILD_A=d.CHILD_A,SKULL_AFGH=d.SKULL_AFGH,SKULL_CYPR=d.SKULL_CYPR}GameObject.SendCommand(t,{id="SetSoldier2SubType",type=e[a]})end
+if(r~=nil or secondaryWeapon~=nil)or e~=nil then
+GameObject.SendCommand(t,{id="SetEquipId",primary=r,secondary=s,tertiary=e})end
+GameObject.SendCommand(t,{id="ChangeFova",bodyId=o,faceId=p,balaclavaFaceId=l})GameObject.SendCommand(t,{id="SetWearEquip",flag=n})local e={SOVIET_A=d.SOVIET_A,SOVIET_B=d.SOVIET_B,PF_A=d.PF_A,PF_B=d.PF_B,PF_C=d.PF_C,DD_A=d.DD_A,DD_FOB=d.DD_FOB,DD_PW=d.DD_PW,CHILD_A=d.CHILD_A,SKULL_AFGH=d.SKULL_AFGH,SKULL_CYPR=d.SKULL_CYPR}GameObject.SendCommand(t,{id="SetSoldier2SubType",type=e[a]})end
 function e.ApplyPersonalAbilitySettings(e,n)if e==a then
 return
 end
@@ -731,11 +731,11 @@ if a>=TppDefine.STORY_SEQUENCE.CLEARD_THE_TRUTH then
 table.insert(e,"salute0370")end
 if TppUiCommand.IsBirthDay()then
 table.insert(r,"salute0380")end
-local n={high={normal=r,once=i},mid={normal=t,once=p},low={normal=e,once=s}}local e={type="TppSoldier2"}GameObject.SendCommand(e,{id="SetSaluteVoiceList",list=n})end
+local e={high={normal=r,once=i},mid={normal=t,once=p},low={normal=e,once=s}}local n={type="TppSoldier2"}GameObject.SendCommand(n,{id="SetSaluteVoiceList",list=e})end
 function e.RequestLoadWalkerGearEquip()TppEquip.RequestLoadToEquipMissionBlock{TppEquip.EQP_WP_West_hg_010}end
 function e.SetSoldier2CommonPackageLabel(e)mvars.ene_soldier2CommonBlockPackageLabel=e
 end
-function e.AssignUniqueStaffType(e)if not p(e)then
+function e.AssignUniqueStaffType(e)if not s(e)then
 return
 end
 local t=e.locaterName
@@ -769,13 +769,13 @@ if e~=a then
 TppMotherBaseManagement.RegenerateGameObjectStaffParameter{gameObjectId=e,staffType="Unique",uniqueTypeId=n}end
 end
 function e.IsActiveSoldierInRange(t,e)local e={id="IsActiveSoldierInRange",position=t,range=e}return n({type="TppSoldier2"},e)end
-function e._SetOutOfArea(n,t)if p(n)then
+function e._SetOutOfArea(n,t)if s(n)then
 for a,n in ipairs(n)do
 e._SetOutOfArea(n,t)end
 else
 local e=r("TppSoldier2",n)table.insert(t,e)end
 end
-function e.SetOutOfArea(i,a)local t={}e._SetOutOfArea(i,t)local e={id="SetOutOfArea",soldiers=t,isOut=a}n({type="TppSoldier2"},e)end
+function e.SetOutOfArea(a,i)local t={}e._SetOutOfArea(a,t)local e={id="SetOutOfArea",soldiers=t,isOut=i}n({type="TppSoldier2"},e)end
 function e.SetEliminateTargets(t,n)mvars.ene_eliminateTargetList={}mvars.ene_eliminateHelicopterList={}mvars.ene_eliminateVehicleList={}mvars.ene_eliminateWalkerGearList={}local i={}if Tpp.IsTypeTable(n)then
 if Tpp.IsTypeTable(n.exceptMissionClearCheck)then
 for n,e in pairs(n.exceptMissionClearCheck)do
@@ -839,24 +839,24 @@ function e.SetVipHostage(n)e.SetRescueTargets(n)end
 function e.SetExcludeHostage(e)mvars.ene_excludeHostageGameObjectId=r(e)end
 function e.GetAllHostages()local e={"TppHostage2","TppHostageUnique","TppHostageUnique2"}local s=TppGameObject.NPC_STATE_DISABLE
 local o={}for e,r in ipairs(e)do
-local t=1
+local e=1
 local i=0
-while i<t do
-local e=T(r,i)if e==a then
+while i<e do
+local t=T(r,i)if t==a then
 break
 end
-if t==1 then
-t=n({type=r},{id="GetMaxInstanceCount"})if not t or t<1 then
+if e==1 then
+e=n({type=r},{id="GetMaxInstanceCount"})if not e or e<1 then
 break
 end
 end
-local t=true
-if mvars.ene_excludeHostageGameObjectId and mvars.ene_excludeHostageGameObjectId==e then
-t=false
+local e=true
+if mvars.ene_excludeHostageGameObjectId and mvars.ene_excludeHostageGameObjectId==t then
+e=false
 end
-if t then
-local t=n(e,{id="GetLifeStatus"})local n=n(e,{id="GetStatus"})if(n~=s)and(t~=TppGameObject.NPC_LIFE_STATE_DEAD)then
-table.insert(o,e)end
+if e then
+local e=n(t,{id="GetLifeStatus"})local n=n(t,{id="GetStatus"})if(n~=s)and(e~=TppGameObject.NPC_LIFE_STATE_DEAD)then
+table.insert(o,t)end
 end
 i=i+1
 end
@@ -864,9 +864,9 @@ end
 return o
 end
 function e.GetAllActiveEnemyWalkerGear()local r={}local e=1
-local i=0
-while i<e do
-local t=T("TppCommonWalkerGear2",i)if t==a then
+local t=0
+while t<e do
+local i=T("TppCommonWalkerGear2",t)if i==a then
 break
 end
 if e==1 then
@@ -874,9 +874,9 @@ e=n({type="TppCommonWalkerGear2"},{id="GetMaxInstanceCount"})if not e or e<1 the
 break
 end
 end
-local a=n(t,{id="IsBroken"})local e=n(t,{id="IsFultonCaptured"})if(a==false)and(e==false)then
-table.insert(r,t)end
-i=i+1
+local a=n(i,{id="IsBroken"})local e=n(i,{id="IsFultonCaptured"})if(a==false)and(e==false)then
+table.insert(r,i)end
+t=t+1
 end
 return r
 end
@@ -890,17 +890,17 @@ function e.SetTargetOption(e)local e=r(e)if e==a then
 else
 n(e,{id="SetVip"})n(e,{id="SetForceRealize"})n(e,{id="SetIgnoreSupportBlastInUnreal",enabled=true})end
 end
-function e.LetCpHasTarget(e,t)local n
-if l(e)then
-n=e
-elseif o(e)then
-n=r(e)else
+function e.LetCpHasTarget(n,t)local e
+if l(n)then
+e=n
+elseif o(n)then
+e=r(n)else
 return
 end
-if n==a then
+if e==a then
 return
 end
-GameObject.SendCommand(n,{id="SetCpMissionTarget",enable=t})end
+GameObject.SendCommand(e,{id="SetCpMissionTarget",enable=t})end
 function e.GetPhase(e)local t=r(e)return n(t,{id="GetPhase",cpName=e})end
 function e.GetPhaseByCPID(e)return n(e,{id="GetPhase",cpName=mvars.ene_cpList[e]})end
 function e.GetLifeStatus(e)if not e then
@@ -927,42 +927,42 @@ end
 end
 function e.IsEliminated(n)local t=e.GetLifeStatus(n)local n=e.GetStatus(n)return e._IsEliminated(t,n)end
 function e.IsNeutralized(n)local t=e.GetLifeStatus(n)local n=e.GetStatus(n)return e._IsNeutralized(t,n)end
-function e.IsRecovered(n)if not mvars.ene_recoverdStateIndexByName then
+function e.IsRecovered(e)if not mvars.ene_recoverdStateIndexByName then
 return
 end
-local e
-if o(n)then
-e=mvars.ene_recoverdStateIndexByName[n]elseif l(n)then
-e=mvars.ene_recoverdStateIndexByGameObjectId[n]end
-if e then
-return svars.ene_isRecovered[e]end
+local n
+if o(e)then
+n=mvars.ene_recoverdStateIndexByName[e]elseif l(e)then
+n=mvars.ene_recoverdStateIndexByGameObjectId[e]end
+if n then
+return svars.ene_isRecovered[n]end
 end
-function e.ChangeLifeState(e)if not Tpp.IsTypeTable(e)then
+function e.ChangeLifeState(n)if not Tpp.IsTypeTable(n)then
 return"Support table only"end
-local n=e.lifeState
+local e=n.lifeState
 local t=0
 local i=4
-if not((n>t)and(n<i))then
+if not((e>t)and(e<i))then
 return"lifeState must be index"end
-local e=e.targetName
-if not o(e)then
+local n=n.targetName
+if not o(n)then
 return"targetName must be string"end
-local t=r(e)if t~=a then
-GameObject.SendCommand(t,{id="ChangeLifeState",state=n})else
-return"Cannot get gameObjectId. targetName = "..tostring(e)end
+local t=r(n)if t~=a then
+GameObject.SendCommand(t,{id="ChangeLifeState",state=e})else
+return"Cannot get gameObjectId. targetName = "..tostring(n)end
 end
-function e.SetSneakRoute(e,s,t,i)if not e then
+function e.SetSneakRoute(e,s,t,r)if not e then
 return
 end
 if o(e)then
 e=GameObject.GetGameObjectId(e)end
 t=t or 0
-local r=false
-if Tpp.IsTypeTable(i)then
-r=i.isRelaxed
+local i=false
+if Tpp.IsTypeTable(r)then
+i=r.isRelaxed
 end
 if e~=a then
-n(e,{id="SetSneakRoute",route=s,point=t,isRelaxed=r})end
+n(e,{id="SetSneakRoute",route=s,point=t,isRelaxed=i})end
 end
 function e.UnsetSneakRoute(e)if not e then
 return
@@ -1006,10 +1006,10 @@ e=GameObject.GetGameObjectId(e)end
 if e~=a then
 n(e,{id="SetAlertRoute",enabled=false,route=""})end
 end
-function e.RegistRoutePointMessage(e)if not p(e)then
+function e.RegistRoutePointMessage(e)if not s(e)then
 return
 end
-mvars.ene_routePointMessage=mvars.ene_routePointMessage or{}mvars.ene_routePointMessage.main=mvars.ene_routePointMessage.main or{}mvars.ene_routePointMessage.sequence=mvars.ene_routePointMessage.sequence or{}local n={}n[s"GameObject"]=Tpp.StrCode32Table(e.messages)local n=(Tpp.MakeMessageExecTable(n))[s"GameObject"]local e=e.sequenceName
+mvars.ene_routePointMessage=mvars.ene_routePointMessage or{}mvars.ene_routePointMessage.main=mvars.ene_routePointMessage.main or{}mvars.ene_routePointMessage.sequence=mvars.ene_routePointMessage.sequence or{}local n={}n[p"GameObject"]=Tpp.StrCode32Table(e.messages)local n=(Tpp.MakeMessageExecTable(n))[p"GameObject"]local e=e.sequenceName
 if e then
 mvars.ene_routePointMessage.sequence[e]=mvars.ene_routePointMessage.sequence[e]or{}Tpp.MergeTable(mvars.ene_routePointMessage.sequence[e],n,true)else
 Tpp.MergeTable(mvars.ene_routePointMessage.main,n,true)end
@@ -1027,19 +1027,19 @@ mvars.ene_routeSetsPriorityTemporary=mvars.ene_routeSetsPriority
 e.MergeRouteSetDefine(t)mvars.ene_routeSets={}mvars.ene_routeSetsPriority={}mvars.ene_routeSetsFixedShiftChange={}e.UpdateRouteSet(mvars.ene_routeSetsDefine)local t={{{"old","immediately"},{"new","immediately"}}}for e,a in pairs(mvars.ene_cpList)do
 n(e,{id="ChangeRouteSets"})n(e,{id="ShiftChange",schedule=t})end
 end
-function e.InitialRouteSetGroup(e)local t=r(e.cpName)local o=e.groupName
-if not p(e.soldierList)then
+function e.InitialRouteSetGroup(e)local i=r(e.cpName)local o=e.groupName
+if not s(e.soldierList)then
 return
 end
-local i={}for n,e in pairs(e.soldierList)do
+local t={}for n,e in pairs(e.soldierList)do
 local e=r(e)if e~=a then
-i[n]=e
+t[n]=e
 end
 end
-if t==a then
+if i==a then
 return
 end
-n(t,{id="AssignSneakRouteGroup",soldiers=i,group=o})end
+n(i,{id="AssignSneakRouteGroup",soldiers=t,group=o})end
 function e.RegisterHoldTime(e,n)local e=r(e)if e==a then
 return
 end
@@ -1063,19 +1063,19 @@ e.MakeShiftChangeTable()end
 function e.NoShifhtChangeGruopSetting(e,n)local e=r(e)if e==a then
 return
 end
-mvars.ene_noShiftChangeGroupSetting[e]=mvars.ene_noShiftChangeGroupSetting[e]or{}mvars.ene_noShiftChangeGroupSetting[e][s(n)]=true
+mvars.ene_noShiftChangeGroupSetting[e]=mvars.ene_noShiftChangeGroupSetting[e]or{}mvars.ene_noShiftChangeGroupSetting[e][p(n)]=true
 end
-function e.RegisterCombatSetting(t)local function i(t,e)local n={}for e,a in pairs(e)do
+function e.RegisterCombatSetting(a)local function i(t,e)local n={}for e,a in pairs(e)do
 n[e]=a
 if t[e]then
 n[e]=t[e]end
 end
 return n
 end
-if not p(t)then
+if not s(a)then
 return
 end
-for n,e in pairs(t)do
+for n,e in pairs(a)do
 if e.USE_COMMON_COMBAT and mvars.loc_locationCommonCombat then
 if mvars.loc_locationCommonCombat[n]then
 if e.combatAreaList then
@@ -1083,7 +1083,7 @@ e.combatAreaList=i(e.combatAreaList,mvars.loc_locationCommonCombat[n].combatArea
 e=mvars.loc_locationCommonCombat[n]end
 end
 end
-if e.combatAreaList and p(e.combatAreaList)then
+if e.combatAreaList and s(e.combatAreaList)then
 for t,e in pairs(e.combatAreaList)do
 for t,e in pairs(e)do
 if e.guardTargetName and e.locatorSetName then
@@ -1116,7 +1116,7 @@ e=GameObject.GetGameObjectId(e)end
 if e~=a then
 n(e,{id="SetRestrictNotice",enabled=false})end
 end
-function e.RealizeParasiteSquad()if not p(mvars.ene_parasiteSquadList)then
+function e.RealizeParasiteSquad()if not s(mvars.ene_parasiteSquadList)then
 return
 end
 for t,e in pairs(mvars.ene_parasiteSquadList)do
@@ -1124,7 +1124,7 @@ local e=r("TppParasite2",e)if e~=a then
 n(e,{id="Realize"})end
 end
 end
-function e.UnRealizeParasiteSquad()if not p(mvars.ene_parasiteSquadList)then
+function e.UnRealizeParasiteSquad()if not s(mvars.ene_parasiteSquadList)then
 return
 end
 for t,e in pairs(mvars.ene_parasiteSquadList)do
@@ -1158,7 +1158,7 @@ mvars.ene_vehicleDefine=n.enemy.vehicleDefine
 end
 if n.enemy.vehicleSettings then
 e.RegistVehicleSettings(n.enemy.vehicleSettings)end
-if p(n.enemy.disablePowerSettings)then
+if s(n.enemy.disablePowerSettings)then
 e.DisablePowerSettings(n.enemy.disablePowerSettings)end
 if n.enemy.soldierTypes then
 e.SetUpSoldierTypes(n.enemy.soldierTypes)end
@@ -1168,24 +1168,24 @@ mvars.ene_questBalaclavaId=0
 mvars.ene_isQuestSetup=false
 mvars.ene_isQuestHeli=false
 end
-function e.DeclareSVars(t)local e=0
-local n=TppMission.GetMissionID()if TppMission.IsFOBMission(n)then
-e=TppDefine.MAX_UAV_COUNT
+function e.DeclareSVars(t)local n=0
+local e=TppMission.GetMissionID()if TppMission.IsFOBMission(e)then
+n=TppDefine.MAX_UAV_COUNT
 end
-local n=0
+local e=0
 if t.enemy then
-local e=t.enemy.soldierDefine
-if e~=nil then
-for e,e in pairs(e)do
-n=n+1
+local n=t.enemy.soldierDefine
+if n~=nil then
+for n,n in pairs(n)do
+e=e+1
 end
 end
 end
-if n==1 then
-n=2
+if e==1 then
+e=2
 end
-mvars.ene_cpCount=n
-local n={{name="cpNames",arraySize=n,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="cpFlags",arraySize=n,type=TppScriptVars.TYPE_UINT8,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solName",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solState",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT8,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solFlagAndStance",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solWeapon",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solLocation",arraySize=mvars.ene_maxSoldierStateCount*4,type=TppScriptVars.TYPE_FLOAT,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solMarker",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_RETRY},{name="solFovaSeed",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solFaceFova",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solBodyFova",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solCp",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solCpRoute",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solScriptSneakRoute",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solScriptCautionRoute",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solScriptAlertRoute",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solRouteNodeIndex",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solRouteEventIndex",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solTravelName",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solTravelStepIndex",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT8,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solOptName",arraySize=TppDefine.DEFAULT_SOLDIER_OPTION_VARS_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solOptParam1",arraySize=TppDefine.DEFAULT_SOLDIER_OPTION_VARS_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solOptParam2",arraySize=TppDefine.DEFAULT_SOLDIER_OPTION_VARS_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="passengerInfoName",arraySize=TppDefine.DEFAULT_PASSAGE_INFO_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="passengerFlagName",arraySize=TppDefine.DEFAULT_PASSAGE_FLAG_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="passengerNameName",arraySize=TppDefine.DEFAULT_PASSAGE_FLAG_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="passengerVehicleNameName",arraySize=TppDefine.DEFAULT_PASSAGE_INFO_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="noticeObjectType",arraySize=TppDefine.DEFAULT_NOTICE_INFO_COUNT,type=TppScriptVars.TYPE_UINT8,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="noticeObjectPosition",arraySize=TppDefine.DEFAULT_NOTICE_INFO_COUNT*3,type=TppScriptVars.TYPE_FLOAT,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="noticeObjectOwnerName",arraySize=TppDefine.DEFAULT_NOTICE_INFO_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="noticeObjectOwnerId",arraySize=TppDefine.DEFAULT_NOTICE_INFO_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="noticeObjectAttachId",arraySize=TppDefine.DEFAULT_NOTICE_INFO_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solRandomSeed",arraySize=1,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosName",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosState",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT8,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosFlagAndStance",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosWeapon",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosLocation",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT*4,type=TppScriptVars.TYPE_FLOAT,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosMarker",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_RETRY},{name="hosFovaSeed",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosFaceFova",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosBodyFova",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosScriptSneakRoute",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosRouteNodeIndex",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosRouteEventIndex",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosOptParam1",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosOptParam2",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosRandomSeed",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliName",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliLocation",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT*4,type=TppScriptVars.TYPE_FLOAT,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliCp",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliFlag",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliSneakRoute",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliCautionRoute",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliAlertRoute",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliRouteNodeIndex",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliRouteEventIndex",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliMarker",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_RETRY},{name="enemyHeliLife",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="ene_wkrg_name",arraySize=4,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="ene_wkrg_life",arraySize=4,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="ene_wkrg_partslife",arraySize=4*24,type=TppScriptVars.TYPE_UINT8,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="ene_wkrg_location",arraySize=4*4,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="ene_wkrg_bulletleft",arraySize=4*2,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="ene_wkrg_marker",arraySize=4*2,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_RETRY},{name="ene_holdRecoveredStateName",arraySize=TppDefine.MAX_HOLD_RECOVERED_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="ene_isRecovered",arraySize=TppDefine.MAX_HOLD_RECOVERED_STATE_COUNT,type=TppScriptVars.TYPE_BOOL,value=false,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="ene_holdBrokenStateName",arraySize=TppDefine.MAX_HOLD_VEHICLE_BROKEN_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="ene_isVehicleBroken",arraySize=TppDefine.MAX_HOLD_VEHICLE_BROKEN_STATE_COUNT,type=TppScriptVars.TYPE_BOOL,value=false,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="liquidLifeStatus",arraySize=1,type=TppScriptVars.TYPE_UINT8,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="liquidMarker",arraySize=1,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_RETRY},{name="uavName",arraySize=e,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="uavIsDead",arraySize=e,type=TppScriptVars.TYPE_UINT8,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="uavMarker",arraySize=e,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_RETRY},{name="uavCp",arraySize=e,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="uavPatrolRoute",arraySize=e,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="uavCombatRoute",arraySize=e,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="securityCameraCp",arraySize=TppDefine.MAX_SECURITY_CAMERA_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="securityCameraMarker",arraySize=TppDefine.MAX_SECURITY_CAMERA_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_RETRY},{name="securityCameraFlag",arraySize=TppDefine.MAX_SECURITY_CAMERA_COUNT,type=TppScriptVars.TYPE_UINT8,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},nil}if Vehicle.svars then
+mvars.ene_cpCount=e
+local n={{name="cpNames",arraySize=e,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="cpFlags",arraySize=e,type=TppScriptVars.TYPE_UINT8,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solName",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solState",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT8,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solFlagAndStance",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solWeapon",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solLocation",arraySize=mvars.ene_maxSoldierStateCount*4,type=TppScriptVars.TYPE_FLOAT,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solMarker",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_RETRY},{name="solFovaSeed",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solFaceFova",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solBodyFova",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solCp",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solCpRoute",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solScriptSneakRoute",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solScriptCautionRoute",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solScriptAlertRoute",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solRouteNodeIndex",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solRouteEventIndex",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solTravelName",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solTravelStepIndex",arraySize=mvars.ene_maxSoldierStateCount,type=TppScriptVars.TYPE_UINT8,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solOptName",arraySize=TppDefine.DEFAULT_SOLDIER_OPTION_VARS_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solOptParam1",arraySize=TppDefine.DEFAULT_SOLDIER_OPTION_VARS_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solOptParam2",arraySize=TppDefine.DEFAULT_SOLDIER_OPTION_VARS_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="passengerInfoName",arraySize=TppDefine.DEFAULT_PASSAGE_INFO_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="passengerFlagName",arraySize=TppDefine.DEFAULT_PASSAGE_FLAG_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="passengerNameName",arraySize=TppDefine.DEFAULT_PASSAGE_FLAG_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="passengerVehicleNameName",arraySize=TppDefine.DEFAULT_PASSAGE_INFO_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="noticeObjectType",arraySize=TppDefine.DEFAULT_NOTICE_INFO_COUNT,type=TppScriptVars.TYPE_UINT8,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="noticeObjectPosition",arraySize=TppDefine.DEFAULT_NOTICE_INFO_COUNT*3,type=TppScriptVars.TYPE_FLOAT,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="noticeObjectOwnerName",arraySize=TppDefine.DEFAULT_NOTICE_INFO_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="noticeObjectOwnerId",arraySize=TppDefine.DEFAULT_NOTICE_INFO_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="noticeObjectAttachId",arraySize=TppDefine.DEFAULT_NOTICE_INFO_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="solRandomSeed",arraySize=1,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosName",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosState",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT8,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosFlagAndStance",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosWeapon",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosLocation",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT*4,type=TppScriptVars.TYPE_FLOAT,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosMarker",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_RETRY},{name="hosFovaSeed",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosFaceFova",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosBodyFova",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosScriptSneakRoute",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosRouteNodeIndex",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosRouteEventIndex",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosOptParam1",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosOptParam2",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="hosRandomSeed",arraySize=TppDefine.DEFAULT_HOSTAGE_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliName",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliLocation",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT*4,type=TppScriptVars.TYPE_FLOAT,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliCp",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliFlag",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliSneakRoute",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliCautionRoute",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliAlertRoute",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliRouteNodeIndex",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliRouteEventIndex",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="enemyHeliMarker",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_RETRY},{name="enemyHeliLife",arraySize=TppDefine.DEFAULT_ENEMY_HELI_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="ene_wkrg_name",arraySize=4,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="ene_wkrg_life",arraySize=4,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="ene_wkrg_partslife",arraySize=4*24,type=TppScriptVars.TYPE_UINT8,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="ene_wkrg_location",arraySize=4*4,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="ene_wkrg_bulletleft",arraySize=4*2,type=TppScriptVars.TYPE_UINT16,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="ene_wkrg_marker",arraySize=4*2,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_RETRY},{name="ene_holdRecoveredStateName",arraySize=TppDefine.MAX_HOLD_RECOVERED_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="ene_isRecovered",arraySize=TppDefine.MAX_HOLD_RECOVERED_STATE_COUNT,type=TppScriptVars.TYPE_BOOL,value=false,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="ene_holdBrokenStateName",arraySize=TppDefine.MAX_HOLD_VEHICLE_BROKEN_STATE_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="ene_isVehicleBroken",arraySize=TppDefine.MAX_HOLD_VEHICLE_BROKEN_STATE_COUNT,type=TppScriptVars.TYPE_BOOL,value=false,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="liquidLifeStatus",arraySize=1,type=TppScriptVars.TYPE_UINT8,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="liquidMarker",arraySize=1,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_RETRY},{name="uavName",arraySize=n,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="uavIsDead",arraySize=n,type=TppScriptVars.TYPE_UINT8,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="uavMarker",arraySize=n,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_RETRY},{name="uavCp",arraySize=n,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="uavPatrolRoute",arraySize=n,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="uavCombatRoute",arraySize=n,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="securityCameraCp",arraySize=TppDefine.MAX_SECURITY_CAMERA_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},{name="securityCameraMarker",arraySize=TppDefine.MAX_SECURITY_CAMERA_COUNT,type=TppScriptVars.TYPE_UINT32,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_RETRY},{name="securityCameraFlag",arraySize=TppDefine.MAX_SECURITY_CAMERA_COUNT,type=TppScriptVars.TYPE_UINT8,value=0,save=true,sync=false,wait=false,category=TppScriptVars.CATEGORY_MISSION},nil}if Vehicle.svars then
 local e=Vehicle.instanceCountMax
 if mvars.ene_vehicleDefine and mvars.ene_vehicleDefine.instanceCount then
 e=mvars.ene_vehicleDefine.instanceCount
@@ -1197,7 +1197,7 @@ function e.ResetSoldier2CommonBlockPackageLabel()gvars.ene_soldier2CommonPackage
 end
 function e.RegisterSoldier2CommonMotionPackagePath(n)local t=TppDefine.SOLIDER2_COMMON_PACK[n]local a=TppDefine.SOLIDER2_COMMON_PACK_PREREQUISITES[n]if t then
 if o(n)then
-gvars.ene_soldier2CommonPackageLabelIndex=s(n)else
+gvars.ene_soldier2CommonPackageLabelIndex=p(n)else
 gvars.ene_soldier2CommonPackageLabelIndex=n
 end
 else
@@ -1205,13 +1205,13 @@ t=TppDefine.SOLIDER2_COMMON_PACK.default
 a=TppDefine.SOLIDER2_COMMON_PACK_PREREQUISITES.default
 e.ResetSoldier2CommonBlockPackageLabel()end
 TppSoldier2CommonBlockController.SetPackagePathWithPrerequisites{path=t,prerequisites=a}end
-function e.IsRequiredToLoadSpecialSolider2CommonBlock()if s(mvars.ene_soldier2CommonBlockPackageLabel)~=TppDefine.DEFAULT_SOLIDER2_COMMON_PACKAGE then
+function e.IsRequiredToLoadSpecialSolider2CommonBlock()if p(mvars.ene_soldier2CommonBlockPackageLabel)~=TppDefine.DEFAULT_SOLIDER2_COMMON_PACKAGE then
 return true
 else
 return false
 end
 end
-function e.IsRequiredToLoadDefaultSoldier2CommonPackage()local e=s(mvars.ene_soldier2CommonBlockPackageLabel)if(e==TppDefine.DEFAULT_SOLIDER2_COMMON_PACKAGE)then
+function e.IsRequiredToLoadDefaultSoldier2CommonPackage()local e=p(mvars.ene_soldier2CommonBlockPackageLabel)if(e==TppDefine.DEFAULT_SOLIDER2_COMMON_PACKAGE)then
 return true
 else
 return false
@@ -1243,7 +1243,7 @@ local n=0
 if mvars.ene_cpList~=nil then
 for t,e in pairs(mvars.ene_cpList)do
 if n<mvars.ene_cpCount then
-svars.cpNames[n]=s(e)svars.cpFlags[n]=0
+svars.cpNames[n]=p(e)svars.cpFlags[n]=0
 n=n+1
 end
 end
@@ -1418,7 +1418,7 @@ function e.RegistCommonRoutePointMessage()end
 function e.OnReload(n)e.messageExecTable=Tpp.MakeMessageExecTable(e.Messages())e.RegistCommonRoutePointMessage()if n.enemy then
 e.SetUpCommandPost()e.SetUpSwitchRouteFunc()end
 end
-function e.OnMessage(r,o,i,n,a,t,s)Tpp.DoMessage(e.messageExecTable,TppMission.CheckMessageOption,r,o,i,n,a,t,s)end
+function e.OnMessage(t,n,a,s,o,i,r)Tpp.DoMessage(e.messageExecTable,TppMission.CheckMessageOption,t,n,a,s,o,i,r)end
 function e.DefineSoldiers(n)mvars.ene_soldierDefine={}Tpp.MergeTable(mvars.ene_soldierDefine,n,true)mvars.ene_soldierIDList={}mvars.ene_cpList={}mvars.ene_baseCpList={}mvars.ene_outerBaseCpList={}mvars.ene_holdTimes={}mvars.ene_sleepTimes={}mvars.ene_lrrpTravelPlan={}mvars.ene_lrrpVehicle={}for i,t in pairs(n)do
 local n=r(i)if n==a then
 else
@@ -1445,7 +1445,7 @@ end
 end
 end
 end
-function e.SetUpSoldiers()if not p(mvars.ene_soldierDefine)then
+function e.SetUpSoldiers()if not s(mvars.ene_soldierDefine)then
 return
 end
 local o=TppMission.GetMissionID()for i,t in pairs(mvars.ene_soldierDefine)do
@@ -1479,9 +1479,9 @@ if e then
 GameObject.SendCommand(t,e)end
 end
 end
-for t,e in pairs(mvars.ene_cpList)do
-if mvars.ene_baseCpList[t]then
-local e=mvars.ene_soldierDefine[e]for t,e in ipairs(e)do
+for e,t in pairs(mvars.ene_cpList)do
+if mvars.ene_baseCpList[e]then
+local e=mvars.ene_soldierDefine[t]for t,e in ipairs(e)do
 local e=r(e)if e==a then
 else
 n(e,{id="AddRouteAssignMember"})end
@@ -1498,11 +1498,11 @@ end
 end
 end
 e.AssignSoldiersToCP()end
-function e.AssignSoldiersToCP()local s=TppMission.GetMissionID()e._ConvertSoldierNameKeysToId(mvars.ene_soldierTypes)mvars.ene_soldierSubType=mvars.ene_soldierSubType or{}mvars.ene_soldierLrrp=mvars.ene_soldierLrrp or{}local i=e.subTypeOfCp
-for a,t in pairs(mvars.ene_soldierIDList)do
-local r=mvars.ene_cpList[a]local o=i[r]local i=false
-for t,p in pairs(t)do
-n(t,{id="SetCommandPost",cp=r})if mvars.ene_lrrpTravelPlan[a]then
+function e.AssignSoldiersToCP()local r=TppMission.GetMissionID()e._ConvertSoldierNameKeysToId(mvars.ene_soldierTypes)mvars.ene_soldierSubType=mvars.ene_soldierSubType or{}mvars.ene_soldierLrrp=mvars.ene_soldierLrrp or{}local t=e.subTypeOfCp
+for a,p in pairs(mvars.ene_soldierIDList)do
+local i=mvars.ene_cpList[a]local o=t[i]local s=false
+for t,p in pairs(p)do
+n(t,{id="SetCommandPost",cp=i})if mvars.ene_lrrpTravelPlan[a]then
 n(t,{id="SetLrrp",travelPlan=mvars.ene_lrrpTravelPlan[a]})mvars.ene_soldierLrrp[t]=true
 if mvars.ene_lrrpVehicle[a]then
 local e=GameObject.GetGameObjectId("TppVehicle2",mvars.ene_lrrpVehicle[a])local e={id="SetRelativeVehicle",targetId=e,rideFromBeginning=true}n(t,e)end
@@ -1511,29 +1511,29 @@ local n
 local e=e.GetSoldierType(t)n={id="SetSoldier2Type",type=e}GameObject.SendCommand(t,n)if(e~=EnemyType.TYPE_SKULL and e~=EnemyType.TYPE_CHILD)and o then
 mvars.ene_soldierSubType[t]=o
 end
-if s~=10080 and s~=11080 then
+if r~=10080 and r~=11080 then
 if e==EnemyType.TYPE_CHILD then
-i=true
+s=true
 end
 end
 end
-if i then
+if s then
 n(a,{id="SetChildCp"})end
 end
 end
 function e.InitCpGroups()mvars.ene_cpGroups={}end
-function e.RegistCpGroups(n)e.SetCommonCpGroups()if p(n)then
+function e.RegistCpGroups(n)e.SetCommonCpGroups()if s(n)then
 for e,n in pairs(n)do
 mvars.ene_cpGroups[e]=mvars.ene_cpGroups[e]or{}for t,n in pairs(n)do
 table.insert(mvars.ene_cpGroups[e],n)end
 end
 end
 end
-function e.SetCommonCpGroups()if not p(mvars.loc_locationCommonCpGroups)then
+function e.SetCommonCpGroups()if not s(mvars.loc_locationCommonCpGroups)then
 return
 end
 for n,t in pairs(mvars.loc_locationCommonCpGroups)do
-if p(t)then
+if s(t)then
 mvars.ene_cpGroups[n]={}for e,a in pairs(mvars.ene_soldierDefine)do
 if t[e]then
 table.insert(mvars.ene_cpGroups[n],e)end
@@ -1541,8 +1541,8 @@ end
 end
 end
 end
-function e.SetCpGroups()local t={type="TppCommandPost2"}local e={id="SetCpGroups",cpGroups=mvars.ene_cpGroups}n(t,e)end
-function e.RegistVehicleSettings(e)if not p(e)then
+function e.SetCpGroups()local e={type="TppCommandPost2"}local t={id="SetCpGroups",cpGroups=mvars.ene_cpGroups}n(e,t)end
+function e.RegistVehicleSettings(e)if not s(e)then
 return
 end
 mvars.ene_vehicleSettings=e
@@ -1555,7 +1555,7 @@ end
 function e.SpawnVehicles(n)for t,n in ipairs(n)do
 e.SpawnVehicle(n)end
 end
-function e.SpawnVehicle(e)if not p(e)then
+function e.SpawnVehicle(e)if not s(e)then
 return
 end
 if e.id~="Spawn"then
@@ -1567,7 +1567,7 @@ end
 local e=GameObject.SendCommand({type="TppVehicle2"},e)if not e then
 end
 end
-function e.RespawnVehicle(e)if not p(e)then
+function e.RespawnVehicle(e)if not s(e)then
 return
 end
 if e.id~="Respawn"then
@@ -1582,7 +1582,7 @@ end
 function e.DespawnVehicles(n)for t,n in ipairs(n)do
 e.DespawnVehicle(n)end
 end
-function e.DespawnVehicle(e)if not p(e)then
+function e.DespawnVehicle(e)if not s(e)then
 return
 end
 if e.id~="Despawn"then
@@ -1598,7 +1598,7 @@ function e.SetUpVehicles()if mvars.ene_vehicleSettings==nil then
 return
 end
 for t,e in pairs(mvars.ene_vehicleSettings)do
-if(o(t)and p(e))and e.type then
+if(o(t)and s(e))and e.type then
 local t={id="Spawn",locator=t,type=e.type}if e.subType then
 t.subType=e.subType
 end
@@ -1638,7 +1638,7 @@ n="caution"end
 end
 return n
 end
-function e.GetPrioritizedRouteTable(e,n,t,r)local i={}local a=t[e]if not p(a)then
+function e.GetPrioritizedRouteTable(e,n,t,r)local i={}local a=t[e]if not s(a)then
 return
 end
 if mvars.ene_funcRouteSetPriority then
@@ -1652,10 +1652,10 @@ end
 end
 end
 local e=1
-for r=1,t do
-for a,t in ipairs(a)do
-local n=n[t]if n then
-local n=n[r]if n and Tpp.IsTypeTable(n)then
+for t=1,t do
+for r,a in ipairs(a)do
+local n=n[a]if n then
+local n=n[t]if n and Tpp.IsTypeTable(n)then
 i[e]=n
 e=e+1
 end
@@ -1677,14 +1677,14 @@ return i
 end
 function e.RouteSelector(n,i,a)local t=mvars.ene_routeSets[n]if t==nil then
 return{"dummyRoute"}end
-if a==s"immediately"then
-if i==s"old"then
+if a==p"immediately"then
+if i==p"old"then
 local t=e.GetCurrentRouteSetType(nil,e.GetPhaseByCPID(n),n)return e.GetPrioritizedRouteTable(n,mvars.ene_routeSetsTemporary[n][t],mvars.ene_routeSetsPriorityTemporary)else
 local a=e.GetCurrentRouteSetType(nil,e.GetPhaseByCPID(n),n)return e.GetPrioritizedRouteTable(n,t[a],mvars.ene_routeSetsPriority)end
 end
-if a==s"SYS_Sneak"then
+if a==p"SYS_Sneak"then
 local i=e.GetCurrentRouteSetType(nil,e.PHASE.SNEAK,n)return e.GetPrioritizedRouteTable(n,t[i],mvars.ene_routeSetsPriority,a)end
-if a==s"SYS_Caution"then
+if a==p"SYS_Caution"then
 local i=e.GetCurrentRouteSetType(nil,e.PHASE.CAUTION,n)return e.GetPrioritizedRouteTable(n,t[i],mvars.ene_routeSetsPriority,a)end
 local i=e.GetCurrentRouteSetType(i,e.GetPhaseByCPID(n),n)local a=t[i][a]if a then
 return a
@@ -1694,7 +1694,7 @@ local a=e.GetCurrentRouteSetType(nil,e.GetPhaseByCPID(n),n)return e.GetPrioritiz
 local a=e.GetCurrentRouteSetType(nil,e.GetPhaseByCPID(n),n)return e.GetPrioritizedRouteTable(n,t[a],mvars.ene_routeSetsPriority)end
 end
 end
-e.STR32_CAN_USE_SEARCH_LIGHT=s"CanUseSearchLight"e.STR32_CAN_NOT_USE_SEARCH_LIGHT=s"CanNotUseSearchLight"e.STR32_IS_GIMMICK_BROKEN=s"IsGimmickBroken"e.STR32_IS_NOT_GIMMICK_BROKEN=s"IsNotGimmickBroken"function e.SetUpSwitchRouteFunc()if not GameObject.DoesGameObjectExistWithTypeName"TppSoldier2"then
+e.STR32_CAN_USE_SEARCH_LIGHT=p"CanUseSearchLight"e.STR32_CAN_NOT_USE_SEARCH_LIGHT=p"CanNotUseSearchLight"e.STR32_IS_GIMMICK_BROKEN=p"IsGimmickBroken"e.STR32_IS_NOT_GIMMICK_BROKEN=p"IsNotGimmickBroken"function e.SetUpSwitchRouteFunc()if not GameObject.DoesGameObjectExistWithTypeName"TppSoldier2"then
 return
 end
 n({type="TppSoldier2"},{id="SetSwitchRouteFunc",func=e.SwitchRouteFunc})end
@@ -1734,7 +1734,7 @@ end
 end
 return true
 end
-function e.SetUpCommandPost()if not p(mvars.ene_soldierIDList)then
+function e.SetUpCommandPost()if not s(mvars.ene_soldierIDList)then
 return
 end
 for t,a in pairs(mvars.ene_cpList)do
@@ -1754,7 +1754,7 @@ end
 for a,e in pairs(e.ROUTE_SET_TYPES)do
 mvars.ene_routeSetsDefine[n][e]=mvars.ene_routeSetsDefine[n][e]or{}if t[e]then
 for t,a in pairs(t[e])do
-mvars.ene_routeSetsDefine[n][e][t]={}if p(a)then
+mvars.ene_routeSetsDefine[n][e][t]={}if s(a)then
 for i,a in ipairs(a)do
 mvars.ene_routeSetsDefine[n][e][t][i]=a
 end
@@ -1787,11 +1787,11 @@ local n=r(n)if n==a then
 else
 mvars.ene_routeSets[n]=mvars.ene_routeSets[n]or{}if t.priority then
 mvars.ene_routeSetsPriority[n]={}mvars.ene_routeSetsFixedShiftChange[n]={}for e=1,#(t.priority)do
-mvars.ene_routeSetsPriority[n][e]=s(t.priority[e])end
+mvars.ene_routeSetsPriority[n][e]=p(t.priority[e])end
 end
 if t.fixedShiftChangeGroup then
 for e=1,#(t.fixedShiftChangeGroup)do
-mvars.ene_routeSetsFixedShiftChange[n][s(t.fixedShiftChangeGroup[e])]=e
+mvars.ene_routeSetsFixedShiftChange[n][p(t.fixedShiftChangeGroup[e])]=e
 end
 end
 if mvars.ene_noShiftChangeGroupSetting[n]then
@@ -1802,10 +1802,10 @@ end
 for a,e in pairs(e.ROUTE_SET_TYPES)do
 mvars.ene_routeSets[n][e]=mvars.ene_routeSets[n][e]or{}if t[e]then
 for t,a in pairs(t[e])do
-mvars.ene_routeSets[n][e][s(t)]=mvars.ene_routeSets[n][e][s(t)]or{}if type(a)=="number"then
+mvars.ene_routeSets[n][e][p(t)]=mvars.ene_routeSets[n][e][p(t)]or{}if type(a)=="number"then
 else
 for a,i in ipairs(a)do
-mvars.ene_routeSets[n][e][s(t)][a]=i
+mvars.ene_routeSets[n][e][p(t)][a]=i
 end
 end
 end
@@ -1823,10 +1823,10 @@ mvars.ene_shiftChangeTable[t][e][a*2-1]={n[e].start,n[e].goal}mvars.ene_shiftCha
 end
 end
 end
-function e._GetShiftChangeRouteGroup(n,r,a,l,p,i,s,t)local e=(r-a)+1
-local o=a
+function e._GetShiftChangeRouteGroup(n,o,a,l,s,i,p,t)local e=(o-a)+1
+local r=a
 if t[n[a]]then
-e=o
+e=r
 else
 local i=0
 for a=1,a do
@@ -1836,7 +1836,7 @@ end
 end
 e=e+i
 local a=0
-for i=e,r do
+for i=e,o do
 if t[n[i]]then
 a=a+1
 end
@@ -1854,37 +1854,37 @@ local a=n[e]local t="default"if l[i]then
 t=i
 end
 local e=nil
-if s then
-e="default"if p[i]then
+if p then
+e="default"if s[i]then
 e=i
 end
 end
-local n=n[o]return a,t,e,n
+local n=n[r]return a,t,e,n
 end
-function e._MakeShiftChangeUnit(t,a,n,r,o,_,T,d,i,c,l)if mvars.ene_noShiftChangeGroupSetting[t]and mvars.ene_noShiftChangeGroupSetting[t][n]then
+function e._MakeShiftChangeUnit(t,i,n,r,o,d,l,a,T,c,_)if mvars.ene_noShiftChangeGroupSetting[t]and mvars.ene_noShiftChangeGroupSetting[t][n]then
 return nil
 end
-local n,i,e,a=e._GetShiftChangeRouteGroup(a,d,i,r,_,n,o,l)local e={}for n,t in pairs(mvars.ene_shiftChangeTable[t])do
+local n,i,e,a=e._GetShiftChangeRouteGroup(i,a,T,r,d,n,o,_)local e={}for n,t in pairs(mvars.ene_shiftChangeTable[t])do
 e[n]={}end
-if(i~="default")or(p(r[s"default"])and next(r[s"default"]))then
+if(i~="default")or(s(r[p"default"])and next(r[p"default"]))then
 e.shiftAtNight.start={"day",n}e.shiftAtNight.hold={"hold",i}e.shiftAtNight.holdTime=mvars.ene_holdTimes[t]e.shiftAtNight.goal={"night",a}e.shiftAtMorning.hold={"hold",i}e.shiftAtMorning.holdTime=mvars.ene_holdTimes[t]e.shiftAtMorning.goal={"day",a}else
 e.shiftAtNight.start={"day",n}e.shiftAtNight.goal={"night",a}e.shiftAtMorning.goal={"day",a}end
 if o then
-e.shiftAtMidNight.start={"night",n}e.shiftAtMidNight.hold={"sleep",i}e.shiftAtMidNight.holdTime=mvars.ene_sleepTimes[t]if T then
+e.shiftAtMidNight.start={"night",n}e.shiftAtMidNight.hold={"sleep",i}e.shiftAtMidNight.holdTime=mvars.ene_sleepTimes[t]if l then
 e.shiftAtMidNight.goal={"midnight",a}else
 e.shiftAtMidNight.goal={"night",n}end
 e.shiftAtMorning.start={"midnight",n}else
 e.shiftAtMorning.start={"night",n}end
 return e
 end
-function e.MakeShiftChangeTable()mvars.ene_shiftChangeTable={}for n,a in pairs(mvars.ene_routeSetsPriority)do
-if not p(a)then
+function e.MakeShiftChangeTable()mvars.ene_shiftChangeTable={}for n,t in pairs(mvars.ene_routeSetsPriority)do
+if not s(t)then
 return
 end
-local i=false
+local r=false
 local o=false
 if next(mvars.ene_routeSets[n].sleep)then
-mvars.ene_shiftChangeTable[n]={shiftAtNight={},shiftAtMorning={},shiftAtMidNight={}}i=true
+mvars.ene_shiftChangeTable[n]={shiftAtNight={},shiftAtMorning={},shiftAtMidNight={}}r=true
 if next(mvars.ene_routeSets[n].sneak_midnight)then
 o=true
 end
@@ -1892,15 +1892,15 @@ else
 mvars.ene_shiftChangeTable[n]={shiftAtNight={},shiftAtMorning={}}end
 local p=mvars.ene_routeSets[n].hold
 local s=nil
-if i then
+if r then
 s=mvars.ene_routeSets[n].sleep
 end
-local t=1
-local l=#a
-for _,d in ipairs(a)do
-local r
-r=e._MakeShiftChangeUnit(n,a,d,p,i,s,o,l,_,t,mvars.ene_routeSetsFixedShiftChange[n])if r then
-e._InsertShiftChangeUnit(n,t,r)t=t+1
+local a=1
+local l=#t
+for _,d in ipairs(t)do
+local i
+i=e._MakeShiftChangeUnit(n,t,d,p,r,s,o,l,_,a,mvars.ene_routeSetsFixedShiftChange[n])if i then
+e._InsertShiftChangeUnit(n,a,i)a=a+1
 end
 end
 end
@@ -1908,7 +1908,7 @@ end
 function e.ShiftChangeByTime(t)if TppLocation.IsMotherBase()or TppLocation.IsMBQF()then
 return
 end
-if not p(mvars.ene_shiftChangeTable)then
+if not s(mvars.ene_shiftChangeTable)then
 return
 end
 for a,e in pairs(mvars.ene_shiftChangeTable)do
@@ -1916,121 +1916,121 @@ if e[t]then
 n(a,{id="ShiftChange",schedule=e[t]})end
 end
 end
-local function d(a,e,t)local n=n(t,{id="GetPosition"})local e=e-n
-local e=e:GetLengthSqr()if e>a then
+local function d(t,e,a)local n=n(a,{id="GetPosition"})local e=e-n
+local e=e:GetLengthSqr()if e>t then
 return false
 else
 return true
 end
 end
-function e.MakeCpLinkDefineTable(t,e)local n={}for a=1,#e do
-local i=Tpp.SplitString(e[a],"	")local e=t[a]if e then
-n[e]=n[e]or{}for a,i in pairs(i)do
+function e.MakeCpLinkDefineTable(t,n)local e={}for a=1,#n do
+local i=Tpp.SplitString(n[a],"	")local n=t[a]if n then
+e[n]=e[n]or{}for a,i in pairs(i)do
 local t=t[a]if t then
-n[e][t]=n[e][t]or{}local a=false
+e[n][t]=e[n][t]or{}local a=false
 if tonumber(i)>0 then
 a=true
 end
-n[e][t]=a
+e[n][t]=a
 end
 end
 end
 end
-return n
+return e
 end
-function e.MakeReinforceTravelPlan(i,a,s,t,n)if not Tpp.IsTypeTable(n)then
+function e.MakeReinforceTravelPlan(i,a,p,n,t)if not Tpp.IsTypeTable(t)then
 return
 end
-local a=a[t]if a==nil then
+local a=a[n]if a==nil then
 return
 end
 mvars.ene_travelPlans=mvars.ene_travelPlans or{}local r=0
-for r,n in pairs(n)do
-if mvars.ene_soldierDefine[n]then
-if a[n]then
-local o=i[t]local r=i[n]local a="rp_"..(t..("_From_"..n))mvars.ene_travelPlans[a]=mvars.ene_travelPlans[a]or{}local p=string.format("rp_%02dto%02d",r,o)local e=e.GetFormattedLrrpCpNameByLrrpNum(o,r,s,i)mvars.ene_travelPlans[a]={{cp=e,routeGroup={"travel",p}},{cp=t,finishTravel=true}}mvars.ene_reinforcePlans[a]={{toCp=t,fromCp=n,type="respawn"}}end
+for r,t in pairs(t)do
+if mvars.ene_soldierDefine[t]then
+if a[t]then
+local o=i[n]local r=i[t]local a="rp_"..(n..("_From_"..t))mvars.ene_travelPlans[a]=mvars.ene_travelPlans[a]or{}local s=string.format("rp_%02dto%02d",r,o)local e=e.GetFormattedLrrpCpNameByLrrpNum(o,r,p,i)mvars.ene_travelPlans[a]={{cp=e,routeGroup={"travel",s}},{cp=n,finishTravel=true}}mvars.ene_reinforcePlans[a]={{toCp=n,fromCp=t,type="respawn"}}end
 end
 end
 end
-function e.MakeTravelPlanTable(T,d,_,t,n,l)if((not Tpp.IsTypeTable(n)or not Tpp.IsTypeTable(n[1]))or not Tpp.IsTypeString(t))or(n[1].cp==nil and n[1].base==nil)then
+function e.MakeTravelPlanTable(T,_,d,t,n,l)if((not Tpp.IsTypeTable(n)or not Tpp.IsTypeTable(n[1]))or not Tpp.IsTypeString(t))or(n[1].cp==nil and n[1].base==nil)then
 return
 end
-mvars.ene_travelPlans=mvars.ene_travelPlans or{}mvars.ene_travelPlans[t]=mvars.ene_travelPlans[t]or{}local s=mvars.ene_travelPlans[t]local o=#n
-local r,i
+mvars.ene_travelPlans=mvars.ene_travelPlans or{}mvars.ene_travelPlans[t]=mvars.ene_travelPlans[t]or{}local o=mvars.ene_travelPlans[t]local p=#n
+local i,r
 if(not n.ONE_WAY)and n[#n].base then
-r=n[#n]end
-for t=1,o do
+i=n[#n]end
+for t=1,p do
 local a
-if n.ONE_WAY and(t==o)then
+if n.ONE_WAY and(t==p)then
 a=true
 end
 if n[t].base then
 if t==1 then
-i=n[t]else
-r=n[t-1]i=n[t]end
-e.AddLinkedBaseTravelCourse(T,d,_,l,s,r,i,a)elseif n[t].cp then
-local n=n[t]if p(n)then
-e.AddTravelCourse(s,n,a)end
+r=n[t]else
+i=n[t-1]r=n[t]end
+e.AddLinkedBaseTravelCourse(T,_,d,l,o,i,r,a)elseif n[t].cp then
+local n=n[t]if s(n)then
+e.AddTravelCourse(o,n,a)end
 end
 end
 end
-function e.AddLinkedBaseTravelCourse(l,i,r,p,s,a,t,d)local n
+function e.AddLinkedBaseTravelCourse(d,l,o,i,s,a,t,p)local n
 if a and a.base then
 n=a.base
 end
 local a=t.base
-local o=false
+local r=false
 if n then
-o=i[n][a]end
-if o then
-local t,n=e.GetFormattedLrrpCpName(n,a,r,l)local n={cp=t,routeGroup={"travel",n}}e.AddTravelCourse(s,n)elseif n==nil then
+r=l[n][a]end
+if r then
+local n,t=e.GetFormattedLrrpCpName(n,a,o,d)local n={cp=n,routeGroup={"travel",t}}e.AddTravelCourse(s,n)elseif n==nil then
 end
-local r
+local o
 if t.wait then
-r=t.wait
+o=t.wait
 else
-r=p
+o=i
 end
 local i
 if t.routeGroup and Tpp.IsTypeTable(t.routeGroup)then
 i={t.routeGroup[1],t.routeGroup[2]}else
 local t
 local e=mvars.ene_defaultTravelRouteGroup
-if((e and o)and e[n])and Tpp.IsTypeTable(e[n][a])then
+if((e and r)and e[n])and Tpp.IsTypeTable(e[n][a])then
 t=e[n][a]end
 if t then
 i={t[1],t[2]}else
 i={"travel","lrrpHold"}end
 end
-local n={cp=a,routeGroup=i,wait=r}e.AddTravelCourse(s,n,d)end
-function e.GetFormattedLrrpCpNameByLrrpNum(n,e,i,t)local t,a
-if n<e then
-t=n
-a=e
-else
+local n={cp=a,routeGroup=i,wait=o}e.AddTravelCourse(s,n,p)end
+function e.GetFormattedLrrpCpNameByLrrpNum(e,n,i,t)local t,a
+if e<n then
 t=e
 a=n
+else
+t=n
+a=e
 end
-local t=string.format("%s_%02d_%02d_lrrp",i,t,a)local e=string.format("lrrp_%02dto%02d",n,e)return t,e
+local t=string.format("%s_%02d_%02d_lrrp",i,t,a)local e=string.format("lrrp_%02dto%02d",e,n)return t,e
 end
-function e.GetFormattedLrrpCpName(a,t,i,n)local a=n[a]local t=n[t]return e.GetFormattedLrrpCpNameByLrrpNum(a,t,i,n)end
-function e.AddTravelCourse(n,e,t)if t then
+function e.GetFormattedLrrpCpName(t,a,i,n)local t=n[t]local a=n[a]return e.GetFormattedLrrpCpNameByLrrpNum(t,a,i,n)end
+function e.AddTravelCourse(t,e,n)if n then
 e.finishTravel=true
 else
 e.finishTravel=nil
 end
-table.insert(n,e)end
+table.insert(t,e)end
 function e.SetTravelPlans(i)mvars.ene_reinforcePlans={}mvars.ene_travelPlans={}if mvars.loc_locationCommonTravelPlans then
 local n=TppLocation.GetLocationName()if n then
-local r=mvars.ene_lrrpNumberDefine
+local t=mvars.ene_lrrpNumberDefine
 local a=mvars.ene_cpLinkDefine
-for i,t in pairs(i)do
-e.MakeTravelPlanTable(r,a,n,i,t,e.DEFAULT_TRAVEL_HOLD_TIME)end
-local t=mvars.loc_locationCommonTravelPlans.reinforceTravelPlan
-if mvars.ene_useCommonReinforcePlan and t then
-for t,i in pairs(t)do
-if mvars.ene_soldierDefine[t]then
-e.MakeReinforceTravelPlan(r,a,n,t,i)end
+for r,i in pairs(i)do
+e.MakeTravelPlanTable(t,a,n,r,i,e.DEFAULT_TRAVEL_HOLD_TIME)end
+local i=mvars.loc_locationCommonTravelPlans.reinforceTravelPlan
+if mvars.ene_useCommonReinforcePlan and i then
+for i,r in pairs(i)do
+if mvars.ene_soldierDefine[i]then
+e.MakeReinforceTravelPlan(t,a,n,i,r)end
 end
 end
 end
@@ -2053,9 +2053,9 @@ mvars.ene_vehicleBrokenStateIndexByName=mvars.ene_vehicleBrokenStateIndexByName 
 mvars.ene_vehicleBrokenStateIndexByGameObjectId=mvars.ene_vehicleBrokenStateIndexByGameObjectId or{}mvars.ene_vehicleBrokenStateIndexByGameObjectId[t]=e
 end
 function e.AddBrokenStateList(n)local e
-local a=s(n)for n=0,(TppDefine.MAX_HOLD_VEHICLE_BROKEN_STATE_COUNT-1)do
-local t=svars.ene_holdBrokenStateName[n]if(t==0)or(t==a)then
-e=n
+local a=p(n)for t=0,(TppDefine.MAX_HOLD_VEHICLE_BROKEN_STATE_COUNT-1)do
+local n=svars.ene_holdBrokenStateName[t]if(n==0)or(n==a)then
+e=t
 break
 end
 end
@@ -2066,14 +2066,14 @@ else
 return
 end
 end
-function e._OnHeliBroken(t,n)if n==s"Start"then
+function e._OnHeliBroken(n,t)if t==p"Start"then
+e.PlayTargetEliminatedRadio(n)end
+end
+function e._OnVehicleBroken(n,t)e.SetVehicleBroken(n)if t==p"End"then
+e.PlayTargetEliminatedRadio(n)end
+end
+function e._OnWalkerGearBroken(t,n)if n==p"End"then
 e.PlayTargetEliminatedRadio(t)end
-end
-function e._OnVehicleBroken(n,t)e.SetVehicleBroken(n)if t==s"End"then
-e.PlayTargetEliminatedRadio(n)end
-end
-function e._OnWalkerGearBroken(n,t)if t==s"End"then
-e.PlayTargetEliminatedRadio(n)end
 end
 function e.SetVehicleBroken(e)if not mvars.ene_vehicleBrokenStateIndexByGameObjectId then
 return
@@ -2082,12 +2082,12 @@ local e=mvars.ene_vehicleBrokenStateIndexByGameObjectId[e]if e then
 svars.ene_isVehicleBroken[e]=true
 end
 end
-function e.IsVehicleBroken(n)local e
-if o(n)then
-e=mvars.ene_vehicleBrokenStateIndexByName[n]elseif l(n)then
-e=mvars.ene_vehicleBrokenStateIndexByGameObjectId[n]end
-if e then
-return svars.ene_isVehicleBroken[e]end
+function e.IsVehicleBroken(e)local n
+if o(e)then
+n=mvars.ene_vehicleBrokenStateIndexByName[e]elseif l(e)then
+n=mvars.ene_vehicleBrokenStateIndexByGameObjectId[e]end
+if n then
+return svars.ene_isVehicleBroken[n]end
 end
 function e.IsVehicleAlive(t)local e
 if o(t)then
@@ -2118,14 +2118,14 @@ mvars.ene_recoverdStateIndexByName=mvars.ene_recoverdStateIndexByName or{}mvars.
 mvars.ene_recoverdStateIndexByGameObjectId=mvars.ene_recoverdStateIndexByGameObjectId or{}mvars.ene_recoverdStateIndexByGameObjectId[t]=e
 end
 function e.AddRecoveredStateList(n)local e
-local t=s(n)for a=0,(TppDefine.MAX_HOLD_RECOVERED_STATE_COUNT-1)do
-local n=svars.ene_holdRecoveredStateName[a]if(n==0)or(n==t)then
-e=a
+local a=p(n)for n=0,(TppDefine.MAX_HOLD_RECOVERED_STATE_COUNT-1)do
+local t=svars.ene_holdRecoveredStateName[n]if(t==0)or(t==a)then
+e=n
 break
 end
 end
 if e then
-svars.ene_holdRecoveredStateName[e]=t
+svars.ene_holdRecoveredStateName[e]=a
 return e
 else
 return
@@ -2138,7 +2138,7 @@ local e=mvars.ene_recoverdStateIndexByGameObjectId[e]if e then
 svars.ene_isRecovered[e]=true
 end
 end
-function e.ExecuteOnRecoveredCallback(n,r,i,t,a,o,s)if not mvars.ene_recoverdStateIndexByGameObjectId then
+function e.ExecuteOnRecoveredCallback(n,s,r,o,a,i,t)if not mvars.ene_recoverdStateIndexByGameObjectId then
 return
 end
 local e=mvars.ene_recoverdStateIndexByGameObjectId[n]if not e then
@@ -2154,7 +2154,7 @@ end
 if not TppMission.CheckMissionState(true,false,true,false)then
 return
 end
-e(n,r,i,t,a,o,s)end
+e(n,s,r,o,a,i,t)end
 local T=10*10
 function e.CheckAllVipClear(n)return e.CheckAllTargetClear(n)end
 function e.CheckAllTargetClear(n)local n=mvars
@@ -2164,9 +2164,9 @@ if not n.ene_rescueTargetOptions.orCheck then
 table.insert(t,{n.ene_rescueTargetList,e.CheckRescueTarget,"RescueTarget"})end
 end
 for e=1,#t do
-local e,n,t=t[e][1],t[e][2],t[e][3]if p(e)and next(e)then
-for e,t in pairs(e)do
-if not n(e,a,t)then
+local e,t,n=t[e][1],t[e][2],t[e][3]if s(e)and next(e)then
+for n,e in pairs(e)do
+if not t(n,a,e)then
 return false
 end
 end
@@ -2259,7 +2259,7 @@ function e.AutoFultonRecoverNeutralizedTarget(t,a)local n=n(t,{id="GetLifeStatus
 local e
 e=TppMotherBaseManagement.GetStaffIdFromGameObject{gameObjectId=t}TppTerminal.OnFulton(t,nil,nil,e,nil,a,PlayerInfo.GetLocalPlayerIndex())end
 end
-function e.CheckQuestTargetOnOutOfActiveArea(n)if not p(n)then
+function e.CheckQuestTargetOnOutOfActiveArea(n)if not s(n)then
 return
 end
 local o=Vector3(vars.playerPosX,vars.playerPosY,vars.playerPosZ)local t=10
@@ -2274,34 +2274,34 @@ end
 end
 return t
 end
-function e.ChangeRouteUsingGimmick(e,a,t,a)local a=TppGimmick.GetRouteConnectedGimmickId(e)if(a~=nil)and TppGimmick.IsBroken{gimmickId=a}then
-local a
-for n,e in pairs(mvars.ene_soldierIDList)do
-if e[t]then
-a=n
+function e.ChangeRouteUsingGimmick(e,t,a,t)local t=TppGimmick.GetRouteConnectedGimmickId(e)if(t~=nil)and TppGimmick.IsBroken{gimmickId=t}then
+local t
+for e,n in pairs(mvars.ene_soldierIDList)do
+if n[a]then
+t=e
 break
 end
 end
-if a then
-local e={id="SetRouteEnabled",routes={e},enabled=false}n(a,e)end
+if t then
+local e={id="SetRouteEnabled",routes={e},enabled=false}n(t,e)end
 else
-mvars.ene_usingGimmickRouteEnemyList=mvars.ene_usingGimmickRouteEnemyList or{}mvars.ene_usingGimmickRouteEnemyList[e]=mvars.ene_usingGimmickRouteEnemyList[e]or{}mvars.ene_usingGimmickRouteEnemyList[e]=t
-n(t,{id="SetSneakRoute",route=e})end
+mvars.ene_usingGimmickRouteEnemyList=mvars.ene_usingGimmickRouteEnemyList or{}mvars.ene_usingGimmickRouteEnemyList[e]=mvars.ene_usingGimmickRouteEnemyList[e]or{}mvars.ene_usingGimmickRouteEnemyList[e]=a
+n(a,{id="SetSneakRoute",route=e})end
 end
-function e.DisableUseGimmickRouteOnShiftChange(a,e)if not p(e)then
+function e.DisableUseGimmickRouteOnShiftChange(a,e)if not s(e)then
 return
 end
 if mvars.ene_usingGimmickRouteEnemyList==nil then
 return
 end
 for t,e in pairs(e)do
-local t=s(e)local t=mvars.ene_usingGimmickRouteEnemyList[t]if t then
+local t=p(e)local t=mvars.ene_usingGimmickRouteEnemyList[t]if t then
 n(t,{id="SetSneakRoute",route=""})end
-local t=mvars.gim_routeGimmickConnectTable[s(e)]if(t~=nil)and TppGimmick.IsBroken{gimmickId=t}then
+local t=mvars.gim_routeGimmickConnectTable[p(e)]if(t~=nil)and TppGimmick.IsBroken{gimmickId=t}then
 local e={id="SetRouteEnabled",routes={e},enabled=false}n(a,e)end
 end
 end
-function e.IsEliminateTarget(e)local n=mvars.ene_eliminateTargetList and mvars.ene_eliminateTargetList[e]local a=mvars.ene_eliminateHelicopterList and mvars.ene_eliminateHelicopterList[e]local t=mvars.ene_eliminateVehicleList and mvars.ene_eliminateVehicleList[e]local e=mvars.ene_eliminateWalkerGearList and mvars.ene_eliminateWalkerGearList[e]local e=((n or a)or t)or e
+function e.IsEliminateTarget(e)local a=mvars.ene_eliminateTargetList and mvars.ene_eliminateTargetList[e]local n=mvars.ene_eliminateHelicopterList and mvars.ene_eliminateHelicopterList[e]local t=mvars.ene_eliminateVehicleList and mvars.ene_eliminateVehicleList[e]local e=mvars.ene_eliminateWalkerGearList and mvars.ene_eliminateWalkerGearList[e]local e=((a or n)or t)or e
 return e
 end
 function e.IsRescueTarget(e)local e=mvars.ene_rescueTargetList and mvars.ene_rescueTargetList[e]return e
@@ -2338,9 +2338,9 @@ function e._AddTakingOverHostage(t)if gvars.ene_takingOverHostageCount>=TppDefin
 return
 end
 local e=gvars.ene_takingOverHostageCount
-local a=n(t,{id="GetPosition"})local i,r=n(t,{id="GetStaffId",divided=true})local o=n(t,{id="GetFaceId"})local n=n(t,{id="GetKeepFlagValue"})gvars.ene_takingOverHostagePositions[e*3+0]=a:GetX()gvars.ene_takingOverHostagePositions[e*3+1]=a:GetY()gvars.ene_takingOverHostagePositions[e*3+2]=a:GetZ()gvars.ene_takingOverHostageStaffIdsUpper[e]=i
+local a=n(t,{id="GetPosition"})local o,r=n(t,{id="GetStaffId",divided=true})local i=n(t,{id="GetFaceId"})local n=n(t,{id="GetKeepFlagValue"})gvars.ene_takingOverHostagePositions[e*3+0]=a:GetX()gvars.ene_takingOverHostagePositions[e*3+1]=a:GetY()gvars.ene_takingOverHostagePositions[e*3+2]=a:GetZ()gvars.ene_takingOverHostageStaffIdsUpper[e]=o
 gvars.ene_takingOverHostageStaffIdsLower[e]=r
-gvars.ene_takingOverHostageFaceIds[e]=o
+gvars.ene_takingOverHostageFaceIds[e]=i
 gvars.ene_takingOverHostageFlags[e]=n
 gvars.ene_takingOverHostageCount=gvars.ene_takingOverHostageCount+1
 end
@@ -2367,22 +2367,22 @@ gvars.ene_takingOverHostageFaceIds[e]=0
 gvars.ene_takingOverHostageFlags[e]=0
 end
 end
-function e.SpawnTakingOverHostage(n)if not p(n)then
+function e.SpawnTakingOverHostage(n)if not s(n)then
 return
 end
-for n,t in ipairs(n)do
-e._SpawnTakingOverHostage(n-1,t)end
+for t,n in ipairs(n)do
+e._SpawnTakingOverHostage(t-1,n)end
 end
 function e._SpawnTakingOverHostage(t,e)local e=r(e)if e==a then
 return
 end
 if t<gvars.ene_takingOverHostageCount then
-local i=gvars.ene_takingOverHostageStaffIdsUpper[infoIndex]local a=gvars.ene_takingOverHostageStaffIdsLower[infoIndex]n(e,{id="SetStaffId",divided=true,staffId=i,staffId2=a})if TppMission.IsMissionStart()then
+local a=gvars.ene_takingOverHostageStaffIdsUpper[infoIndex]local i=gvars.ene_takingOverHostageStaffIdsLower[infoIndex]n(e,{id="SetStaffId",divided=true,staffId=a,staffId2=i})if TppMission.IsMissionStart()then
 n(e,{id="SetEnabled",enabled=true})local a=Vector3(gvars.ene_takingOverHostagePositions[t*3],gvars.ene_takingOverHostagePositions[t*3+1],gvars.ene_takingOverHostagePositions[t*3+2])n(e,{id="Warp",position=a})n(e,{id="SetFaceId",faceId=gvars.ene_takingOverHostageFaceIds[t]})n(e,{id="SetKeepFlagValue",keepFlagValue=gvars.ene_takingOverHostageFlags[t]})end
 else
 n(e,{id="SetEnabled",enabled=false})end
 end
-function e.SetIgnoreTakingOverHostage(e)if not p(e)then
+function e.SetIgnoreTakingOverHostage(e)if not s(e)then
 return
 end
 mvars.ene_ignoreTakingOverHostage=mvars.ene_ignoreTakingOverHostage or{}for n,e in ipairs(e)do
@@ -2393,17 +2393,17 @@ return
 end
 end
 end
-function e.SetIgnoreDisableNpc(e,i)local t
-if l(e)then
-t=e
-elseif o(e)then
-t=r(e)else
+function e.SetIgnoreDisableNpc(t,i)local e
+if l(t)then
+e=t
+elseif o(t)then
+e=r(t)else
 return
 end
-if t==a then
+if e==a then
 return
 end
-n(t,{id="SetIgnoreDisableNpc",enable=i})return true
+n(e,{id="SetIgnoreDisableNpc",enable=i})return true
 end
 function e.NPCEntryPointSetting(e)local e=e[gvars.heli_missionStartRoute]if not e then
 return
@@ -2419,11 +2419,11 @@ local e=GameObject.GetGameObjectId("TppSoldier2",e)if e~=a then
 GameObject.SendCommand(e,{id="SetEnabled",enabled=false})end
 end
 TppCombatLocatorProvider.RegisterCombatLocatorSetToCpforLua{cpName=t,locatorSetName=n}end
-function e.OnAllocateQuest(e,n,a)local function i(t,n)local e="SetNone"if p(n)and p(t)then
-TppSoldierFace.SetAndConvertExtendFova{face=n,body=t}e="SetFaceAndBody"elseif p(n)then
-TppSoldierFace.SetAndConvertExtendFova{face=n}e="SetFace"elseif p(t)then
-TppSoldierFace.SetAndConvertExtendFova{body=t}e="SetBody"end
-return e
+function e.OnAllocateQuest(e,n,a)local function i(e,n)local t="SetNone"if s(n)and s(e)then
+TppSoldierFace.SetAndConvertExtendFova{face=n,body=e}t="SetFaceAndBody"elseif s(n)then
+TppSoldierFace.SetAndConvertExtendFova{face=n}t="SetFace"elseif s(e)then
+TppSoldierFace.SetAndConvertExtendFova{body=e}t="SetBody"end
+return t
 end
 if n==nil and e==nil then
 return
@@ -2448,8 +2448,8 @@ TppSoldierFace.ReserveExtendFovaForHostage{face=n}elseif t=="SetBody"then
 TppSoldierFace.ReserveExtendFovaForHostage{body=e}end
 end
 end
-function e.OnAllocateQuestFova(n)local t={}local a={}local o=false
-local s=false
+function e.OnAllocateQuestFova(n)local a={}local t={}local s=false
+local o=false
 local p=false
 local d=false
 mvars.ene_questArmorId=0
@@ -2463,7 +2463,7 @@ end
 mvars.ene_questGetLoadedFaceTable=TppSoldierFace.GetLoadedFaceTable{}if mvars.ene_questGetLoadedFaceTable~=nil then
 local n=#mvars.ene_questGetLoadedFaceTable
 if mvars.ene_questBalaclavaId~=0 and n>0 then
-e={mvars.ene_questBalaclavaId,TppDefine.QUEST_ENEMY_MAX,0}table.insert(t,e)s=true
+e={mvars.ene_questBalaclavaId,TppDefine.QUEST_ENEMY_MAX,0}table.insert(a,e)o=true
 end
 end
 end
@@ -2480,7 +2480,7 @@ mvars.ene_questArmorId=TppDefine.QUEST_BODY_ID_LIST.MAFR_ARMOR_RC
 end
 end
 if mvars.ene_questArmorId~=0 then
-e={mvars.ene_questArmorId,TppDefine.QUEST_ENEMY_MAX,0}table.insert(a,e)o=true
+e={mvars.ene_questArmorId,TppDefine.QUEST_ENEMY_MAX,0}table.insert(t,e)s=true
 end
 end
 if(n.enemyList and Tpp.IsTypeTable(n.enemyList))and next(n.enemyList)then
@@ -2488,11 +2488,11 @@ for n,e in pairs(n.enemyList)do
 if e.enemyName then
 if e.bodyId then
 local n=1
-local e={e.bodyId,n,0}table.insert(a,e)o=true
+local e={e.bodyId,n,0}table.insert(t,e)s=true
 end
 if e.faceId then
 local n=1
-local e={e.faceId,n,0}table.insert(t,e)s=true
+local e={e.faceId,n,0}table.insert(a,e)o=true
 end
 end
 end
@@ -2502,55 +2502,55 @@ for n,e in pairs(n.hostageList)do
 if e.hostageName then
 if e.bodyId then
 local n=1
-local e={e.bodyId,0,n}table.insert(a,e)p=true
+local e={e.bodyId,0,n}table.insert(t,e)p=true
 end
 if e.faceId then
 local n=1
-local e={e.faceId,0,n}table.insert(t,e)d=true
+local e={e.faceId,0,n}table.insert(a,e)d=true
 end
 if e.isFaceRandom then
 local e=TppQuest.GetRandomFaceId()if e then
 local n=1
-local e={e,0,n}table.insert(t,e)d=true
+local e={e,0,n}table.insert(a,e)d=true
 end
 end
 end
 end
 end
 if p==true then
-local t={}local e=false
-for a,n in ipairs(a)do
-if n[3]>=1 then
-local n=n[1]if l(n)then
-table.insert(t,n)e=true
+local a={}local n=false
+for t,e in ipairs(t)do
+if e[3]>=1 then
+local e=e[1]if l(e)then
+table.insert(a,e)n=true
 end
 end
 end
-if e==true then
+if n==true then
 TppSoldierFace.SetBodyFovaUserType{hostage=hostageBodyTable}end
 end
-local i="SetNone"if((o==true or s==true)or p==true)or d==true then
-local e=o or p
-local n=s or d
-if e==true and n==true then
-TppSoldierFace.SetAndConvertExtendFova{face=t,body=a}i="SetFaceAndBody"elseif n==true then
-TppSoldierFace.SetAndConvertExtendFova{face=t}i="SetFace"elseif e==true then
-TppSoldierFace.SetAndConvertExtendFova{body=a}i="SetBody"end
+local i="SetNone"if((s==true or o==true)or p==true)or d==true then
+local n=s or p
+local e=o or d
+if n==true and e==true then
+TppSoldierFace.SetAndConvertExtendFova{face=a,body=t}i="SetFaceAndBody"elseif e==true then
+TppSoldierFace.SetAndConvertExtendFova{face=a}i="SetFace"elseif n==true then
+TppSoldierFace.SetAndConvertExtendFova{body=t}i="SetBody"end
 end
 local r
-if o==true or s==true then
+if s==true or o==true then
 if i=="SetFaceAndBody"then
-r={id="InitializeAndAllocateExtendFova",face=t,body=a}elseif i=="SetFace"then
-r={id="InitializeAndAllocateExtendFova",face=t}elseif i=="SetBody"then
-r={id="InitializeAndAllocateExtendFova",body=a}end
+r={id="InitializeAndAllocateExtendFova",face=a,body=t}elseif i=="SetFace"then
+r={id="InitializeAndAllocateExtendFova",face=a}elseif i=="SetBody"then
+r={id="InitializeAndAllocateExtendFova",body=t}end
 if r then
 GameObject.SendCommand({type="TppSoldier2"},r)GameObject.SendCommand({type="TppCorpse"},r)end
 end
 if p==true or d==true then
 if i=="SetFaceAndBody"then
-TppSoldierFace.ReserveExtendFovaForHostage{face=t,body=a}elseif i=="SetFace"then
-TppSoldierFace.ReserveExtendFovaForHostage{face=t}elseif i=="SetBody"then
-TppSoldierFace.ReserveExtendFovaForHostage{body=a}end
+TppSoldierFace.ReserveExtendFovaForHostage{face=a,body=t}elseif i=="SetFace"then
+TppSoldierFace.ReserveExtendFovaForHostage{face=a}elseif i=="SetBody"then
+TppSoldierFace.ReserveExtendFovaForHostage{body=t}end
 end
 local n=n.heliList
 if(n and Tpp.IsTypeTable(n))and next(n)then
@@ -2610,21 +2610,21 @@ end
 end
 end
 end
-function e.SetupActivateQuestHeli(r)if mvars.ene_isQuestSetup==false then
+function e.SetupActivateQuestHeli(t)if mvars.ene_isQuestSetup==false then
 if not e.IsQuestHeli()then
 return
 end
-local t=false
-for n,i in ipairs(r)do
-if i.routeName then
+local i=false
+for n,t in ipairs(t)do
+if t.routeName then
 local n=GameObject.GetGameObjectId(TppReinforceBlock.REINFORCE_HELI_NAME)if n==a then
 else
-GameObject.SendCommand(n,{id="RequestRoute",route=i.routeName})GameObject.SendCommand(n,{id="DisablePullOut"})t=true
+GameObject.SendCommand(n,{id="RequestRoute",route=t.routeName})GameObject.SendCommand(n,{id="DisablePullOut"})i=true
 e.SetQuestEnemy(n,false)end
 end
 end
-if t==true then
-e.ActivateQuestHeli(r.coloringType)end
+if i==true then
+e.ActivateQuestHeli(t.coloringType)end
 end
 end
 function e.SetupActivateQuestCp(e)if mvars.ene_isQuestSetup==false then
@@ -2647,11 +2647,11 @@ GameObject.SendCommand(n,{id="SetCpPosition",x=e.cpPosition_x,y=e.cpPosition_y,z
 if e.gtName then
 if((not e.gtPosition_x or not e.gtPosition_y)or not e.gtPosition_z)or not e.gtPosition_r then
 end
-local r={type="TppCommandPost2"}local i=e.gtPosition_x or e.cpPosition_x
-local n=e.gtPosition_y or e.cpPosition_y
+local a={type="TppCommandPost2"}local r=e.gtPosition_x or e.cpPosition_x
+local i=e.gtPosition_y or e.cpPosition_y
 local t=e.gtPosition_z or e.cpPosition_z
-local a=e.gtPosition_r or e.cpPosition_r
-GameObject.SendCommand(r,{id="SetLocatorPosition",name=e.gtName,x=i,y=n,z=t,r=a})end
+local n=e.gtPosition_r or e.cpPosition_r
+GameObject.SendCommand(a,{id="SetLocatorPosition",name=e.gtName,x=r,y=i,z=t,r=n})end
 end
 end
 end
@@ -2703,7 +2703,7 @@ if n.voiceType then
 if((n.voiceType=="ene_a"or n.voiceType=="ene_b")or n.voiceType=="ene_c")or n.voiceType=="ene_d"then
 GameObject.SendCommand(t,{id="SetVoiceType",voiceType=n.voiceType})end
 else
-local e={"ene_a","ene_b","ene_c","ene_d"}local n=math.random(4)local e=e[n]GameObject.SendCommand(t,{id="SetVoiceType",voiceType=e})end
+local n={"ene_a","ene_b","ene_c","ene_d"}local e=math.random(4)local e=n[e]GameObject.SendCommand(t,{id="SetVoiceType",voiceType=e})end
 end
 if n.bodyId or n.faceId then
 local e=n.faceId or false
@@ -2763,9 +2763,9 @@ s(e,false)elseif e.setCp then
 local n=r(e.setCp)if n==a then
 else
 local n=nil
-for a,t in pairs(mvars.ene_cpList)do
-if t==e.setCp then
-n=a
+for t,a in pairs(mvars.ene_cpList)do
+if a==e.setCp then
+n=t
 end
 end
 if n then
@@ -2797,7 +2797,7 @@ if mvars.ene_questTargetList[t]then
 TppMotherBaseManagement.RegenerateGameObjectQuestStaffParameter{gameObjectId=t}end
 end
 if n.voiceType then
-if p(n.voiceType)then
+if s(n.voiceType)then
 local e=#n.voiceType
 local e=math.random(e)local e=n.voiceType[e]if((e=="hostage_a"or e=="hostage_b")or e=="hostage_c")or e=="hostage_d"then
 GameObject.SendCommand(t,{id="SetVoiceType",voiceType=e})end
@@ -2807,7 +2807,7 @@ if((e=="hostage_a"or e=="hostage_b")or e=="hostage_c")or e=="hostage_d"then
 GameObject.SendCommand(t,{id="SetVoiceType",voiceType=e})end
 end
 else
-local e={"hostage_a","hostage_b","hostage_c","hostage_d"}local n=math.random(4)local e=e[n]GameObject.SendCommand(t,{id="SetVoiceType",voiceType=e})end
+local n={"hostage_a","hostage_b","hostage_c","hostage_d"}local e=math.random(4)local e=n[e]GameObject.SendCommand(t,{id="SetVoiceType",voiceType=e})end
 if n.langType then
 GameObject.SendCommand(t,{id="SetLangType",langType=n.langType})else
 if e.IsFemaleHostage(t)==false then
@@ -2922,7 +2922,7 @@ end
 function e.SetupTerminateQuestVehicle(n)e.DespawnVehicles(mvars.ene_questVehicleList)end
 function e.SetupTerminateQuestHeli(n)e.DeactivateQuestHeli()e.UnloadQuestHeli()end
 function e.SetupTerminateQuestCp(e)end
-function e.SetupTerminateQuestEnemy(i)local s=TppLocation.IsAfghan()local p=TppLocation.IsMiddleAfrica()local function t(n,t)local e=n.enemyName
+function e.SetupTerminateQuestEnemy(s)local p=TppLocation.IsAfghan()local i=TppLocation.IsMiddleAfrica()local function t(n,t)local e=n.enemyName
 if o(e)then
 e=GameObject.GetGameObjectId(e)end
 if e==a then
@@ -2934,8 +2934,8 @@ if a=="QUEST_ARMOR"then
 local a={id="ChangeFova",faceId=EnemyFova.INVALID_FOVA_VALUE,bodyId=EnemyFova.INVALID_FOVA_VALUE}GameObject.SendCommand(e,a)local e={id="ChangeFovaCorpse",name=n.enemyName,faceId=EnemyFova.INVALID_FOVA_VALUE,bodyId=EnemyFova.INVALID_FOVA_VALUE}GameObject.SendCommand(t,e)end
 end
 end
-if s==true then
-GameObject.SendCommand(e,{id="SetSoldier2Type",type=EnemyType.TYPE_SOVIET})elseif p==true then
+if p==true then
+GameObject.SendCommand(e,{id="SetSoldier2Type",type=EnemyType.TYPE_SOVIET})elseif i==true then
 GameObject.SendCommand(e,{id="SetSoldier2Type",type=EnemyType.TYPE_PF})end
 else
 local n=n.isDisable or false
@@ -2944,7 +2944,7 @@ GameObject.SendCommand(e,{id="SetEnabled",enabled=true})end
 end
 end
 end
-for n,e in pairs(i)do
+for n,e in pairs(s)do
 if e.enemyName then
 t(e,false)TppUiCommand.UnRegisterIconUniqueInformation(GameObject.GetGameObjectId(e.enemyName))elseif e.setCp then
 local n=r(e.setCp)if n==a then
@@ -3012,24 +3012,24 @@ end
 end
 return false
 end
-function e.IsQuestNpc(n)for e,t in pairs(mvars.ene_questTargetList)do
-if n==e then
+function e.IsQuestNpc(e)for n,t in pairs(mvars.ene_questTargetList)do
+if e==n then
 return true
 end
 end
 return false
 end
-function e.GetQuestCount()local e=0
-local n=0
+function e.GetQuestCount()local n=0
+local e=0
 for a,t in pairs(mvars.ene_questTargetList)do
 if t.isTarget==true then
-e=e+1
-if t.messageId~="None"then
 n=n+1
+if t.messageId~="None"then
+e=e+1
 end
 end
 end
-return n,e
+return e,n
 end
 function e.SetQuestEnemy(e,n)if o(e)then
 e=GameObject.GetGameObjectId(e)end
@@ -3055,47 +3055,47 @@ end
 end
 end
 end
-function e.CheckQuestAllTarget(T,f,u,t,a)local n=TppDefine.QUEST_CLEAR_TYPE.NONE
-local p=t or false
-local c=a or false
-local l=false
+function e.CheckQuestAllTarget(p,S,T,a,t)local n=TppDefine.QUEST_CLEAR_TYPE.NONE
+local l=a or false
+local u=t or false
+local c=false
 local r=0
 local a=0
-local s=0
 local o=0
-local _=0
+local s=0
+local d=0
 local i=0
 local t=true
-local d=false
-local S=TppQuest.GetCurrentQuestName()if TppQuest.IsEnd(S)then
+local _=false
+local f=TppQuest.GetCurrentQuestName()if TppQuest.IsEnd(f)then
 return n
 end
-if mvars.ene_questTargetList[u]then
-local e=mvars.ene_questTargetList[u]if e.messageId~="None"and e.isTarget==true then
-d=true
+if mvars.ene_questTargetList[T]then
+local e=mvars.ene_questTargetList[T]if e.messageId~="None"and e.isTarget==true then
+_=true
 elseif e.isTarget==false then
-d=true
+_=true
 end
-e.messageId=f or"None"l=true
+e.messageId=S or"None"c=true
 end
-if(p==false and c==false)and l==false then
+if(l==false and u==false)and c==false then
 return n
 end
-for l,n in pairs(mvars.ene_questTargetList)do
-local d=false
-local T=n.isTarget or false
-if p==true then
-if Tpp.IsSoldier(l)or Tpp.IsHostage(l)then
-if e.CheckQuestDistance(l)then
-n.messageId="Fulton"a=a+1
-d=false
+for n,p in pairs(mvars.ene_questTargetList)do
+local _=false
+local T=p.isTarget or false
+if l==true then
+if Tpp.IsSoldier(n)or Tpp.IsHostage(n)then
+if e.CheckQuestDistance(n)then
+p.messageId="Fulton"a=a+1
+_=false
 t=true
 end
 end
 end
 if T==true then
-if d==false then
-local e=n.messageId
+if _==false then
+local e=p.messageId
 if e~="None"then
 if e=="Fulton"then
 a=a+1
@@ -3104,54 +3104,54 @@ elseif e=="InHelicopter"then
 i=i+1
 t=true
 elseif e=="FultonFailed"then
-s=s+1
-t=true
-elseif(e=="Dead"or e=="VehicleBroken")or e=="LostControl"then
 o=o+1
 t=true
+elseif(e=="Dead"or e=="VehicleBroken")or e=="LostControl"then
+s=s+1
+t=true
 elseif e=="Vanished"then
-_=_+1
+d=d+1
 t=true
 end
 end
-if p==true then
+if l==true then
 t=false
 end
 end
 r=r+1
 end
 end
-if d==true then
+if _==true then
 t=false
 end
 if r>0 then
-if T==TppDefine.QUEST_TYPE.RECOVERED then
+if p==TppDefine.QUEST_TYPE.RECOVERED then
 if a+i>=r then
 n=TppDefine.QUEST_CLEAR_TYPE.CLEAR
-elseif s>0 or o>0 then
+elseif o>0 or s>0 then
 n=TppDefine.QUEST_CLEAR_TYPE.FAILURE
 elseif a+i>0 then
 if t==true then
 n=TppDefine.QUEST_CLEAR_TYPE.UPDATE
 end
 end
-elseif T==TppDefine.QUEST_TYPE.ELIMINATE then
-if((a+s)+o)+i>=r then
+elseif p==TppDefine.QUEST_TYPE.ELIMINATE then
+if((a+o)+s)+i>=r then
 n=TppDefine.QUEST_CLEAR_TYPE.CLEAR
-elseif((a+s)+o)+i>0 then
+elseif((a+o)+s)+i>0 then
 if t==true then
 n=TppDefine.QUEST_CLEAR_TYPE.UPDATE
 end
 end
-elseif T==TppDefine.QUEST_TYPE.MSF_RECOVERED then
+elseif p==TppDefine.QUEST_TYPE.MSF_RECOVERED then
 if a>=r or i>=r then
 n=TppDefine.QUEST_CLEAR_TYPE.CLEAR
-elseif(s>0 or o>0)or _>0 then
+elseif(o>0 or s>0)or d>0 then
 n=TppDefine.QUEST_CLEAR_TYPE.FAILURE
 end
 end
 end
-if c==true then
+if u==true then
 if n==TppDefine.QUEST_CLEAR_TYPE.NONE or n==TppDefine.QUEST_CLEAR_TYPE.UPDATE then
 n=TppDefine.QUEST_CLEAR_TYPE.NONE
 end
@@ -3186,7 +3186,15 @@ return e.FOB_DD_SUIT_BTRDRS
 end
 return e.FOB_DD_SUIT_ATTCKER
 end
-function e.IsHostageEventFOB()local e=TppDefine.FOB_EVENT_ID_LIST.HOSTAGE
+function e.IsHostageEventFOB()local n=TppDefine.FOB_EVENT_ID_LIST.HOSTAGE
+local e=TppServerManager.GetEventId()for t,n in ipairs(n)do
+if e==n then
+return true
+end
+end
+return false
+end
+function e.IsZombieEventFOB()local e=TppDefine.FOB_EVENT_ID_LIST.ZOMBIE
 local n=TppServerManager.GetEventId()for t,e in ipairs(e)do
 if n==e then
 return true
@@ -3194,16 +3202,25 @@ end
 end
 return false
 end
-function e._OnDead(t,a)local i
-if a then
-i=Tpp.IsPlayer(a)end
-local a=e.IsEliminateTarget(t)local r=e.IsRescueTarget(t)if i then
+function e.IsParasiteMetalEventFOB()local e=TppDefine.FOB_EVENT_ID_LIST.PARASITE_METAL
+local n=TppServerManager.GetEventId()for t,e in ipairs(e)do
+if n==e then
+return true
+end
+end
+return false
+end
+function e.IsSpecialEventFOB()return e.IsParasiteMetalEventFOB()end
+function e._OnDead(t,i)local a
+if i then
+a=Tpp.IsPlayer(i)end
+local i=e.IsEliminateTarget(t)local r=e.IsRescueTarget(t)if a then
 if Tpp.IsHostage(t)then
 if e.IsChildHostage(t)then
 if TppMission.GetMissionID()~=10100 then
 TppMission.ReserveGameOverOnPlayerKillChild(t)end
 else
-if not a and not r then
+if not i and not r then
 TppRadio.PlayCommonRadio(TppDefine.COMMON_RADIO.HOSTAGE_DEAD)end
 end
 end
@@ -3236,25 +3253,25 @@ function e._PlacedIntoVehicle(t,n,a)if Tpp.IsHelicopter(n)then
 e.PlayTargetRescuedRadio(t)end
 end
 function e._RideHelicopterWithHuman(t,n,t)e.PlayTargetRescuedRadio(n)end
-function e._AnnouncePhaseChange(n,t)local e=e.GetCpSubType(n)local n="cmmn_ene_soviet"if e=="SOVIET_A"or e=="SOVIET_B"then
-n="cmmn_ene_soviet"elseif e=="PF_A"then
-n="cmmn_ene_cfa"elseif e=="PF_B"then
-n="cmmn_ene_zrs"elseif e=="PF_C"then
-n="cmmn_ene_coyote"elseif e=="DD_A"then
+function e._AnnouncePhaseChange(n,t)local n=e.GetCpSubType(n)local e="cmmn_ene_soviet"if n=="SOVIET_A"or n=="SOVIET_B"then
+e="cmmn_ene_soviet"elseif n=="PF_A"then
+e="cmmn_ene_cfa"elseif n=="PF_B"then
+e="cmmn_ene_zrs"elseif n=="PF_C"then
+e="cmmn_ene_coyote"elseif n=="DD_A"then
 return
-elseif e=="DD_PW"then
-n="cmmn_ene_pf"elseif e=="DD_FOB"then
-n="cmmn_ene_pf"elseif e=="SKULL_AFGH"then
-n="cmmn_ene_xof"elseif e=="SKULL_CYPR"then
+elseif n=="DD_PW"then
+e="cmmn_ene_pf"elseif n=="DD_FOB"then
+e="cmmn_ene_pf"elseif n=="SKULL_AFGH"then
+e="cmmn_ene_xof"elseif n=="SKULL_CYPR"then
 return
-elseif e=="CHILD_A"then
+elseif n=="CHILD_A"then
 return
 end
 if t==TppGameObject.PHASE_ALERT then
-TppUiCommand.AnnounceLogViewLangId("announce_phase_to_alert",n)elseif t==TppGameObject.PHASE_EVASION then
-TppUiCommand.AnnounceLogViewLangId("announce_phase_to_evasion",n)elseif t==TppGameObject.PHASE_CAUTION then
-TppUiCommand.AnnounceLogViewLangId("announce_phase_to_caution",n)elseif t==TppGameObject.PHASE_SNEAK then
-TppUiCommand.AnnounceLogViewLangId("announce_phase_to_sneak",n)end
+TppUiCommand.AnnounceLogViewLangId("announce_phase_to_alert",e)elseif t==TppGameObject.PHASE_EVASION then
+TppUiCommand.AnnounceLogViewLangId("announce_phase_to_evasion",e)elseif t==TppGameObject.PHASE_CAUTION then
+TppUiCommand.AnnounceLogViewLangId("announce_phase_to_caution",e)elseif t==TppGameObject.PHASE_SNEAK then
+TppUiCommand.AnnounceLogViewLangId("announce_phase_to_sneak",e)end
 end
 function e._IsGameObjectIDValid(e)local e=r(e)if(e==a)then
 return false
@@ -3321,26 +3338,26 @@ svars.hosRandomSeed[e]=0
 end
 end
 end
-function e._StoreSVars_Hostage(t)local e={"TppHostage2","TppHostageUnique","TppHostageUnique2","TppHostageKaz","TppOcelot2","TppHuey2","TppCodeTalker2","TppSkullFace2","TppMantis2"}if TppHostage2.SetSVarsKeyNames2 then
-for t,e in ipairs(e)do
+function e._StoreSVars_Hostage(i)local t={"TppHostage2","TppHostageUnique","TppHostageUnique2","TppHostageKaz","TppOcelot2","TppHuey2","TppCodeTalker2","TppSkullFace2","TppMantis2"}if TppHostage2.SetSVarsKeyNames2 then
+for t,e in ipairs(t)do
 if GameObject.GetGameObjectIdByIndex(e,0)~=a then
 n({type=e},{id="ReadyToStoreToSVars"})end
 end
 end
-for i,e in ipairs(e)do
+for t,e in ipairs(t)do
 if GameObject.GetGameObjectIdByIndex(e,0)~=a then
-n({type=e},{id="StoreToSVars",markerOnly=t})end
+n({type=e},{id="StoreToSVars",markerOnly=i})end
 end
 end
-function e._DoRoutePointMessage(r,o,s,i)local n=mvars.ene_routePointMessage
+function e._DoRoutePointMessage(t,a,i,o)local n=mvars.ene_routePointMessage
 if not n then
 return
 end
-local t=TppSequence.GetCurrentSequenceName()local a=n.sequence[t]local t=""if a then
-e.ExecuteRoutePointMessage(a,r,o,s,i,t)end
-e.ExecuteRoutePointMessage(n.main,r,o,s,i,t)end
-function e.ExecuteRoutePointMessage(n,i,t,a,e,r)local n=n[e]if not n then
+local r=TppSequence.GetCurrentSequenceName()local r=n.sequence[r]local s=""if r then
+e.ExecuteRoutePointMessage(r,t,a,i,o,s)end
+e.ExecuteRoutePointMessage(n.main,t,a,i,o,s)end
+function e.ExecuteRoutePointMessage(n,i,a,t,e,r)local n=n[e]if not n then
 return
 end
-Tpp.DoMessageAct(n,TppMission.CheckMessageOption,a,t,i,e,r)end
+Tpp.DoMessageAct(n,TppMission.CheckMessageOption,t,a,i,e,r)end
 return e

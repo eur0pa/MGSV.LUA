@@ -276,7 +276,7 @@ e.AddDebugMenu("LuaSystem","ShowWeaponVars","bool",mvars.qaDebug,"showWeaponVars
 e.AddDebugMenu("LuaSystem","ShowPlayerPartsType","bool",mvars.qaDebug,"showPlayerPartsType")mvars.qaDebug.setFobForGPU=false
 e.AddDebugMenu("LuaSystem","setFobForGPU","bool",mvars.qaDebug,"setFobForGPU")mvars.qaDebug.showEventTask=false
 e.AddDebugMenu("LuaUI","showEventTask","bool",mvars.qaDebug,"showEventTask")end
-function a.QAReleaseDebugUpdate()local e=svars
+function a.QAReleaseDebugUpdate()local t=svars
 local o=mvars
 local e=(nil).Print
 local r=(nil).NewContext()if o.seq_doneDumpCanMissionStartRefrainIds then
@@ -297,7 +297,7 @@ TppMission.UpdateCheckPoint{ignoreAlert=true,atCurrentPosition=true}end
 if gvars.DEBUG_showSysVars then
 local a=a.DEBUG_GetSysVarsLog()e(r,{.5,.5,1},"LuaSystem showSysVars")for o,a in ipairs(a)do
 e(r,a)end
-local a={[FobMode.MODE_ACTUAL]="MODE_ACTUAL",[FobMode.MODE_SHAM]="MODE_SHAM",[FobMode.MODE_VISIT]="MODE_VISIT",[FobMode.MODE_NONE]="MODE_NONE"}e(r,"vars.fobSneakMode = "..tostring(a[vars.fobSneakMode]))local a=TppScriptVars.GetVarValueInSlot(TppDefine.SAVE_SLOT.MB_MANAGEMENT,"vars","mbmTppGmp",0)e(r,"GMP(inSlot) = "..tostring(a))local a=TppScriptVars.GetVarValueInSlot(TppDefine.SAVE_SLOT.MB_MANAGEMENT,"vars","mbmTppHeroicPoint",0)e(r,"HeroicPoint(inSlot) = "..tostring(a))end
+local a={[FobMode.MODE_ACTUAL]="MODE_ACTUAL",[FobMode.MODE_SHAM]="MODE_SHAM",[FobMode.MODE_VISIT]="MODE_VISIT",[FobMode.MODE_NONE]="MODE_NONE"}e(r,"vars.fobSneakMode = "..tostring(a[vars.fobSneakMode]))local a=TppScriptVars.GetVarValueInSlot(TppDefine.SAVE_SLOT.MB_MANAGEMENT,"vars","mbmTppGmp",0)e(r,"GMP(inSlot) = "..tostring(a))local a=TppScriptVars.GetVarValueInSlot(TppDefine.SAVE_SLOT.MB_MANAGEMENT,"vars","mbmTppHeroicPoint",0)e(r,"HeroicPoint(inSlot) = "..tostring(a))e(r,"killCount = "..tostring(t.killCount))e(r,"totalKillCount = "..tostring(gvars.totalKillCount))end
 if gvars.DEBUG_showGameStatus then
 e(r,"")e(r,{.5,.5,1},"LuaSystem gameStatus")for a,o in pairs(TppDefine.GAME_STATUS_TYPE_ALL)do
 local o=TppGameStatus.IsSet("TppMain.lua",a)if o then
